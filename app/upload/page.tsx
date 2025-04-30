@@ -59,7 +59,7 @@ export default function UploadPage() {
             />
             <Button
               type="submit"
-              color="primary"
+              color="secondary"
               variant="shadow"
               className="w-fit"
             >
@@ -82,7 +82,7 @@ export default function UploadPage() {
             <Input label="Quantity" type="number" required />
             <Button
               type="submit"
-              color="primary"
+              color="secondary"
               variant="shadow"
               className="w-fit"
             >
