@@ -26,7 +26,7 @@ export default function UploadPage() {
 
   async function handleFinalUpload(evt: React.FormEvent) {
       evt.preventDefault();
-      // setFileUploadLoading(true);
+      setFileUploadLoading(true);
     if (!fileInputRef.current?.files?.[0]) return;
     const formData = new FormData();
     formData.append("file", fileInputRef.current?.files?.[0]);
@@ -40,7 +40,8 @@ export default function UploadPage() {
     // } else {
     //   console.error("Upload failed", await res.text());
     // }
-    //   console.log("File uploaded successfully", fileInputRef.current.files[0]);
+      //   console.log("File uploaded successfully", fileInputRef.current.files[0]);
+      router.refresh();
   }
 
   return (
