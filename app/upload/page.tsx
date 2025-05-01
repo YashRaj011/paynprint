@@ -1,102 +1,151 @@
-"use client";
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button, Input } from "@heroui/react";
+'use client';
 
-export default function UploadPage() {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [fileUploadIsInvalid, setFileUploadIsInvalid] = useState(false);
-  const [showFileSpecsForm, setShowFileSpecsForm] = useState(false);
-  const [fileUploadLoading, setFileUploadLoading] = useState(false); // Add the loading indicator on the button itself
-  const router = useRouter();
+import { useState } from 'react';
 
-  async function handleInitialUpload(evt: React.FormEvent) {
-    evt.preventDefault();
-    if (!fileInputRef.current?.files?.[0]) return;
-    if (fileInputRef.current?.files?.[0].type != "application/pdf") {
-      setFileUploadIsInvalid(true);
-      // here set the loader to loading and convert the file to pdf
-      // Get the file and update the formData with the converted file
-      // set the fileInputRef to the converted file
-      // fileInputRef.current.files[0] = convertedFile;
-      setFileUploadIsInvalid(false);
-    }
-    setShowFileSpecsForm(true);
-  }
+export default function FileSpecsForm() {
+  const [copies, setCopies] = useState(1);
+  const [layout, setLayout] = useState('portrait');
+  const [pagesOption, setPagesOption] = useState('all');
+  const [rangeStart, setRangeStart] = useState('');
+  const [rangeEnd, setRangeEnd] = useState('');
+  const [includeLastPage, setIncludeLastPage] = useState(true);
+  const [printColor, setPrintColor] = useState('bw'); // Default to B/W
 
-  async function handleFinalUpload(evt: React.FormEvent) {
-      evt.preventDefault();
-      setFileUploadLoading(true);
-    if (!fileInputRef.current?.files?.[0]) return;
-    const formData = new FormData();
-    formData.append("file", fileInputRef.current?.files?.[0]);
-    // const res = await fetch(`http://192.168.2.136:5000/upload`, {
-    //   method: "POST",
-    //   body: formData,
-    // });
-    // if (res.ok) {
-      //   router.refresh(); //Can be customized to show a success message or redirect to another page
-      // setFileUploadLoading(false);
-    // } else {
-    //   console.error("Upload failed", await res.text());
-    // }
-      //   console.log("File uploaded successfully", fileInputRef.current.files[0]);
-      router.refresh();
-  }
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    const formData = {
+      copies,
+      layout,
+      pagesOption,
+      rangeStart,
+      rangeEnd,
+      includeLastPage,
+      printColor,
+    };
+    console.log('Form submitted with data:', formData);
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-300">
-      {!showFileSpecsForm && (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-gray-200 rounded-3xl p-8 w-full max-w-md shadow-xl space-y-6">
         <div>
-          <form onSubmit={handleInitialUpload} className="flex flex-col gap-4">
-            <Input
-              label="Select PDF"
-              type="file"
-              accept="application/pdf"
-              ref={fileInputRef}
-              className="w-fit"
-              required
-            />
-            <Button
-              type="submit"
-              color="secondary"
-              variant="shadow"
-              className="w-fit"
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Copies</label>
+          <input
+            type="number"
+            min={1}
+            value={copies}
+            onChange={(e) => setCopies(Number(e.target.value))}
+            className="w-full p-3 rounded-xl shadow-inner focus:outline-none bg-white"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Layout</label>
+          <div className="flex gap-6">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="portrait"
+                checked={layout === 'portrait'}
+                onChange={(e) => setLayout(e.target.value)}
+                className="accent-purple-600"
+              />
+              Portrait
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="landscape"
+                checked={layout === 'landscape'}
+                onChange={(e) => setLayout(e.target.value)}
+                className="accent-purple-600"
+              />
+              Landscape
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Pages</label>
+          <div className="flex flex-col gap-2">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="all"
+                checked={pagesOption === 'all'}
+                onChange={() => setPagesOption('all')}
+                className="accent-purple-600"
+              />
+              All
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="range"
+                checked={pagesOption === 'range'}
+                onChange={() => setPagesOption('range')}
+                className="accent-purple-600"
+              />
+              Page Range
+            </label>
+
+            <div
+              className={`transition-all duration-300 space-y-4 overflow-hidden ${
+                pagesOption === 'range' ? 'opacity-100 max-h-[200px]' : 'opacity-0 max-h-0 pointer-events-none'
+              }`}
             >
-              Next
-            </Button>
-          </form>
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <label className="block text-sm text-gray-600 mb-1">From</label>
+                  <input
+                    type="number"
+                    value={rangeStart}
+                    onChange={(e) => setRangeStart(e.target.value)}
+                    className="w-full p-2 rounded-xl shadow-inner focus:outline-none bg-white"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-sm text-gray-600 mb-1">To</label>
+                  <input
+                    type="number"
+                    value={rangeEnd}
+                    onChange={(e) => setRangeEnd(e.target.value)}
+                    className="w-full p-2 rounded-xl shadow-inner focus:outline-none bg-white"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={includeLastPage}
+                  onChange={(e) => setIncludeLastPage(e.target.checked)}
+                  className="accent-purple-600"
+                />
+                <label className="text-sm">Include last page</label>
+              </div>
+            </div>
+          </div>
         </div>
-      )}
-      {fileUploadIsInvalid && (
+
         <div>
-          {/* This will be a modal to display that the file is being converted to appropriate type to print efficiently and add a loader */}
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Color</label>
+          <select
+            value={printColor}
+            onChange={(e) => setPrintColor(e.target.value)}
+            className="w-full p-3 rounded-xl shadow-inner focus:outline-none bg-white"
+          >
+            <option value="bw">Black & White</option>
+            <option value="color">Color</option>
+          </select>
         </div>
-      )}
-      {showFileSpecsForm && (
-        <div>
-          {/* Update this form to have exact specifications */}
-          <form className="flex flex-col gap-4" onSubmit={handleFinalUpload}>
-            <Input label="Width" type="number" required />
-            <Input label="Height" type="number" required />
-            <Input label="Quantity" type="number" required />
-            <Button
-              type="submit"
-              color="secondary"
-              variant="shadow"
-              className="w-fit"
-            >
-              Print Document
-            </Button>
-          </form>
-        </div>
-      )}
-      {fileUploadLoading && (
-        <div>
-          {/* This will be a modal to display that the file is being sent to server and add a loader that says the file is being printed umtil we get a 
-          response from the pi or until the papers are printed */}
-        </div>
-      )}
+
+        <button
+          type="submit"
+          className="w-full p-3 rounded-xl bg-purple-600 text-white font-semibold shadow-md hover:bg-purple-700 transition"
+        >
+          Print Document
+        </button>
+      </form>
     </div>
   );
 }
