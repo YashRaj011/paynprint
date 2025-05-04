@@ -1,11 +1,11 @@
 "use client";
-import { Button, Link, Spinner } from "@heroui/react";
+import {Link } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+
 
 export default function Home() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+
 
   return (
     <main className="min-h-screen bg-white text-black">
