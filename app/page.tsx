@@ -59,6 +59,7 @@ export default function Home() {
             <Button
               variant="shadow"
               className="font-bold bg-[#FCC201] text-[#F7F5EF]"
+              onPress={() => router.push("/upload")}
             >
               Start Printing
             </Button>
