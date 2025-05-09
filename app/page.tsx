@@ -3,6 +3,7 @@ import { Button, Link } from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import heroImg from "../Images/hero-section-img.jpg";
+import printImg from "../Images/print-img.jpg";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
@@ -14,7 +15,7 @@ export default function Home() {
   const [active, setActive] = useState(0);
   const Menus = [
     {
-      name: "Home",
+      name: "HOME",
       dis: "translate-x-0",
       icon: (
         <HomeIcon
@@ -22,11 +23,16 @@ export default function Home() {
             active === 0 ? "text-[#1F2A44]" : "text-[#F7F5EF]"
           } "`}
           fontSize="inherit"
+          onClick={() =>
+            document
+              .getElementById("home")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
         />
       ),
     },
     {
-      name: "Overview",
+      name: "OVERVIEW",
       dis: "translate-x-[91px]",
       icon: (
         <InfoIcon
@@ -34,6 +40,11 @@ export default function Home() {
             active === 1 ? "text-[#1F2A44]" : "text-[#F7F5EF]"
           } "`}
           fontSize="inherit"
+          onClick={() =>
+            document
+              .getElementById("howitworks")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
         />
       ),
     },
@@ -46,11 +57,16 @@ export default function Home() {
             active === 2 ? "text-[#1F2A44]" : "text-[#F7F5EF]"
           } "`}
           fontSize="inherit"
+          onClick={() =>
+            document
+              .getElementById("faq")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
         />
       ),
     },
     {
-      name: "Contact",
+      name: "CONTACT",
       dis: "translate-x-[272px]",
       icon: (
         <PhoneIcon
@@ -58,6 +74,11 @@ export default function Home() {
             active === 3 ? "text-[#1F2A44]" : "text-[#F7F5EF]"
           } "`}
           fontSize="inherit"
+          onClick={() =>
+            document
+              .getElementById("contact")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
         />
       ),
     },
@@ -65,26 +86,57 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen bg-[#F7F5EF]">
+    <main className="min-h-screen bg-[#F7F5EF] font-nunito">
       {/* Header large screens */}
       <header className="hidden h-0 sm:block sm:sticky top-0 sm:h-18 z-10 bg-[#1F2A44] ">
         <nav className="flex items-center gap-20 w-fit text-sm h-full mx-auto p-5 text-[#F7F5EF] font-medium">
-          <Link className="text-[#F7F5EF] font-bold text-lg" href="#">
+          <Link
+            className="text-[#F7F5EF] font-bold text-lg cursor-pointer"
+            onPress={() => router.push("/")}
+          >
             Logo
           </Link>
-          <Link className="text-[#F7F5EF]" href="#">
+          <Link
+            className="text-[#F7F5EF] cursor-pointer"
+            onPress={() =>
+              document
+                .getElementById("home")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
             Home
           </Link>
-          <Link className="text-[#F7F5EF]" href="#howitworks">
+          <Link
+            className="text-[#F7F5EF] cursor-pointer"
+            onPress={() =>
+              document
+                .getElementById("howitworks")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
             How it works
           </Link>
           {/* <Link className="text-[#F7F5EF]" href="#locations">
             Locations
           </Link> */}
-          <Link className="text-[#F7F5EF]" href="#faq">
+          <Link
+            className="text-[#F7F5EF] cursor-pointer"
+            onPress={() =>
+              document
+                .getElementById("faq")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
             FAQ
           </Link>
-          <Link className="text-[#F7F5EF]" href="#contact">
+          <Link
+            className="text-[#F7F5EF] cursor-pointer"
+            onPress={() =>
+              document
+                .getElementById("contact")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
             Contact
           </Link>
         </nav>
@@ -94,7 +146,7 @@ export default function Home() {
         <ul className="flex relative justify-between w-full">
           <span
             className={`bg-[#F7F5EF] duration-500 ${Menus[active].dis} border-4 border-[#1F2A44] text-[#1F2A44] h-16 w-16 absolute
-         -top-[29px] rounded-full`}
+         -top-[30px] rounded-full`}
           >
             <span
               className="w-3.5 h-3.5 bg-[#1F2A44] absolute top-[28px] -left-[12.5px] 
@@ -121,7 +173,7 @@ export default function Home() {
                 <span
                   className={` ${
                     active === i
-                      ? "translate-y-4 duration-700 opacity-100 text-[#F7F5EF] font-bold w-full"
+                      ? "translate-y-4 duration-700 opacity-100 text-[#F7F5EF] font-bold w-full flex justify-center mt-1"
                       : "opacity-0 translate-y-10"
                   } `}
                 >
@@ -133,14 +185,17 @@ export default function Home() {
         </ul>
       </div>
       {/* Hero Section */}
-      <section className="flex text-center px-4 gap-1 h-[calc(100vh-100px)] sm:h-[calc(100vh-72px)]">
-        <div className="sm:flex justify-center items-center hidden w-0 sm:w-[10%]">
+      <section
+        className="flex text-center px-4 gap-1 h-[calc(100vh-100px)] sm:h-[calc(100vh-72px)]"
+        id="home"
+      >
+        {/* <div className="sm:flex justify-center items-center hidden w-0 sm:w-[10%]">
           <Image
             src={heroImg}
             alt="hero-section-img"
             className="relative object-cover w-96 h-xl"
           />
-        </div>
+        </div> */}
         <div className="flex flex-col mt-20 mx-auto w-full sm:w-[50%]">
           <h1 className="text-5xl text-[#1F2A44] font-cormorant-garamond font-extrabold leading-snug mb-4">
             Upload, Pay and Print your Documents in Seconds.
@@ -158,33 +213,122 @@ export default function Home() {
               Start Printing
             </Button>
             <Link
-              href="#howitworks"
+              // href="#howitworks"
               underline="always"
-              className="cursor-pointer ml-4 sm:ml-0 font-bold sm:font-semibold"
+              className="cursor-pointer ml-4 sm:ml-0 font-bold sm:font-semibold transition-all duration-500"
+              onPress={() =>
+                document
+                  .getElementById("howitworks")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               See how it works <NorthEastIcon />
             </Link>
           </div>
         </div>
-        <div className="sm:flex justify-center items-center hidden w-0 sm:w-[10%]">
+        {/* <div className="sm:flex justify-center items-center hidden w-0 sm:w-[10%]">
           <Image
             src={heroImg}
             alt="hero-section-img"
             className="relative object-cover w-96 h-xl"
           />
+        </div> */}
+      </section>
+
+      {/* Overview Section */}
+      <section
+        className="flex flex-col items-center text-center p-8 gap-10 sm:gap-40 transition-all duration-500"
+        id="howitworks"
+      >
+        <h2 className="text-5xl font-bold text-[#1F2A44] font-cormorant-garamond mb-6 sm:-mb-14">
+          How It Works?
+        </h2>
+        <div className="flex items-center h-[650px] sm:h-[400px] w-full sm:w-[90%] rounded-2xl shadow-lg sm:shadow-none">
+          <div className="block sm:flex sm:flex-row relative w-full h-full sm:gap-10">
+            <Image
+              src={heroImg}
+              alt="hero-section-img"
+              className="relative object-fill sm:object-cover w-full h-full sm:w-[50%] rounded-2xl border-3 border-[#1F2A44]"
+            />
+            <div
+              className="flex flex-col absolute sm:relative sm:justify-center sm:items-center sm:h-full items-center w-[90%] sm:w-[50%] left-1/2 sm:left-0 -translate-x-1/2 sm:-translate-x-0
+             bottom-4 sm:bottom-0 h-fit bg-[#F7F5EF] rounded-2xl sm:rounded-none p-5 sm:p-0"
+            >
+              <span className="mt-4 font-extrabold text-xl sm:text-3xl w-full">
+                Scan & Upload
+              </span>
+              <span className="text-md sm:text-lg font-medium my-5">
+                Point your phone camera at the QR code to launch the upload
+                portal and upload the desired document to print.
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center h-[650px] sm:h-[400px] w-full sm:w-[90%] rounded-2xl shadow-lg sm:shadow-none">
+          <div className="block sm:flex sm:flex-row relative w-full h-full sm:gap-10">
+            <div
+              className="flex flex-col z-1 absolute sm:relative sm:justify-center sm:items-center sm:h-full items-center w-[90%] sm:w-[50%] left-1/2 sm:left-0 -translate-x-1/2 sm:-translate-x-0
+             bottom-4 sm:bottom-0 h-fit bg-[#F7F5EF] rounded-2xl sm:rounded-none p-5 sm:p-0"
+            >
+              <span className="mt-4 font-extrabold text-xl sm:text-3xl w-full">
+                Customize Print
+              </span>
+              <span className="text-md sm:text-lg font-medium my-5">
+                Select orientation, page count, duplex, and more.
+              </span>
+            </div>
+            <Image
+              src={heroImg}
+              alt="hero-section-img"
+              className="relative object-fill sm:object-cover w-full h-full sm:w-[50%] rounded-2xl border-3 border-[#1F2A44]"
+            />
+          </div>
+        </div>
+        <div className="flex items-center h-[650px] sm:h-[400px] w-full sm:w-[90%] rounded-2xl shadow-lg sm:shadow-none">
+          <div className="block sm:flex sm:flex-row relative w-full h-full sm:gap-10">
+            <Image
+              src={heroImg}
+              alt="hero-section-img"
+              className="relative object-fill sm:object-cover w-full h-full sm:w-[50%] rounded-2xl border-3 border-[#1F2A44]"
+            />
+            <div
+              className="flex flex-col absolute sm:relative sm:justify-center sm:items-center sm:h-full items-center w-[90%] sm:w-[50%] left-1/2 sm:left-0 -translate-x-1/2 sm:-translate-x-0
+             bottom-4 sm:bottom-0 h-fit bg-[#F7F5EF] rounded-2xl sm:rounded-none p-5 sm:p-0"
+            >
+              <span className="mt-4 font-extrabold text-xl sm:text-3xl w-full">
+                Pay via UPI
+              </span>
+              <span className="text-md sm:text-lg font-medium my-5">
+                Use any UPI app for instant, secure payment—no cash needed.
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center h-[650px] sm:h-[400px] w-full sm:w-[90%] rounded-2xl shadow-lg sm:shadow-none">
+          <div className="block sm:flex sm:flex-row relative w-full h-full sm:gap-10">
+            <div
+              className="flex flex-col z-1 absolute sm:relative sm:justify-center sm:items-center sm:h-full items-center w-[90%] sm:w-[50%] left-1/2 sm:left-0 -translate-x-1/2 sm:-translate-x-0
+             bottom-4 sm:bottom-0 h-fit bg-[#F7F5EF] rounded-2xl sm:rounded-none p-5 sm:p-0"
+            >
+              <span className="mt-4 font-extrabold text-xl sm:text-3xl w-full">
+                Auto-Print
+              </span>
+              <span className="text-md sm:text-lg font-medium my-5">
+                Your document prints immediately, hands-free.
+              </span>
+            </div>
+            <Image
+              src={printImg}
+              alt="print-img"
+              className="relative object-fill sm:object-cover w-full h-full sm:w-[50%] rounded-2xl border-3 border-[#1F2A44]"
+            />
+          </div>
         </div>
       </section>
 
-      {/* Commitment Section */}
-      <section className="text-center py-10 px-4 bg-gray-100">
-        <h2 className="text-xl font-semibold mb-2">
-          Our Commitment to Quality
-        </h2>
-        <p className="text-sm text-gray-600 max-w-xl mx-auto">
-          At Pay N Print, we believe that quality is paramount to every print
-          job. Our team uses state-of-the-art technologies and ensures every
-          project is clean and professional.
-        </p>
+      {/* FAQ Section */}
+      <section className="text-center p-10 bg-gray-400" id="faq">
+        FAQ
       </section>
 
       {/* Image Grid */}
@@ -217,7 +361,10 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="text-center text-sm py-10 bg-gray-50 text-gray-600">
+      <footer
+        className="text-center text-sm py-10 bg-gray-50 text-gray-600"
+        id="contact"
+      >
         <p className="mb-2">Contact Us</p>
         <p className="mb-1">Better yet, see us in person!</p>
         <p className="mb-4">
