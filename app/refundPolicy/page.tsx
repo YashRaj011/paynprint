@@ -9,10 +9,10 @@ export default function RefundPolicyPage() {
         </h1>
 
         <p className="mb-4">
-          At <strong>PayNPrint</strong>, we are committed to providing
-          convenient and efficient printing services through our automated
-          kiosks and mobile platform. Please review our refund policy below
-          before making a purchase:
+          At <strong>PayNprint by BAJAJ STATIONERY EXTENSION</strong>, we are
+          committed to providing convenient and efficient printing services
+          through our automated kiosks and mobile platform. Please review our
+          refund policy below before making a purchase:
         </p>
 
         <h2 className="text-xl font-semibold mt-6 mb-2">No Refunds</h2>
@@ -46,6 +46,10 @@ export default function RefundPolicyPage() {
           <li>A copy of your receipt or transaction ID</li>
           <li>A brief description of the issue</li>
           <li>Any supporting screenshots or photos (if applicable)</li>
+          <li>
+            If approved your amount will be processed and credited to the
+            original payment method within 3-7 business days
+          </li>
         </ul>
 
         <h2 className="text-xl font-semibold mt-6 mb-2">Contact Us</h2>
