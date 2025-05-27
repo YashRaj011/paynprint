@@ -24,6 +24,7 @@ export default function CustomizePrintPage({
   const [includeLastPage, setIncludeLastPage] = useState(true);
   const [printColor, setPrintColor] = useState("Black And White");
   const router = useRouter();
+  console.log("File ID:", params);
 
   async function handleFinalUpload(evt: React.FormEvent) {
     evt.preventDefault();
