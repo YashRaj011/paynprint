@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import {
   Button,
@@ -21,12 +22,12 @@ export default function CustomizePrintPage({
   const [rangeStart, setRangeStart] = useState("");
   const [rangeEnd, setRangeEnd] = useState("");
   const [includeLastPage, setIncludeLastPage] = useState(true);
-    const [printColor, setPrintColor] = useState("Black And White");
-    const router = useRouter();
+  const [printColor, setPrintColor] = useState("Black And White");
+  const router = useRouter();
 
   async function handleFinalUpload(evt: React.FormEvent) {
     evt.preventDefault();
-    
+
     // const res = await fetch(`http://192.168.2.136:5000/upload`, {
     //   method: "POST",
     //   body: formData,
@@ -39,8 +40,7 @@ export default function CustomizePrintPage({
     // }
     //   console.log("File uploaded successfully", fileInputRef.current.files[0]);
     router.refresh();
-    }
-    
+  }
 
   return (
     <div>
