@@ -10,13 +10,13 @@ import EastIcon from "@mui/icons-material/East";
 export default function UploadPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileUploadIsInvalid, setFileUploadIsInvalid] = useState(false);
-  const [showFileSpecsForm, setShowFileSpecsForm] = useState(false);
-  const [fileUploadLoading, setFileUploadLoading] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  // const [showFileSpecsForm, setShowFileSpecsForm] = useState(false);
+  // const [fileUploadLoading, setFileUploadLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const router = useRouter();
 
   async function handleInitialUpload(evt: React.FormEvent) {
-    setIsLoading(true);
+    // setIsLoading(true);
     evt.preventDefault();
     if (!fileInputRef.current?.files?.[0]) return;
     if (fileInputRef.current?.files?.[0].type != "application/pdf") {
@@ -24,7 +24,7 @@ export default function UploadPage() {
       
       setFileUploadIsInvalid(false);
     }
-    setShowFileSpecsForm(true);
+    // setShowFileSpecsForm(true);
   }
 
   return (
@@ -72,12 +72,7 @@ export default function UploadPage() {
           {/* This will be a modal to display that the file is being converted to appropriate type to print efficiently and add a loader */}
         </div>
       )}
-      {fileUploadLoading && (
-        <div>
-          {/* This will be a modal to display that the file is being sent to server and add a loader that says the file is being printed umtil we get a 
-          response from the pi or until the papers are printed */}
-        </div>
-      )}
+      
     </div>
   );
 }
