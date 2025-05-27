@@ -61,8 +61,6 @@ export default function RefundPolicyPage() {
           >
             support@paynprint.com
           </a>
-          <br />
-          📞 +91-XXXXXXXXXX
         </p>
 
         <p className="mt-6 text-sm text-gray-500">

@@ -207,7 +207,7 @@ export default function Home() {
             className="rounded-[50%] my-2"
           />
         </div>
-        <div className="flex flex-col mx-auto w-full sm:w-[50%]">
+        <div className="flex flex-col mx-auto mt-2 w-full sm:w-[50%]">
           <h1 className="text-5xl text-[#1F2A44] font-cormorant-garamond font-extrabold leading-snug mb-4">
             Upload, Pay and Print your Documents in Seconds.
           </h1>
@@ -248,7 +248,7 @@ export default function Home() {
 
       {/* Overview Section */}
       <section
-        className="flex flex-col items-center text-center p-8 gap-10 sm:gap-40"
+        className="flex flex-col items-center -mt-5 text-center p-8 gap-10 sm:gap-40"
         id="howitworks"
       >
         <h2 className="text-5xl font-bold text-[#1F2A44] font-cormorant-garamond mb-6 sm:-mb-14">
@@ -420,7 +420,7 @@ export default function Home() {
                     href="tel:+911234567890"
                     className="hover:text-warm-gold"
                   >
-                    +91 12345 67890
+                    +91 76750 12905
                   </Link>
                 </p>
               </div>
