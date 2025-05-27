@@ -14,6 +14,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import logo from "@/Images/logo_updated.jpg";
 
 export default function Home() {
   const [active, setActive] = useState(0);
@@ -98,7 +99,12 @@ export default function Home() {
             className="text-[#F7F5EF] font-bold text-lg cursor-pointer"
             onPress={() => router.push("/")}
           >
-            Logo
+            <Image
+              src={logo}
+              alt="logo"
+              width={160}
+              className="rounded-[50%] my-5"
+            />
           </Link>
           <Link
             className="text-[#F7F5EF] cursor-pointer"
@@ -190,24 +196,25 @@ export default function Home() {
       </div>
       {/* Hero Section */}
       <section
-        className="flex text-center px-4 gap-1 h-[calc(100vh-100px)] sm:h-[calc(100vh-72px)]"
+        className="flex flex-col text-center px-4 gap-1 h-[calc(100vh-100px)] sm:h-[calc(100vh-72px)]"
         id="home"
       >
-        {/* <div className="sm:flex justify-center items-center hidden w-0 sm:w-[10%]">
+        <div className="flex w-screen -ml-[16px] bg-[#1F2A44] justify-center items-center sm:hidden">
           <Image
-            src={heroImg}
-            alt="hero-section-img"
-            className="relative object-cover w-96 h-xl"
+            src={logo}
+            alt="logo"
+            width={160}
+            className="rounded-[50%] my-2"
           />
-        </div> */}
-        <div className="flex flex-col mt-20 mx-auto w-full sm:w-[50%]">
+        </div>
+        <div className="flex flex-col mx-auto w-full sm:w-[50%]">
           <h1 className="text-5xl text-[#1F2A44] font-cormorant-garamond font-extrabold leading-snug mb-4">
             Upload, Pay and Print your Documents in Seconds.
           </h1>
           <p className="text-md mb-6 text-gray-600 font-nunito">
             From Upload to Output—Experience Premium Printing without the Wait.
           </p>
-          <div className="flex flex-wrap flex-col sm:flex-row mt-24 sm:mt-0 justify-center items-center gap-4">
+          <div className="flex flex-wrap flex-col sm:flex-row mt-2 sm:mt-0 justify-center items-center gap-4">
             <Button
               variant="shadow"
               className="font-bold bg-[#FCC201] text-[#F7F5EF] w-[90%] sm:w-fit"
@@ -341,8 +348,13 @@ export default function Home() {
         id="contact"
       >
         <div className="flex flex-col sm:flex-row sm:items-start sm:gap-15 items-center text-center gap-5 w-full">
-          <div className="flex flex-col w-full sm:w-[60%] h-20 bg-blue-700 justify-center">
-            <span>LOGO</span>
+          <div className="flex flex-col w-full sm:w-[60%] h-20 justify-center">
+            <Image
+              src={logo}
+              alt="logo"
+              width={180}
+              className="rounded-[50%] mx-auto"
+            />
           </div>
           <div className="flex flex-row w-full sm:w-[40%] sm:justify-around justify-between sm:gap-15">
             <div className="flex flex-col text-start p-2 gap-4">
@@ -448,18 +460,28 @@ export default function Home() {
         <div className="h-1 w-full bg-[#F7F5EF] rounded-[50%] my-5 sm:my-0"></div>
         <div className="flex flex-col sm:flex-row w-full justify-center items-center gap-4">
           <Link
-            href="#termsofservice"
+            href="/terms"
             className="text-[#F7F5EF] hover:text-warm-gold"
             underline="always"
+            target="_blank"
           >
             Terms Of Service
           </Link>
           <Link
-            href="#privacypolicy"
+            href="/privacyPolicy"
             className="text-[#F7F5EF] hover:text-warm-gold"
             underline="always"
+            target="_blank"
           >
             Privacy Poilicy
+          </Link>
+          <Link
+            href="/refundPolicy"
+            className="text-[#F7F5EF] hover:text-warm-gold"
+            underline="always"
+            target="_blank"
+          >
+            Refund Poilicy
           </Link>
         </div>
         <div className="text-center">
