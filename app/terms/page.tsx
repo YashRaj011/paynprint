@@ -10,11 +10,11 @@ export default function TermsAndConditionsPage() {
 
         <Section title="1. Introduction">
           <p>
-            Please read these Terms of Service ("Terms") which include our
-            Privacy Notice before using the PaynPrint kiosk system, website, or
-            related services (the “Services”). These Terms are between PaynPrint
-            (“we”, “our”, or “us”) and you, the user of the Services. By using
-            the Services, you agree to be bound by these Terms.
+            Please read these Terms of Service (&quot;Terms&quot;) which include
+            our Privacy Notice before using the PaynPrint kiosk system, website,
+            or related services (the “Services”). These Terms are between
+            PaynPrint (“we”, “our”, or “us”) and you, the user of the Services.
+            By using the Services, you agree to be bound by these Terms.
           </p>
         </Section>
 

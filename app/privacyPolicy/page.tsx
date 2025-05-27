@@ -76,7 +76,7 @@ export default function PrivacyPolicyPage() {
           </p>
         </Section>
 
-        <Section title="7. Children's Privacy">
+        <Section title="7. Childrens Privacy">
           <p>
             Our service is not intended for children under 13. We do not
             knowingly collect personal data from minors.
@@ -95,7 +95,7 @@ export default function PrivacyPolicyPage() {
           <p>
             Since we do not retain personal data, no user identification or
             profile is stored. If you suspect misuse, you can reach out to us to
-            investigate the logs for your session's time frame.
+            investigate the logs for your sessions time frame.
           </p>
         </Section>
 
