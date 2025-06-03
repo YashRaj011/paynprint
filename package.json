@@ -14,6 +14,7 @@
     "@heroui/react": "^2.8.0-beta.2",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.0.2",
+    "axios": "^1.9.0",
     "next": "15.3.1",
     "node-convert": "^0.1.1",
     "postcss": "^8.5.3",
