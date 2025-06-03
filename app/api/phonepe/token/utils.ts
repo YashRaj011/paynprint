@@ -9,9 +9,8 @@ interface TokenResponse {
   session_expires_at: number;
   token_type: string;
 }
-  
 
-let tokenCache = {
+const tokenCache = {
   value: "" as string | null,
   expiresAt: 0 as number,
 };
@@ -34,7 +33,7 @@ export async function getAccessToken(): Promise<string> {
     },
     {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     }
   );
