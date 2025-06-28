@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 import { getAccessToken } from '../token/utils';
+import Error from 'next/error';
 
 interface CreatePaymentResponse {
     orderId: string;
@@ -50,13 +51,14 @@ export async function POST(request: NextRequest) {
         },
       }
     );
-      const payData = response.data;
+    const payData = response.data;
 
     return NextResponse.json({ success: true, payData });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
-      { status: 500 }
-    );
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error:", error);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
