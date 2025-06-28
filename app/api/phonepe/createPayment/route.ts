@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     };
 
     const response = await axios.post<CreatePaymentResponse>(
-      process.env.PHONEPE_BASE_URL + "/checkout/v2/pay",
+      "https://api.phonepe.com/apis/pg/checkout/v2/pay",
       payload,
       {
         headers: {
