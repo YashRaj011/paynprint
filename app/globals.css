@@ -1,9 +1,97 @@
 @import "tailwindcss";
+
 @plugin '../hero.ts';
 @source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+
+@layer base {
+  body {
+    line-height: 1.5;
+  }
+}
+
 @theme {
-  --font-cormorant-garamond : "Cormorant Garamond";
-  --font-nunito : "Nunito";
+  --font-cormorant: "Cormorant Garamond";
+  --font-nunito: "Nunito";
+
+  --color-bg-primary: rgb(247, 245, 239);
+  --color-bg-secondary: rgb(255, 255, 255);
+  --color-bg-dark: rgb(31, 42, 68);
+  --color-bg-darker: rgb(22, 30, 50);
+
+  --color-text-primary: rgb(31, 42, 68);
+  --color-text-secondary: rgb(75, 85, 99);
+  --color-text-light: rgb(247, 245, 239);
+
+  --color-brand-primary: rgb(255, 191, 0);
+  --color-brand-secondary: rgb(212, 165, 32);
+  --color-brand-dark: rgb(184, 148, 30);
+
+  --color-accent-teal: rgb(32, 178, 170);
+  --color-accent-coral: rgb(255, 127, 80);
+  --color-accent-sage: rgb(139, 149, 132);
+  --color-accent-burgundy: rgb(128, 70, 86);
+
+  --color-border-light: rgb(220, 218, 210);
+  --color-border-medium: rgb(200, 198, 190);
+
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-float-reverse: floatReverse 10s ease-in-out infinite;
+  --animate-float-slow: floatSlow 12s ease-in-out infinite;
+  --animate-pulse-custom: pulse 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-25px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-3deg);
+  }
+  75% {
+    transform: translateY(-30px) rotate(3deg);
+  }
+}
+
+@keyframes floatReverse {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(25px) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(15px) rotate(3deg);
+  }
+  75% {
+    transform: translateY(30px) rotate(-3deg);
+  }
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-40px) translateX(10px) scale(1.05);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
 }
 
 /* :root {
@@ -34,3 +122,107 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 } */
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background: #f7f5ef;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f5ef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffbf00 0%, #d4a520 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #d4a520 0%, #b8941e 100%);
+}
+
+/* Logo Styles */
+.logo-text {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: #1f2a44;
+  letter-spacing: -0.03em;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logo-text:hover {
+  transform: translateY(-2px);
+  color: #ffbf00;
+}
+
+.logo-text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffbf00 0%, #d4a520 100%);
+  transition: width 0.3s ease;
+}
+
+.logo-text:hover::after {
+  width: 100%;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #ffbf00;
+  outline-offset: 2px;
+}
+
+/* Gradient text utilities */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffbf00 0%, #d4a520 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-navy {
+  background: linear-gradient(135deg, #1f2a44 0%, #2d3e5c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-gold {
+  background: linear-gradient(135deg, #ffbf00 0%, #d4a520 100%);
+}
+
+.bg-gradient-navy {
+  background: linear-gradient(135deg, #1f2a44 0%, #161e32 100%);
+}
