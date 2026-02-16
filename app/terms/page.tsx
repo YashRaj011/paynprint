@@ -123,7 +123,7 @@ export default function TermsAndConditionsPage() {
           <p>
             Email:{" "}
             <a href="mailto:support@paynprint.in" className="underline">
-              support@paynprint.in
+              support@paynprint.com
             </a>
             <br />
             Location: Hyderabad, Telangana, India
