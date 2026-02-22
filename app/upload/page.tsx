@@ -12,8 +12,10 @@ import {
   Printer,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import axios from "axios";
 import Loading from "@/components/Loading";
+import { AuthButtons } from "@/components/AuthButtons";
 // import DocumentPreview from "@/components/DocumentPreview";
 
 interface PaymentData {
@@ -69,7 +71,6 @@ declare global {
 
 export default function UploadPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [fileUploadIsInvalid, setFileUploadIsInvalid] = useState(false);
   // const [showFileSpecsForm, setShowFileSpecsForm] = useState(false);
   // const [fileUploadLoading, setFileUploadLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -151,6 +152,7 @@ export default function UploadPage() {
       const fileResponse = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/upload`,
         formData,
+        { withCredentials: true },
       );
       const fileResponseData = fileResponse.data as fileResponse;
       console.log("File response:", fileResponseData.message);
@@ -166,7 +168,7 @@ export default function UploadPage() {
       console.log("File properties set");
 
       if (fileResponseData.file.previewAvailable) { 
-        setPreviewUrl(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/upload/${fileResponseData.file.id}/preview/`);
+        setPreviewUrl(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/upload/${fileResponseData.file.id}/preview`);
       }
     }
     catch (err) { console.error("File upload error:", err) }
@@ -174,7 +176,7 @@ export default function UploadPage() {
       setIsLoading(false);
     }
   };
-  const [res, setRes] = useState<PaymentResponse>();
+  const [, setRes] = useState<PaymentResponse>();
 
   const generateMerchantOrderId = (): string => {
     const randomStr = Math.random().toString(36).substring(2, 10);
@@ -201,36 +203,25 @@ export default function UploadPage() {
         merchantOrderId: merchantOrderId,
         amount: calculateTotal().total * 100, // Amount in paise
       });
-      console.log("Response:", ApiRes.data);
       setRes(ApiRes.data as PaymentResponse);
 
-      if (window && window.PhonePeCheckout && window.PhonePeCheckout.transact) {
-        console.log("PhonePeCheckout is available", window.PhonePeCheckout);
-        console.log("res : ", res);
-        console.log("response : ", ApiRes.data);
+      if (window?.PhonePeCheckout?.transact) {
         window.PhonePeCheckout.transact({
-          tokenUrl: ApiRes.data?.payData.redirectUrl,
+          tokenUrl: ApiRes.data?.payData?.redirectUrl,
           callback,
           type: "IFRAME",
         });
       }
     } catch (err: any) {
-      console.error("Axios error:", err.response?.data || err.message);
+      const serverError = err.response?.data?.error;
+      const message =
+        typeof serverError === "string"
+          ? serverError
+          : err.message || "Payment could not be started. Please try again.";
+      console.error("Payment error:", err.response?.status, err.response?.data, err.message);
+      alert(message);
     }
   };
-
-  async function handleInitialUpload(evt: React.FormEvent) {
-    // setIsLoading(true);
-    evt.preventDefault();
-    if (!fileInputRef.current?.files?.[0]) return;
-    if (fileInputRef.current?.files?.[0].type != "application/pdf") {
-      setFileUploadIsInvalid(true);
-      setFileUploadIsInvalid(false);
-    }
-    // setShowFileSpecsForm(true);
-
-    // handlePayment();
-  }
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -270,6 +261,7 @@ export default function UploadPage() {
               </div>
 
               <div className="flex items-center gap-4">
+                <AuthButtons />
                 <span className="text-sm text-[#1F2A44]/60">Step 1 of 3</span>
               </div>
             </nav>
@@ -369,24 +361,25 @@ export default function UploadPage() {
                         </div>
 
                         <div className="bg-[#F7F5EF] flex justify-center rounded-2xl p-4 sm:p-6 md:p-8 mb-6">
-                          <div className="aspect-[8.5/11] max-h-[70vh] bg-white rounded-lg shadow-lg flex items-center justify-center">
-                            <div className="text-center">
-                              {/* <FileText className="w-16 h-16 text-[#1F2A44]/20 mx-auto mb-4" />{" "} */}
-                              <p className="text-sm text-[#1F2A44]/40">
-                                {/*fileInputRef && (
-                                <DocumentPreview
-                                  file={fileInputRef.current?.files?.[0]}
+                          <div className="aspect-[8.5/11] max-h-[70vh] bg-white rounded-lg shadow-lg flex items-center justify-center w-full">
+                            <div className="text-center relative w-full h-full min-h-[200px]">
+                              {previewUrl ? (
+                                <Image
+                                  alt={
+                                    fileProperties?.originalName ||
+                                    "File preview"
+                                  }
+                                  src={previewUrl}
+                                  fill
+                                  className={`object-contain grayscale ${printSetting.orientation === "landscape" ? "rotate-90" : ""}`}
+                                  unoptimized
+                                  sizes="(max-width: 800px) 100vw, 800px"
                                 />
-                              )*/}
-                                <img
-                                      alt={
-                                        fileProperties.originalName ||
-                                        "File preview"
-                                      }
-                                      src={previewUrl}
-                                      className={`w-full h-full object-contain grayscale ${printSetting.orientation === "landscape" ? "rotate-90" : ""}`}
-                                />
-                              </p>
+                              ) : (
+                                <p className="text-sm text-[#1F2A44]/40">
+                                  Preview will appear here
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>

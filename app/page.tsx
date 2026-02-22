@@ -21,6 +21,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
+import { AuthButtons } from "@/components/AuthButtons";
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
@@ -79,6 +80,7 @@ export default function LandingPage() {
             >
               Locations
             </a>
+            <AuthButtons />
             <Link
               href="/upload"
               className="px-6 py-3 bg-gradient-gold text-white font-semibold rounded-full hover:shadow-xl hover:shadow-[#FFBF00]/30 transition-all transform hover:scale-105"
