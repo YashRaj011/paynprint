@@ -16,24 +16,34 @@ const tokenCache = {
 };
 
 export async function getAccessToken(): Promise<string> {
+  const baseUrl = process.env.PHONEPE_BASE_URL;
+  const clientId = process.env.PHONEPE_CLIENT_ID;
+  const clientSecret = process.env.PHONEPE_CLIENT_SECRET;
+  const clientVersion = process.env.PHONEPE_CLIENT_VERSION;
+
+  if (!baseUrl || !clientId || !clientSecret || !clientVersion) {
+    throw new Error(
+      "PhonePe credentials missing. Add PHONEPE_BASE_URL, PHONEPE_CLIENT_ID, PHONEPE_CLIENT_SECRET, and PHONEPE_CLIENT_VERSION to your .env file."
+    );
+  }
+
   const now = Math.floor(Date.now() / 1000);
-  console.log("time in sec", now);
 
   if (tokenCache.value && now < tokenCache.expiresAt - 120) {
     return tokenCache.value;
   }
 
   const response = await axios.post<TokenResponse>(
-    process.env.PHONEPE_BASE_URL + "/v1/oauth/token",
+    `${baseUrl}/v1/oauth/token`,
     {
-      client_id: `${process.env.PHONEPE_CLIENT_ID}`,
-      client_secret: `${process.env.PHONEPE_CLIENT_SECRET}`,
-      client_version: `${process.env.PHONEPE_CLIENT_VERSION}`,
+      client_id: clientId,
+      client_secret: clientSecret,
+      client_version: clientVersion,
       grant_type: "client_credentials",
     },
     {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
     }
   );

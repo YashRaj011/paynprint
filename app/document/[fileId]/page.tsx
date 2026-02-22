@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -16,6 +16,7 @@ export default function CustomizePrintPage({
 }: {
   params: Promise<{ fileId: string }>;
 }) {
+  const { fileId } = use(params);
   const [copies, setCopies] = useState("1");
   const [layout, setLayout] = useState("portrait");
   const [pagesOption, setPagesOption] = useState("all");
@@ -24,7 +25,6 @@ export default function CustomizePrintPage({
   const [includeLastPage, setIncludeLastPage] = useState(true);
   const [printColor, setPrintColor] = useState("Black And White");
   const router = useRouter();
-  console.log("File ID:", params);
 
   async function handleFinalUpload(evt: React.FormEvent) {
     evt.preventDefault();
@@ -48,6 +48,7 @@ export default function CustomizePrintPage({
       <form
         className="flex flex-col gap-4 bg-gray-200 rounded-3xl p-8 w-[350px] shadow-xl space-y-6"
         onSubmit={handleFinalUpload}
+        data-file-id={fileId}
       >
         <Input
           label="Copies"
@@ -66,12 +67,12 @@ export default function CustomizePrintPage({
         </label>
         <RadioGroup
           color="secondary"
-          defaultValue="potrait"
+          defaultValue="portrait"
           orientation="horizontal"
           value={layout}
           onValueChange={(e) => setLayout(e)}
         >
-          <Radio value="potrait">Potrait</Radio>
+          <Radio value="portrait">Portrait</Radio>
           <Radio value="landscape">Landscape</Radio>
         </RadioGroup>
         <div>

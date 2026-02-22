@@ -9,15 +9,43 @@ interface CreatePaymentResponse {
     redirectUrl: string;
 }
 
+const MIN_AMOUNT_PAISE = 1;
+const MAX_AMOUNT_PAISE = 10_00_000; // 1 lakh INR in paise
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
+    const merchantOrderId =
+      typeof body.merchantOrderId === "string"
+        ? body.merchantOrderId.trim()
+        : "";
+    if (!merchantOrderId) {
+      return NextResponse.json(
+        { error: "merchantOrderId is required and must be a non-empty string" },
+        { status: 400 }
+      );
+    }
+
+    const amount = Number(body.amount);
+    if (
+      !Number.isFinite(amount) ||
+      amount < MIN_AMOUNT_PAISE ||
+      amount > MAX_AMOUNT_PAISE
+    ) {
+      return NextResponse.json(
+        {
+          error: `amount must be a number between ${MIN_AMOUNT_PAISE} and ${MAX_AMOUNT_PAISE} (paise)`,
+        },
+        { status: 400 }
+      );
+    }
+
     const token = await getAccessToken();
 
     const payload = {
-      merchantOrderId: body.merchantOrderId,
-      amount: body.amount,
+      merchantOrderId,
+      amount,
       paymentFlow: {
         type: "PG_CHECKOUT",
         message: "Payment message used for collect requests",
@@ -54,9 +82,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, payData });
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
-      { status: 500 }
-    );
+    const message =
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.message ||
+      "Payment setup failed. Please try again.";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
