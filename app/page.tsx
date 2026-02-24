@@ -21,6 +21,8 @@ import {
   ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
+import LogoFull from "../Images/pnp_logo_full.png";
+import Image from "next/image";
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
@@ -55,8 +57,8 @@ export default function LandingPage() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <Link href="/" className="logo-text text-3xl">
-              pnp
+            <Link href="/" className=" ">
+              <Image src={LogoFull} alt="Logo" height={50} />
             </Link>
           </motion.div>
 
@@ -92,13 +94,13 @@ export default function LandingPage() {
       <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
         {/* Floating Geometric Objects */}
         <motion.div
-          className="absolute top-32 left-[5%] w-48 h-48 rounded-3xl bg-gradient-to-br from-[#FFBF00]/20 to-[#D4A520]/10 backdrop-blur-sm border border-[#FFBF00]/20"
+          className="absolute top-32 left-[5%] w-48 h-48 rounded-3xl bg-linear-to-br from-[#FFBF00]/20 to-[#D4A520]/10 backdrop-blur-sm border border-[#FFBF00]/20"
           animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.div
-          className="absolute top-1/4 right-[8%] w-40 h-40 rounded-full bg-gradient-to-br from-[#20B2AA]/20 to-[#20B2AA]/10 backdrop-blur-sm"
+          className="absolute top-1/4 right-[8%] w-40 h-40 rounded-full bg-linear-to-br from-[#20B2AA]/20 to-[#20B2AA]/10 backdrop-blur-sm"
           animate={{ y: [0, 25, 0], scale: [1, 1.1, 1] }}
           transition={{
             duration: 10,
@@ -109,7 +111,7 @@ export default function LandingPage() {
         />
 
         <motion.div
-          className="absolute bottom-1/4 left-[10%] w-56 h-56 rounded-2xl bg-gradient-to-br from-[#1F2A44]/10 to-[#1F2A44]/5 backdrop-blur-sm border border-[#1F2A44]/10"
+          className="absolute bottom-1/4 left-[10%] w-56 h-56 rounded-2xl bg-linear-to-br from-[#1F2A44]/10 to-[#1F2A44]/5 backdrop-blur-sm border border-[#1F2A44]/10"
           animate={{ y: [0, -40, 0], rotate: [0, -15, 0] }}
           transition={{
             duration: 12,
@@ -120,7 +122,7 @@ export default function LandingPage() {
         />
 
         <motion.div
-          className="absolute bottom-32 right-[12%] w-44 h-44 rounded-full bg-gradient-to-br from-[#FF7F50]/20 to-[#FF7F50]/10 backdrop-blur-sm"
+          className="absolute bottom-32 right-[12%] w-44 h-44 rounded-full bg-linear-to-br from-[#FF7F50]/20 to-[#FF7F50]/10 backdrop-blur-sm"
           animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
           transition={{
             duration: 9,
@@ -165,7 +167,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-5 py-2 mt-5 bg-[#FFBF00]/10 border border-[#FFBF00]/30 rounded-full mb-8"
+              className="inline-flex items-center gap-2 px-5 py-2 sm:mt-5 bg-[#FFBF00]/10 border border-[#FFBF00]/30 rounded-full mb-8"
             >
               <Sparkles className="w-4 h-4 text-[#FFBF00]" />
               <span className="text-sm font-semibold text-[#1F2A44]">
@@ -213,7 +215,7 @@ export default function LandingPage() {
             className="flex flex-col sm:flex-row gap-5 justify-center items-center"
           >
             <Link
-              href="/upload"
+              href="/kiosks"
               className="group px-10 py-5 bg-[#1F2A44] text-[#F7F5EF] font-bold text-lg rounded-full hover:bg-[#2A3A5A] hover:shadow-2xl hover:shadow-[#1F2A44]/30 flex items-center justify-center gap-3 transition-all"
             >
               <Upload className="w-6 h-6" />
@@ -274,7 +276,7 @@ export default function LandingPage() {
       >
         {/* Floating objects */}
         <motion.div
-          className="absolute top-20 right-10 w-32 h-32 rounded-2xl bg-gradient-to-br from-[#FFBF00]/20 to-transparent border border-[#FFBF00]/20"
+          className="absolute top-20 right-10 w-32 h-32 rounded-2xl bg-linear-to-br from-[#FFBF00]/20 to-transparent border border-[#FFBF00]/20"
           animate={{ y: [0, -20, 0], rotate: [0, 15, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -381,7 +383,7 @@ export default function LandingPage() {
         className="py-32 px-6 bg-white relative overflow-hidden"
       >
         <motion.div
-          className="absolute top-1/4 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-[#8B9584]/20 to-transparent"
+          className="absolute top-1/4 left-10 w-40 h-40 rounded-full bg-linear-to-br from-[#8B9584]/20 to-transparent"
           animate={{ y: [0, 25, 0] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -491,7 +493,7 @@ export default function LandingPage() {
         className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
       >
         <motion.div
-          className="absolute bottom-20 right-20 w-48 h-48 rounded-3xl bg-gradient-to-br from-[#FF7F50]/20 to-transparent border border-[#FF7F50]/20"
+          className="absolute bottom-20 right-20 w-48 h-48 rounded-3xl bg-linear-to-br from-[#FF7F50]/20 to-transparent border border-[#FF7F50]/20"
           animate={{ y: [0, -25, 0], rotate: [0, -10, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -595,7 +597,7 @@ export default function LandingPage() {
               <span className="italic text-[#FFBF00]">Smarter</span>?
             </h2>
             <p className="text-xl text-[#F7F5EF]/80 mb-12 font-medium">
-              No signup required. Start printing in seconds.
+              Start printing in seconds.
             </p>
             <Link
               href="/upload"
