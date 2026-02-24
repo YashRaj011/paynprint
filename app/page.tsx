@@ -21,6 +21,8 @@ import {
   ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
+import LogoFull from "../Images/pnp_logo_full.png";
+import Image from "next/image";
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
@@ -55,8 +57,8 @@ export default function LandingPage() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <Link href="/" className="logo-text text-3xl">
-              pnp
+            <Link href="/" className=" ">
+              <Image src={LogoFull} alt="Logo" height={50} />
             </Link>
           </motion.div>
 
@@ -165,7 +167,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-5 py-2 mt-5 bg-[#FFBF00]/10 border border-[#FFBF00]/30 rounded-full mb-8"
+              className="inline-flex items-center gap-2 px-5 py-2 sm:mt-5 bg-[#FFBF00]/10 border border-[#FFBF00]/30 rounded-full mb-8"
             >
               <Sparkles className="w-4 h-4 text-[#FFBF00]" />
               <span className="text-sm font-semibold text-[#1F2A44]">
@@ -213,7 +215,7 @@ export default function LandingPage() {
             className="flex flex-col sm:flex-row gap-5 justify-center items-center"
           >
             <Link
-              href="/upload"
+              href="/kiosks"
               className="group px-10 py-5 bg-[#1F2A44] text-[#F7F5EF] font-bold text-lg rounded-full hover:bg-[#2A3A5A] hover:shadow-2xl hover:shadow-[#1F2A44]/30 flex items-center justify-center gap-3 transition-all"
             >
               <Upload className="w-6 h-6" />
@@ -381,7 +383,7 @@ export default function LandingPage() {
         className="py-32 px-6 bg-white relative overflow-hidden"
       >
         <motion.div
-          className="absolute top-1/4 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-[#8B9584]/20 to-transparent"
+          className="absolute top-1/4 left-10 w-40 h-40 rounded-full bg-linear-to-br from-[#8B9584]/20 to-transparent"
           animate={{ y: [0, 25, 0] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -595,7 +597,7 @@ export default function LandingPage() {
               <span className="italic text-[#FFBF00]">Smarter</span>?
             </h2>
             <p className="text-xl text-[#F7F5EF]/80 mb-12 font-medium">
-              No signup required. Start printing in seconds.
+              Start printing in seconds.
             </p>
             <Link
               href="/upload"
