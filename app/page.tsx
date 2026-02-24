@@ -94,13 +94,13 @@ export default function LandingPage() {
       <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
         {/* Floating Geometric Objects */}
         <motion.div
-          className="absolute top-32 left-[5%] w-48 h-48 rounded-3xl bg-gradient-to-br from-[#FFBF00]/20 to-[#D4A520]/10 backdrop-blur-sm border border-[#FFBF00]/20"
+          className="absolute top-32 left-[5%] w-48 h-48 rounded-3xl bg-linear-to-br from-[#FFBF00]/20 to-[#D4A520]/10 backdrop-blur-sm border border-[#FFBF00]/20"
           animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.div
-          className="absolute top-1/4 right-[8%] w-40 h-40 rounded-full bg-gradient-to-br from-[#20B2AA]/20 to-[#20B2AA]/10 backdrop-blur-sm"
+          className="absolute top-1/4 right-[8%] w-40 h-40 rounded-full bg-linear-to-br from-[#20B2AA]/20 to-[#20B2AA]/10 backdrop-blur-sm"
           animate={{ y: [0, 25, 0], scale: [1, 1.1, 1] }}
           transition={{
             duration: 10,
@@ -111,7 +111,7 @@ export default function LandingPage() {
         />
 
         <motion.div
-          className="absolute bottom-1/4 left-[10%] w-56 h-56 rounded-2xl bg-gradient-to-br from-[#1F2A44]/10 to-[#1F2A44]/5 backdrop-blur-sm border border-[#1F2A44]/10"
+          className="absolute bottom-1/4 left-[10%] w-56 h-56 rounded-2xl bg-linear-to-br from-[#1F2A44]/10 to-[#1F2A44]/5 backdrop-blur-sm border border-[#1F2A44]/10"
           animate={{ y: [0, -40, 0], rotate: [0, -15, 0] }}
           transition={{
             duration: 12,
@@ -122,7 +122,7 @@ export default function LandingPage() {
         />
 
         <motion.div
-          className="absolute bottom-32 right-[12%] w-44 h-44 rounded-full bg-gradient-to-br from-[#FF7F50]/20 to-[#FF7F50]/10 backdrop-blur-sm"
+          className="absolute bottom-32 right-[12%] w-44 h-44 rounded-full bg-linear-to-br from-[#FF7F50]/20 to-[#FF7F50]/10 backdrop-blur-sm"
           animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
           transition={{
             duration: 9,
@@ -276,7 +276,7 @@ export default function LandingPage() {
       >
         {/* Floating objects */}
         <motion.div
-          className="absolute top-20 right-10 w-32 h-32 rounded-2xl bg-gradient-to-br from-[#FFBF00]/20 to-transparent border border-[#FFBF00]/20"
+          className="absolute top-20 right-10 w-32 h-32 rounded-2xl bg-linear-to-br from-[#FFBF00]/20 to-transparent border border-[#FFBF00]/20"
           animate={{ y: [0, -20, 0], rotate: [0, 15, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -493,7 +493,7 @@ export default function LandingPage() {
         className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
       >
         <motion.div
-          className="absolute bottom-20 right-20 w-48 h-48 rounded-3xl bg-gradient-to-br from-[#FF7F50]/20 to-transparent border border-[#FF7F50]/20"
+          className="absolute bottom-20 right-20 w-48 h-48 rounded-3xl bg-linear-to-br from-[#FF7F50]/20 to-transparent border border-[#FF7F50]/20"
           animate={{ y: [0, -25, 0], rotate: [0, -10, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
