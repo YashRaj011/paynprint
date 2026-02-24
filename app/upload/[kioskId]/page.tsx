@@ -554,20 +554,24 @@ export default function UploadPage() {
                   <ArrowLeft className="w-5 h-5 text-[#1F2A44]" />
                 </Link>
                 {/* <Link href="/kiosks"> */}
-                  <Image src={ShortLogo} alt="short-logo" height={35} />
+                <Image src={ShortLogo} alt="short-logo" height={35} />
                 {/* </Link> */}
               </div>
 
               <div className="flex items-center gap-4">
                 <span className="text-sm text-[#1F2A44]/60">
-                  {printJobDetails ? "Step 3 of 3" : (fileProperties ? "Step 2 of 3" : "Step 1 of 3")}
+                  {printJobDetails
+                    ? "Step 3 of 3"
+                    : fileProperties
+                      ? "Step 2 of 3"
+                      : "Step 1 of 3"}
                 </span>
               </div>
             </nav>
           </header>
 
           {printJobDetails ? (
-            emailSent ? (
+            paymentStatus === "success" ? (
               <PaymentSuccess
                 printCode={printJobDetails.printCode}
                 email="yashrajvarma9@gmail.com"
@@ -708,7 +712,7 @@ export default function UploadPage() {
                                   ? "aspect-297/210"
                                   : "aspect-210/297"
                               } mx-auto
-    w-full max-w-[380px]
+    w-full max-w-95
     md:h-[75vh]
      bg-white rounded-lg shadow-lg flex justify-center`}
                             >

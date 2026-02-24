@@ -46,7 +46,7 @@ export default function CustomizePrintPage({
   return (
     <div>
       <form
-        className="flex flex-col gap-4 bg-gray-200 rounded-3xl p-8 w-[350px] shadow-xl space-y-6"
+        className="flex flex-col gap-4 bg-gray-200 rounded-3xl p-8 w-87.5 shadow-xl space-y-6"
         onSubmit={handleFinalUpload}
       >
         <Input
@@ -92,7 +92,7 @@ export default function CustomizePrintPage({
             <div
               className={`transition-all duration-300 space-y-4 overflow-hidden ${
                 pagesOption === "page-range"
-                  ? "opacity-100 max-h-[200px]"
+                  ? "opacity-100 max-h-50"
                   : "opacity-0 max-h-0 pointer-events-none"
               }`}
             >

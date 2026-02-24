@@ -46,7 +46,7 @@ export default function PaymentSuccess({
         className="pointer-events-none absolute -right-20 top-1/3 h-80 w-80 rounded-full bg-[#FFBF00]/10 blur-3xl"
       />
 
-      <div className="relative mx-auto w-full max-w-[980px] space-y-8">
+      <div className="relative mx-auto w-full max-w-245 space-y-8">
         <div className="rounded-3xl border border-[#1F2A44]/10 bg-white p-6 text-center shadow-[0_10px_24px_rgba(31,42,68,0.08)] sm:p-8 md:p-10">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#20B2AA]/15 text-[#20B2AA]">
             <CheckCircle2 className="h-8 w-8" />
