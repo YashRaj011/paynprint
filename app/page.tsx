@@ -57,7 +57,7 @@ export default function LandingPage() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <Link href="/" className=" ">
+            <Link href="/">
               <Image src={LogoFull} alt="Logo" height={50} />
             </Link>
           </motion.div>
@@ -82,7 +82,7 @@ export default function LandingPage() {
               Locations
             </a>
             <Link
-              href="/upload"
+              href="/kiosks"
               className="px-6 py-3 bg-gradient-gold text-white font-semibold rounded-full hover:shadow-xl hover:shadow-[#FFBF00]/30 transition-all transform hover:scale-105"
             >
               Get Started
@@ -600,7 +600,7 @@ export default function LandingPage() {
               Start printing in seconds.
             </p>
             <Link
-              href="/upload"
+              href="/kiosks"
               className="group px-12 py-6 bg-[#FFBF00] text-white text-lg font-bold rounded-full hover:bg-[#D4A520] hover:shadow-2xl hover:shadow-[#FFBF00]/30 flex items-center justify-center gap-3 mx-auto transition-all"
             >
               <Upload className="w-7 h-7" />
@@ -617,8 +617,8 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <Link href="/" className="logo-text text-2xl">
-                  pnp
+                <Link href="/">
+                  <Image src={LogoFull} alt="Logo" height={50} />
                 </Link>
               </div>
               <p className="text-sm text-[#1F2A44]/60 italic">
