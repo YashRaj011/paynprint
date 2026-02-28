@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
   Upload,
   Check,
@@ -19,10 +19,17 @@ import {
   CreditCard,
   Package,
   ChevronDown,
+  HelpCircle,
+  Mail,
+  Phone,
+  MapPin,
+  Plus,
+  Minus,
 } from "lucide-react";
 import Link from "next/link";
 import LogoFull from "../Images/pnp_logo_full.png";
 import Image from "next/image";
+import { faq } from "@/components/Faq";
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
@@ -80,6 +87,18 @@ export default function LandingPage() {
               className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
             >
               Locations
+            </a>
+            <a
+              href="#faq"
+              className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
+            >
+              FAQ
+            </a>
+            <a
+              href="#contact"
+              className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
+            >
+              Contact
             </a>
             <Link
               href="/kiosks"
@@ -611,6 +630,103 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section id="faq" className="py-32 px-6 bg-white relative overflow-hidden">
+        <div className="max-w-3xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-[#1F2A44]/70 font-medium">
+              Everything you need to know
+            </p>
+          </motion.div>
+
+          <div className="space-y-4">
+            {faq.map((item, index) => (
+              <FaqItem key={item.id} item={item} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
+              Get In Touch
+            </h2>
+            <p className="text-xl text-[#1F2A44]/70 font-medium">
+              We&apos;re here to help
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                icon: Mail,
+                title: "Email Us",
+                value: "support@paynprint.com",
+                href: "mailto:support@paynprint.com",
+                color: "#FFBF00",
+              },
+              {
+                icon: Phone,
+                title: "Call Us",
+                value: "1800-123-4567",
+                href: "tel:18001234567",
+                color: "#20B2AA",
+              },
+              {
+                icon: MapPin,
+                title: "Visit Us",
+                value: "Find a kiosk near you",
+                href: "/kiosks",
+                color: "#FF7F50",
+              },
+            ].map((contact, index) => {
+              const MotionComponent = contact.href.startsWith("/") ? motion.create(Link) : motion.a;
+              return (
+              <MotionComponent
+                key={index}
+                href={contact.href}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group bg-white rounded-3xl p-10 text-center hover:shadow-2xl transition-all duration-500 border border-[#1F2A44]/5"
+              >
+                <div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+                  style={{ backgroundColor: `${contact.color}20` }}
+                >
+                  <contact.icon
+                    className="w-8 h-8"
+                    style={{ color: contact.color }}
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-[#1F2A44] mb-2 font-cormorant">
+                  {contact.title}
+                </h3>
+                <p className="text-[#1F2A44]/70">{contact.value}</p>
+              </MotionComponent>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-[#F7F5EF] border-t border-[#1F2A44]/10 py-16 px-6">
         <div className="max-w-7xl mx-auto">
@@ -754,6 +870,53 @@ export default function LandingPage() {
         }
       `}</style>
     </div>
+  );
+}
+
+function FaqItem({ item, index }: { item: { id: number; question: string; answer: string }; index: number }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05 }}
+      className="bg-[#F7F5EF] rounded-2xl border border-[#1F2A44]/5 overflow-hidden"
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={`faq-answer-${item.id}`}
+        className="w-full flex items-center justify-between p-6 text-left hover:bg-[#1F2A44]/5 transition-colors"
+      >
+        <span className="text-lg font-bold text-[#1F2A44] pr-4 font-cormorant">
+          {item.question}
+        </span>
+        {isOpen ? (
+          <Minus className="w-5 h-5 text-[#FFBF00] shrink-0" />
+        ) : (
+          <Plus className="w-5 h-5 text-[#FFBF00] shrink-0" />
+        )}
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            id={`faq-answer-${item.id}`}
+            role="region"
+            aria-labelledby={`faq-question-${item.id}`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <p className="px-6 pb-6 text-[#1F2A44]/70 leading-relaxed whitespace-pre-line">
+              {item.answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 

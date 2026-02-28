@@ -14,6 +14,8 @@ import {
 import Link from "next/link";
 import axios from "axios";
 import Loading from "@/components/Loading";
+import { useNotification } from "@/components/Notification";
+import NotificationMessages, { getErrorMessage } from "@/components/NotificationMessages";
 // import DocumentPreview from "@/components/DocumentPreview";
 
 interface PaymentData {
@@ -69,6 +71,7 @@ declare global {
 
 export default function UploadPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { showError } = useNotification();
   const [fileUploadIsInvalid, setFileUploadIsInvalid] = useState(false);
   // const [showFileSpecsForm, setShowFileSpecsForm] = useState(false);
   // const [fileUploadLoading, setFileUploadLoading] = useState(false);
@@ -169,7 +172,10 @@ export default function UploadPage() {
         setPreviewUrl(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/upload/${fileResponseData.file.id}/preview/`);
       }
     }
-    catch (err) { console.error("File upload error:", err) }
+    catch (err: any) {
+      console.error("File upload error:", err);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.FILE_UPLOAD));
+    }
     finally {
       setIsLoading(false);
     }
@@ -216,6 +222,7 @@ export default function UploadPage() {
       }
     } catch (err: any) {
       console.error("Axios error:", err.response?.data || err.message);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.PAYMENT_INIT));
     }
   };
 

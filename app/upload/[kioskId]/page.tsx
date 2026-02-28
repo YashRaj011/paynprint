@@ -15,6 +15,8 @@ import {
 import Link from "next/link";
 import axios from "axios";
 import Loading from "@/components/Loading";
+import { useNotification } from "@/components/Notification";
+import NotificationMessages, { getErrorMessage } from "@/components/NotificationMessages";
 import { useRouter } from "next/navigation";
 import OrderPreview from "@/components/OrderReview";
 import PaymentSuccess from "@/components/PaymentSuccess";
@@ -146,6 +148,7 @@ export default function UploadPage() {
   console.log(urlKioskId);
 
   const router = useRouter();
+  const { showError } = useNotification();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileUploadIsInvalid, setFileUploadIsInvalid] = useState(false);
@@ -263,8 +266,9 @@ export default function UploadPage() {
           `${process.env.NEXT_PUBLIC_SERVER_URL}/api/upload/${fileResponseData.file.id}/preview/`,
         );
       }
-    } catch (err) {
-      console.error("File upload error:", err);
+    } catch (err: any) {
+      console.error("File upload error:", err.response);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.FILE_UPLOAD));
       setUploadComplete(false);
     } finally {
       setIsLoading(false);
@@ -309,8 +313,9 @@ export default function UploadPage() {
       if (response.status === 200) {
         console.log("Payment status updated successfully");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error updating payment status:", err);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.PAYMENT_STATUS_UPDATE));
     }
   };
 
@@ -339,6 +344,7 @@ export default function UploadPage() {
       }
     } catch (err: any) {
       console.error("Axios error:", err.response?.data || err.message);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.PAYMENT_INIT));
       setPaymentStatus("error");
       setIsLoading(false);
     }
@@ -383,11 +389,12 @@ export default function UploadPage() {
         setKioskValidationState("valid");
         setIsLoading(false);
       }, remaining);
-    } catch (err) {
+    } catch (err: any) {
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(2000 - elapsed, 0);
       setTimeout(() => {
         console.log("Error validating kiosk ID:", err);
+        showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.KIOSK_VALIDATION));
         setKioskValidationState("invalid");
         setIsLoading(false);
       }, remaining);
@@ -428,8 +435,9 @@ export default function UploadPage() {
         },
       );
       setEmailSent(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error sending email:", err);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.EMAIL_SEND));
       setEmailSent(false);
     }
   };
@@ -485,8 +493,9 @@ export default function UploadPage() {
       throw new Error(
         `Failed to create print job: ${printJobResponse.statusText}`,
       );
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error creating print job:", err);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.PRINT_JOB_CREATE));
       setIsLoading(false);
       return {
         success: false,
