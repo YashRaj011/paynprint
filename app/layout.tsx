@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Nunito } from "next/font/google";
 import "./globals.css";
+import { NotificationProvider } from "@/components/Notification";
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: "400",
@@ -34,7 +35,9 @@ export default function RootLayout({
       <body
         className={`${cormorantGaramond.variable} ${nunito.variable} antialiased`}
       >
-        {children}
+        <NotificationProvider>
+          {children}
+        </NotificationProvider>
       </body>
     </html>
   );

@@ -3,6 +3,8 @@ import KioskDirectoryPage, {
   type KioskInfo,
 } from "@/components/KioskDirectoryPage";
 import Loading from "@/components/Loading";
+import { useNotification } from "@/components/Notification";
+import NotificationMessages, { getErrorMessage } from "@/components/NotificationMessages";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -57,12 +59,18 @@ import { useEffect, useState } from "react";
 export default function KiosksPage() {
   const [kiosk, setKiosk] = useState<KioskInfo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { showError } = useNotification();
   const fetchData = async () => {
-    const fetchKioskData = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/kiosk/`,
-    );
-    console.log("Fetched Kiosk Data:", fetchKioskData.data);
-    setKiosk(fetchKioskData.data.kiosks);
+    try {
+      const fetchKioskData = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/kiosk/`,
+      );
+      console.log("Fetched Kiosk Data:", fetchKioskData.data);
+      setKiosk(fetchKioskData.data.kiosks);
+    } catch (err: any) {
+      console.error("Error fetching kiosks:", err);
+      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.KIOSK_FETCH));
+    }
   };
 
   useEffect(() => {
