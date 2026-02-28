@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useRef, useEffect, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -24,15 +24,29 @@ let nextId = 0;
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const timersRef = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
+
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach((timer) => clearTimeout(timer));
+      timersRef.current.clear();
+    };
+  }, []);
 
   const removeNotification = useCallback((id: number) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
+    const timer = timersRef.current.get(id);
+    if (timer) {
+      clearTimeout(timer);
+      timersRef.current.delete(id);
+    }
   }, []);
 
   const showError = useCallback((message: string) => {
     const id = ++nextId;
     setNotifications((prev) => [...prev, { id, message }]);
-    setTimeout(() => removeNotification(id), 5000);
+    const timer = setTimeout(() => removeNotification(id), 5000);
+    timersRef.current.set(id, timer);
   }, [removeNotification]);
 
   return (

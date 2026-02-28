@@ -695,8 +695,10 @@ export default function LandingPage() {
                 href: "/kiosks",
                 color: "#FF7F50",
               },
-            ].map((contact, index) => (
-              <motion.a
+            ].map((contact, index) => {
+              const MotionComponent = contact.href.startsWith("/") ? motion.create(Link) : motion.a;
+              return (
+              <MotionComponent
                 key={index}
                 href={contact.href}
                 initial={{ opacity: 0, y: 30 }}
@@ -718,8 +720,9 @@ export default function LandingPage() {
                   {contact.title}
                 </h3>
                 <p className="text-[#1F2A44]/70">{contact.value}</p>
-              </motion.a>
-            ))}
+              </MotionComponent>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -883,6 +886,8 @@ function FaqItem({ item, index }: { item: { id: number; question: string; answer
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={`faq-answer-${item.id}`}
         className="w-full flex items-center justify-between p-6 text-left hover:bg-[#1F2A44]/5 transition-colors"
       >
         <span className="text-lg font-bold text-[#1F2A44] pr-4 font-cormorant">
@@ -897,6 +902,9 @@ function FaqItem({ item, index }: { item: { id: number; question: string; answer
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={`faq-answer-${item.id}`}
+            role="region"
+            aria-labelledby={`faq-question-${item.id}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
