@@ -361,7 +361,7 @@ export default function UploadPage() {
     const startTime = Date.now();
     setIsLoading(true);
     setKioskValidationState("loading");
-    setLoadingMessage("Finding kiosk");
+    setLoadingMessage("Setting Up Your Print Session");
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/kiosk/${urlKioskId}`,
@@ -518,19 +518,19 @@ export default function UploadPage() {
             </div>
 
             <h1 className="text-2xl font-bold text-[#1F2A44]">
-              Kiosk Not Available
+              Print Booth Not Available
             </h1>
 
             <p className="mt-3 text-sm font-medium text-[#1F2A44]/70">
-              This kiosk is currently offline or does not exist. Please choose
-              another kiosk to continue.
+              This Print Booth is currently offline or does not exist. Please
+              choose another Print Booth to continue.
             </p>
 
             <a
               href="/kiosks"
               className="mt-6 inline-block rounded-full bg-[#FFBF00] px-6 py-3 text-sm font-bold text-[#1F2A44] shadow-md transition-all duration-200 hover:shadow-lg active:scale-[0.97]"
             >
-              Browse Kiosks
+              Browse Print Booths
             </a>
           </div>
         </div>

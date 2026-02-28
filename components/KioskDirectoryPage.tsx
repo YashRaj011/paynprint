@@ -72,12 +72,12 @@ export default function KioskDirectoryPage({
             >
               <ArrowLeft className="h-5 w-5 text-[#1F2A44]" />
             </Link>
-            <Link href="/" >
-              <Image src={ShortLogo} alt="short-logo" height={35}/>
+            <Link href="/">
+              <Image src={ShortLogo} alt="short-logo" height={35} />
             </Link>
           </div>
           <span className="text-sm font-semibold text-[#1F2A44]/60">
-            Kiosk Directory
+            Print Booth Directory
           </span>
         </nav>
       </header>
@@ -95,10 +95,10 @@ export default function KioskDirectoryPage({
         <section className="relative mx-auto max-w-7xl">
           <div className="text-center">
             <h1 className="font-cormorant text-4xl font-bold text-[#1F2A44] sm:text-5xl md:text-6xl">
-              Find a Kiosk Fast
+              Find Your Nearest Print Booth
             </h1>
             <p className="mx-auto mt-2 max-w-3xl text-base font-semibold text-[#1F2A44]/70 sm:text-lg">
-              Scroll, skim, and pick your nearest kiosk in seconds.
+              and get started in seconds
             </p>
           </div>
 
@@ -109,7 +109,7 @@ export default function KioskDirectoryPage({
                 <Link
                   key={kiosk.id}
                   href={`/upload/${kiosk.id}`}
-                  className="group"
+                  className={`${!(kiosk.status === "online") ? "pointer-events-none" : "pointer-events-auto"} group `}
                   prefetch
                 >
                   <article
