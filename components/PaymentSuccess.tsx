@@ -6,6 +6,7 @@ import { useEffect } from "react";
 interface PrintSuccessProps {
   printCode: string;
   email: string;
+  emailSent?: boolean;
   kioskName?: string;
   supportPhone?: string;
   supportEmail?: string;
@@ -22,6 +23,7 @@ const collectionSteps = [
 export default function PaymentSuccess({
   printCode,
   email,
+  emailSent = false,
   kioskName = "KIOSK-A-101",
   supportPhone = "+91 98765 43210",
   supportEmail = "support@paynprint.com",
@@ -67,14 +69,18 @@ export default function PaymentSuccess({
               {printCode}
             </p>
             <p className="mt-4 text-sm font-semibold text-[#1F2A44]/75 sm:text-base">
-              This code has been sent to your email:{" "}
-              <span className="font-bold text-[#1F2A44]">{email}</span>
+              {emailSent ? (
+                <>This code has been sent to your email:{" "}
+                <span className="font-bold text-[#1F2A44]">{email}</span></>
+              ) : (
+                <span className="text-red-500">Email delivery failed. Please note your print code above.</span>
+              )}
             </p>
           </div>
 
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#D7F4F1] px-4 py-2 text-sm font-semibold text-[#1F2A44]">
-            <Mail className="h-4 w-4 text-[#20B2AA]" />
-            Delivery confirmed to inbox
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[#1F2A44]" style={{ backgroundColor: emailSent ? '#D7F4F1' : '#FEE2E2' }}>
+            <Mail className={`h-4 w-4 ${emailSent ? 'text-[#20B2AA]' : 'text-red-500'}`} />
+            {emailSent ? 'Delivery confirmed to inbox' : 'Email could not be delivered'}
           </div>
 
           {onDone ? (

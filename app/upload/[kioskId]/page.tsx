@@ -283,6 +283,7 @@ export default function UploadPage() {
   };
 
   function callback(response: string) {
+    document.body.style.overflow = "";
     if (response === "USER_CANCEL") {
       /* Add merchant's logic if they have any custom thing to trigger on UI after the transaction is cancelled by the user*/
       console.log("Transaction cancelled by user");
@@ -336,6 +337,7 @@ export default function UploadPage() {
         console.log("PhonePeCheckout is available", window.PhonePeCheckout);
         console.log("res : ", res);
         console.log("response : ", ApiRes.data);
+        document.body.style.overflow = "hidden";
         window.PhonePeCheckout.transact({
           tokenUrl: ApiRes.data?.payData.redirectUrl,
           callback,
@@ -428,13 +430,13 @@ export default function UploadPage() {
     setIsLoading(true);
     setLoadingMessage("Sending confirmation email");
     try {
-      await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/printorder/sendEmail/${printJobDetails?.id}`,
         {
           email: "yashrajvarma9@gmail.com",
         },
       );
-      setEmailSent(true);
+      setEmailSent(response.data?.emailSent === true);
     } catch (err: any) {
       console.error("Error sending email:", err);
       showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.EMAIL_SEND));
@@ -584,6 +586,7 @@ export default function UploadPage() {
               <PaymentSuccess
                 printCode={printJobDetails.printCode}
                 email="yashrajvarma9@gmail.com"
+                emailSent={emailSent}
                 kioskName={printJobDetails.kioskName}
               />
             ) : (
