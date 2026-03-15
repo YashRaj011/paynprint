@@ -227,8 +227,8 @@ export default function OrderPreview() {
   const kioskId = params?.kioskId;
 
   const pricing = {
-    bw: { single: 2.5, double: 4 },
-    color: { single: 5, double: 10 },
+    bw: { single: 1.8, double: 3.5 },
+    color: { single: 8, double: 16 },
   };
 
   const [isLoading, setIsLoading] = useState(true);
@@ -250,6 +250,7 @@ export default function OrderPreview() {
   const [user, setUser] = useState<User | undefined>(undefined);
   const [showUserInfoModal, setShowuserInfoPhoneModal] = useState(false);
   const [printJobId, setPrintJobId] = useState<string>("");
+  const [Total, setTotal] = useState<number>(0);
 
   const calculateTotal = () => {
     const pages = currentFileDetails?.pageCount ?? 0;
@@ -331,7 +332,7 @@ export default function OrderPreview() {
     try {
       const ApiRes = await axios.post("/api/phonepe/createPayment", {
         merchantOrderId: merchantOrderId,
-        amount: calculateTotal().total * 100, // Amount in paise
+        amount: (Number(currentDraftDetails!.totalPrice)) * 100, // Amount in paise
       });
       console.log("Response:", ApiRes.data);
       setRes(ApiRes.data as PaymentResponse);
@@ -399,7 +400,7 @@ export default function OrderPreview() {
       const printJobResponse = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/printorder/`,
         {
-          draftId: draftId
+          draftId: draftId,
         },
         {
           withCredentials: true,
@@ -411,7 +412,7 @@ export default function OrderPreview() {
 
       if (printJobResponse.status === 201) {
         const printJobResponseData = printJobResponse.data as PrintJobResponse;
-        setPrintJobId(printJobResponseData.job.id)
+        setPrintJobId(printJobResponseData.job.id);
         await handlePayment();
       }
     } catch (err: any) {
@@ -423,8 +424,7 @@ export default function OrderPreview() {
         ),
       );
     }
-  
-  }
+  };
 
   const sendEmail = async () => {
     setIsLoading(true);
@@ -519,9 +519,7 @@ export default function OrderPreview() {
       setLoadingMessage("Sending Email");
       sendEmail();
       setIsLoading(false);
-      router.push(
-        `/kiosk/${kioskId}/success/${printJobId}`,
-      );
+      router.push(`/kiosk/${kioskId}/success/${printJobId}`);
     }
   }, [paymentStatus]);
 
@@ -567,12 +565,14 @@ export default function OrderPreview() {
             </nav>
           </header>
           <UserInfoModal
-              isOpen={showUserInfoModal}
-              onConfirm={(phone) => {createPrintJob()}}
-              onSkip={() => {
-                setShowuserInfoPhoneModal(false);
-              }}
-              user={user}
+            isOpen={showUserInfoModal}
+            onConfirm={(phone) => {
+              createPrintJob();
+            }}
+            onSkip={() => {
+              setShowuserInfoPhoneModal(false);
+            }}
+            user={user}
           />
           <section className="relative isolate overflow-hidden rounded-3xl bg-[#F7F5EF] p-4 sm:p-6 md:p-8 mt-18">
             <div
