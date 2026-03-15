@@ -412,7 +412,7 @@ export default function OrderPreview() {
       if (printJobResponse.status === 201) {
         const printJobResponseData = printJobResponse.data as PrintJobResponse;
         setPrintJobId(printJobResponseData.job.id)
-        setPaymentStatus("success");
+        await handlePayment();
       }
     } catch (err: any) {
       console.error("Error creating print job:", err);
