@@ -87,7 +87,7 @@ export default function Loading({ text }: { text: string }) {
       />
 
       {/* Content container - responsive */}
-      <div className="relative flex flex-col items-center justify-center max-w-[650px] w-full px-4">
+      <div className="relative flex flex-col items-center justify-center max-w-162.5 w-full px-4">
         {/* Spinner */}
         <motion.div
           animate={{ rotate: 360 }}

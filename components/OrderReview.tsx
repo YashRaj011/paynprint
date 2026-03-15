@@ -245,7 +245,7 @@ export default function OrderPreview({
             type="button"
             onClick={ArchivePrintJob}
             disabled={isProcessing}
-            className="inline-flex select-none items-center gap-2 rounded-xl bg-[#1F2A44] px-7 py-3.5 text-sm font-bold text-[#FFBF00] shadow-[0_8px_18px_rgba(255,191,0,0.35)] transition-colors duration-150 hover:bg-[#f4b500] active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex select-none items-center gap-2 rounded-xl bg-[#1F2A44] px-7 py-3.5 text-sm font-bold text-[#FFBF00] shadow-[0_8px_18px_rgba(255,191,0,0.35)] transition-colors duration-150 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60"
             style={{ WebkitTapHighlightColor: "transparent" }}
           >
             <PenIcon className="h-4 w-4" />

@@ -108,7 +108,7 @@ export default function KioskDirectoryPage({
               .map((kiosk) => (
                 <Link
                   key={kiosk.id}
-                  href={`/upload/${kiosk.id}`}
+                  href={`kiosk/${kiosk.id}/upload`}
                   className={`${!(kiosk.status === "online") ? "pointer-events-none" : "pointer-events-auto"} group `}
                   prefetch
                 >

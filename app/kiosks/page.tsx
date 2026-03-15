@@ -65,10 +65,9 @@ export default function KiosksPage() {
       const fetchKioskData = await axios.get(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/kiosk/`,
       );
-      console.log("Fetched Kiosk Data:", fetchKioskData.data);
       setKiosk(fetchKioskData.data.kiosks);
     } catch (err: any) {
-      console.error("Error fetching kiosks:", err);
+      console.error("Error fetching print booths:", err);
       showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.KIOSK_FETCH));
     }
   };
@@ -80,7 +79,7 @@ export default function KiosksPage() {
   }, []);
 
   return isLoading || kiosk.length === 0 ? (
-    <Loading text="Fetching kiosks" />
+    <Loading text="Fetching Print Booths" />
   ) : (
     <KioskDirectoryPage kiosks={kiosk} />
   );

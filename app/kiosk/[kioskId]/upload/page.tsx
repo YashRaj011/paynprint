@@ -6,36 +6,21 @@ import {
   X,
   FileText,
   Settings,
-  Check,
-  CreditCard,
   ArrowLeft,
-  Printer,
   AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { useNotification } from "@/components/Notification";
-import NotificationMessages, { getErrorMessage } from "@/components/NotificationMessages";
-import { useRouter } from "next/navigation";
-import OrderPreview from "@/components/OrderReview";
-import PaymentSuccess from "@/components/PaymentSuccess";
+import NotificationMessages, {
+  getErrorMessage,
+} from "@/components/NotificationMessages";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useParams } from "next/navigation";
 import CurrentKioskCard from "@/components/CurrentKioskCard";
-import ShortLogo from "../../../Images/pnp_logo-cropped.svg"
+import ShortLogo from "@/Images/pnp_logo-cropped.svg";
 import Image from "next/image";
-// import DocumentPreview from "@/components/DocumentPreview";
-
-interface PaymentData {
-  orderId: string;
-  state: string;
-  expiresAt: number;
-  redirectUrl: string;
-}
-interface PaymentResponse {
-  success: string;
-  payData: PaymentData;
-}
 
 interface PrintSettings {
   copies: number;
@@ -133,6 +118,60 @@ interface PrintJobResponse {
   warnings: string[];
 }
 
+interface PrintDraftObject {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string | null;
+  userEmail: string | null;
+  userPhone: string | null;
+  sessionId: string;
+  expiresAt: Date;
+  fileId: string;
+  status: string;
+  kioskId: string;
+  copies: number;
+  colorMode: string;
+  paperSize: string;
+  pagesToPrint: string;
+  duplex: boolean;
+  orientation: string | null;
+  pricePerPage: string;
+  totalPages: number;
+  sheetsNeeded: number;
+  totalPrice: string;
+  paymentId: string | null;
+  paymentStatus: string | null;
+  printJobId: string | null;
+  completedAt: Date | null;
+}
+
+// interface CurrentFileDetails {
+//   id: string;
+//   originalName: string;
+//   pageCount: number;
+//   mimeType: string;
+// }
+
+// interface CurrentKioskDetails {
+//   id: string;
+//   publicId: string;
+//   name: string;
+//   location: string;
+// }
+
+interface PrintDraftObjectResponse {
+  draft: PrintDraftObject;
+  file: fileProperties;
+  kiosk: kioskObject;
+}
+
+interface CreatePrintDraftResponse {
+  success: boolean;
+  // draft: PrintDraftObject;
+  dId: string;
+}
+
 declare global {
   interface Window {
     PhonePeCheckout: any;
@@ -141,34 +180,32 @@ declare global {
 
 export default function UploadPage() {
   const params = useParams();
-  console.log("FULL PARAMS:", params);
-
+  const searchParams = useSearchParams();
   const urlKioskId = params?.kioskId;
-
-  console.log(urlKioskId);
+  const urlDraftId = searchParams?.get("drId");
 
   const router = useRouter();
   const { showError } = useNotification();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [fileUploadIsInvalid, setFileUploadIsInvalid] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [kioskValidationState, setKioskValidationState] = useState<
     "loading" | "valid" | "invalid"
   >("loading");
-  const [emailSent, setEmailSent] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
   const [fileProperties, setfileProperties] = useState<
     fileProperties | undefined
   >();
-  const [printJobDetails, setPrintJobDetails] = useState<PrintJobObject | null>(
-    null,
-  );
+  const [UploadPageRenderState, setUploadPageRenderState] = useState<
+    "upload" | "configure"
+  >(fileProperties ? "configure" : "upload");
+  const [isLoading, setIsLoading] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
+  const [printDraftId, setPrintDraftId] = useState<string | null>(null);
+  // const [urlDraftId, setUrlDraftId] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | "">("");
-  const [paymentStatus, setPaymentStatus] = useState<
-    "idle" | "processing" | "success" | "error"
-  >("idle");
+  // const [paymentStatus, setPaymentStatus] = useState<
+  //   "idle" | "processing" | "success" | "error"
+  // >("idle");
   const [printSetting, setprintSetting] = useState<PrintSettings>({
     copies: 1,
     colorMode: "bw",
@@ -177,31 +214,13 @@ export default function UploadPage() {
     sides: "single",
     quality: "standard",
   });
-  const [currentKioskDetials, setCurrentKioskDetials] = useState<kioskObject | null>(null);
+  const [currentKioskDetials, setCurrentKioskDetials] =
+    useState<kioskObject | null>(null);
   const [loadingMessage, setLoadingMessage] = useState<string>("");
 
   const pricing = {
     bw: { single: 2.5, double: 4 },
     color: { single: 5, double: 10 },
-  };
-
-  const calculateTotal = () => {
-    const pages = fileProperties?.pageCount ?? 0;
-    const copies = printSetting.copies;
-    const price = pricing[printSetting.colorMode];
-    if (printSetting.sides === "single") {
-      return {
-        subtotal: pages * price.single,
-        total: pages * price.single * copies,
-      };
-    }
-    const sheets = Math.floor(pages / 2);
-    const hasExtraPage = pages % 2 !== 0;
-
-    const perCopyTotal =
-      sheets * price.double + (hasExtraPage ? price.single : 0);
-
-    return { subtotal: perCopyTotal, total: perCopyTotal * copies };
   };
 
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -233,7 +252,7 @@ export default function UploadPage() {
 
   const handleFile = async (file: File) => {
     setIsLoading(true);
-    setLoadingMessage("Processing your document");
+    setLoadingMessage("Setting up your print preview");
     const formData = new FormData();
     formData.append("file", file);
     try {
@@ -268,102 +287,130 @@ export default function UploadPage() {
       }
     } catch (err: any) {
       console.error("File upload error:", err.response);
-      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.FILE_UPLOAD));
+      showError(
+        getErrorMessage(
+          err?.response?.data?.error,
+          NotificationMessages.FILE_UPLOAD,
+        ),
+      );
       setUploadComplete(false);
     } finally {
       setIsLoading(false);
     }
   };
-  const [res, setRes] = useState<PaymentResponse>();
 
-  const generateMerchantOrderId = (): string => {
-    const randomStr = Math.random().toString(36).substring(2, 10);
-    const timestamp = Date.now();
-    return `ORD-${randomStr}-${timestamp}`;
-  };
+  // async function handleInitialUpload(evt: React.FormEvent) {
+  //    setIsLoading(true);
+  //   evt.preventDefault();
+  //   if (!fileInputRef.current?.files?.[0]) return;
+  //   if (fileInputRef.current?.files?.[0].type != "application/pdf") {
+  //     setFileUploadIsInvalid(true);
+  //     setFileUploadIsInvalid(false);
+  //   }
+  //    setShowFileSpecsForm(true);
 
-  function callback(response: string) {
-    if (response === "USER_CANCEL") {
-      /* Add merchant's logic if they have any custom thing to trigger on UI after the transaction is cancelled by the user*/
-      console.log("Transaction cancelled by user");
-      setPaymentStatus("idle");
-      setIsLoading(false);
-      setRes(undefined);
-      return;
-    } else if (response === "CONCLUDED") {
-      console.log("Transaction concluded successfully");
-      setPaymentStatus("success");
-      setIsLoading(false);
-      /* Add merchant's logic if they have any custom thing to trigger on UI after the transaction is in terminal state*/
-      return;
-    }
-  }
+  //    handlePayment();
+  // }
 
-  const updateJobPaymentStatus = async (jobId: string, status: string) => {
-    setIsLoading(true);
-    setLoadingMessage("Updating payment status");
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/printorder/updatePayment/${jobId}`,
-        {
-          status: status,
-          transactionId: res?.payData.orderId || "N/A",
-        },
-      );
-      if (response.status === 200) {
-        console.log("Payment status updated successfully");
+  const CreatePrintJobDraft = async () => {
+    if (urlDraftId) {
+      setIsLoading(true);
+      setLoadingMessage("Applying New Print Settings");
+      try {
+        const printDraftResponse = await axios.patch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/drafts/${urlDraftId}`,
+          {
+            // fileId: fileProperties?.id as string,
+            // kioskId: urlKioskId as string,
+            copies: printSetting.copies,
+            colorMode: printSetting.colorMode,
+            paperSize: printSetting.paperSize,
+            pagesToPrint: "all",
+            duplex: printSetting.sides === "double",
+            orientation: printSetting.orientation,
+          },
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        if (printDraftResponse.status !== 200) {
+          setIsLoading(false);
+          throw new Error(
+            `Failed to patch draft print job: ${printDraftResponse.statusText}`,
+          );
+        }
+        router.push(`review/${urlDraftId}`);
+        setIsLoading(false);
+      } catch (err: any) {
+        console.error("Error creating print job draft:", err);
+        showError(
+          getErrorMessage(
+            err?.response?.data?.error,
+            NotificationMessages.PRINT_JOB_CREATE,
+          ),
+        );
+        setIsLoading(false);
+        return {
+          success: false,
+          dId: "",
+        } as CreatePrintDraftResponse;
       }
-    } catch (err: any) {
-      console.error("Error updating payment status:", err);
-      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.PAYMENT_STATUS_UPDATE));
-    }
-  };
-
-  const handlePayment = async () => {
-    setIsLoading(true);
-    setLoadingMessage("Redirecting to payment gateway");
-    setPaymentStatus("processing");
-    const merchantOrderId = generateMerchantOrderId();
-    try {
-      const ApiRes = await axios.post("/api/phonepe/createPayment", {
-        merchantOrderId: merchantOrderId,
-        amount: calculateTotal().total * 100, // Amount in paise
-      });
-      console.log("Response:", ApiRes.data);
-      setRes(ApiRes.data as PaymentResponse);
-
-      if (window && window.PhonePeCheckout && window.PhonePeCheckout.transact) {
-        console.log("PhonePeCheckout is available", window.PhonePeCheckout);
-        console.log("res : ", res);
-        console.log("response : ", ApiRes.data);
-        window.PhonePeCheckout.transact({
-          tokenUrl: ApiRes.data?.payData.redirectUrl,
-          callback,
-          type: "IFRAME",
-        });
+    } else {
+      setIsLoading(true);
+      setLoadingMessage("Getting everything ready for your print");
+      try {
+        const printDraftResponse = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/drafts/`,
+          {
+            fileId: fileProperties?.id as string,
+            kioskId: urlKioskId as string,
+            copies: printSetting.copies,
+            colorMode: printSetting.colorMode,
+            paperSize: printSetting.paperSize,
+            pagesToPrint: "all",
+            duplex: printSetting.sides === "double",
+            orientation: printSetting.orientation,
+          },
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        if (printDraftResponse.status !== 201) {
+          setIsLoading(false);
+          throw new Error(
+            `Failed to initialize print job: ${printDraftResponse.statusText}`,
+          );
+        }
+        const responseData =
+          printDraftResponse.data as CreatePrintDraftResponse;
+        setPrintDraftId(responseData.dId);
+        router.push(`review/${responseData.dId}`);
+        setIsLoading(false);
+      } catch (err: any) {
+        console.error("Error creating print job draft:", err);
+        showError(
+          getErrorMessage(
+            err?.response?.data?.error,
+            NotificationMessages.PRINT_JOB_CREATE,
+          ),
+        );
+        setIsLoading(false);
+        return {
+          success: false,
+          dId: "",
+        } as CreatePrintDraftResponse;
       }
-    } catch (err: any) {
-      console.error("Axios error:", err.response?.data || err.message);
-      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.PAYMENT_INIT));
-      setPaymentStatus("error");
-      setIsLoading(false);
     }
   };
-
-  async function handleInitialUpload(evt: React.FormEvent) {
-    // setIsLoading(true);
-    evt.preventDefault();
-    if (!fileInputRef.current?.files?.[0]) return;
-    if (fileInputRef.current?.files?.[0].type != "application/pdf") {
-      setFileUploadIsInvalid(true);
-      setFileUploadIsInvalid(false);
-    }
-    // setShowFileSpecsForm(true);
-
-    // handlePayment();
-  }
 
   const validate = async () => {
+    console.log("in validate");
     const startTime = Date.now();
     setIsLoading(true);
     setKioskValidationState("loading");
@@ -393,119 +440,139 @@ export default function UploadPage() {
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(2000 - elapsed, 0);
       setTimeout(() => {
-        console.log("Error validating kiosk ID:", err);
-        showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.KIOSK_VALIDATION));
+        console.log("Error validating print booth:", err);
+        showError(
+          getErrorMessage(
+            err?.response?.data?.error,
+            NotificationMessages.KIOSK_VALIDATION,
+          ),
+        );
         setKioskValidationState("invalid");
         setIsLoading(false);
       }, remaining);
     }
   };
 
-  useEffect(() => {
-    if (!urlKioskId) return;
-    validate();
-  }, [urlKioskId]);
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://mercury.phonepe.com/web/bundle/checkout.js";
-    script.async = true;
-    script.onload = () => {
-      console.log("PhonePe script loaded", window.PhonePeCheckout);
-    };
-    document.body.appendChild(script);
-    setprintSetting({
-      copies: 1,
-      colorMode: "bw",
-      paperSize: "A4",
-      orientation: "portrait",
-      sides: "single",
-      quality: "standard",
-    });
-  }, []);
-
-  const sendEmail = async () => {
+  const setPreviousPrintSettings = async (dId: string) => {
+    // await validate();
+    // if (
+    //   kioskValidationState !== "loading" &&
+    //   kioskValidationState !== "valid"
+    // ) {
+    //   console.log("kiosk : ", kioskValidationState);
+    //   throw new Error(`Error validating print booth`);
+    // }
+    console.log("in setting prev");
+    const startTime = Date.now();
     setIsLoading(true);
-    setLoadingMessage("Sending confirmation email");
+    setKioskValidationState("loading");
+    setLoadingMessage("Rewinding your print settings");
     try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/printorder/sendEmail/${printJobDetails?.id}`,
-        {
-          email: "yashrajvarma9@gmail.com",
-        },
+      const printDraftResponse = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/drafts/${dId}`,
+        { withCredentials: true },
       );
-      setEmailSent(true);
-    } catch (err: any) {
-      console.error("Error sending email:", err);
-      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.EMAIL_SEND));
-      setEmailSent(false);
-    }
-  };
-
-  useEffect(() => {
-    if (paymentStatus === "success") {
-      setIsLoading(true);
-      setLoadingMessage("Updating Payment Status");
-      setPrintJobDetails((prev) =>
-        prev ? { ...prev, paymentStatus: "paid", status: "ready" } : prev,
-      );
-      updateJobPaymentStatus(printJobDetails?.id as string, "paid");
-      setLoadingMessage("Sending Email");
-      sendEmail();
-      setIsLoading(false);
-    }
-  }, [paymentStatus]);
-
-  const ArchivePrintJob = async () => {
-    setPrintJobDetails(null);
-  };
-
-  const CreatePrintJob = async () => {
-    setIsLoading(true);
-    setLoadingMessage("Creating your print job");
-    try {
-      const printJobResponse = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/printorder/`,
-        {
-          fileId: fileProperties?.id as string,
-          kioskId: urlKioskId as string,
-          copies: printSetting.copies,
-          colorMode: printSetting.colorMode,
-          paperSize: printSetting.paperSize,
-          pagesToPrint: "all",
-          orientation: printSetting.orientation,
-          duplex: printSetting.sides === "double",
-          userEmail: "yashrajvarma9@gmail.com",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      if (printJobResponse.status == 201) {
-        const responseData = printJobResponse.data as PrintJobResponse;
-        console.log("Print job created:", responseData);
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(2000 - elapsed, 0);
+      setTimeout(() => {
+        if (printDraftResponse.status !== 200) {
+          console.log("in prev call error");
+          setKioskValidationState("invalid");
+          setIsLoading(false);
+          setPrintDraftId(null);
+          setCurrentKioskDetials(null);
+          throw new Error(
+            `Failed to Fetch print job: ${printDraftResponse.statusText}`,
+          );
+        }
+        console.log("in prev call succ");
+        const responseData =
+          printDraftResponse.data as PrintDraftObjectResponse;
+        setPrintDraftId(null);
+        setfileProperties({
+          id: responseData.file.id,
+          originalName: responseData.file.originalName,
+          mimeType: responseData.file.mimeType,
+          size: Number((responseData.file.size / 1024).toFixed(2)),
+          pageCount: responseData.file.pageCount,
+          uploadedAt: new Date(responseData.file.uploadedAt),
+          previewAvailable: responseData.file.previewAvailable,
+        });
+        setCurrentKioskDetials(responseData.kiosk);
+        setprintSetting({
+          copies: responseData.draft.copies,
+          colorMode: responseData.draft.colorMode === "color" ? "color" : "bw",
+          paperSize: responseData.draft.paperSize,
+          orientation:
+            responseData.draft.orientation === "landscape"
+              ? "landscape"
+              : "portrait",
+          sides: responseData.draft.duplex === true ? "double" : "single",
+          quality: "standard",
+        });
         setIsLoading(false);
-        setPrintJobDetails(responseData.job);
-        return responseData;
-      }
-      throw new Error(
-        `Failed to create print job: ${printJobResponse.statusText}`,
-      );
+        setKioskValidationState("valid");
+        if (responseData.file.previewAvailable) {
+          setPreviewUrl(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/upload/${responseData.file.id}/preview/`,
+          );
+        }
+      }, remaining);
     } catch (err: any) {
-      console.error("Error creating print job:", err);
-      showError(getErrorMessage(err?.response?.data?.error, NotificationMessages.PRINT_JOB_CREATE));
+      console.error("Error Fetching print job details:", err);
+      showError(
+        getErrorMessage(
+          err?.response?.data?.error,
+          NotificationMessages.PRINT_SETTING_FETCH,
+        ),
+      );
       setIsLoading(false);
       return {
-        success: false,
-        message: err,
-        job: {} as PrintJobObject,
-        notifications: { email: false },
-        warnings: [],
-      } as PrintJobResponse;
+        draft: {} as PrintDraftObject,
+        file: {} as fileProperties,
+        kiosk: {} as kioskObject,
+      } as PrintDraftObjectResponse;
     }
   };
+
+  useEffect(() => {
+    if (urlDraftId) {
+      console.log("in draft");
+      setPreviousPrintSettings(urlDraftId);
+      return;
+    }
+    validate();
+  }, [urlDraftId, urlKioskId]);
+
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://mercury.phonepe.com/web/bundle/checkout.js";
+  //   script.async = true;
+  //   script.onload = () => {
+  //     console.log("PhonePe script loaded", window.PhonePeCheckout);
+  //   };
+  //   document.body.appendChild(script);
+  //   setprintSetting({
+  //     copies: 1,
+  //     colorMode: "bw",
+  //     paperSize: "A4",
+  //     orientation: "portrait",
+  //     sides: "single",
+  //     quality: "standard",
+  //   });
+  // }, []);
+
+  // const ArchivePrintJob = async () => {
+  //   setPrintDraftId(null);
+  // };
+
+  // useEffect(() => {
+  //   const id = searchParams.get("drId");
+  //   if (id) {
+  //     setUrlDraftId(id);
+  //     return;
+  //   }
+  // }, [searchParams]);
 
   useEffect(() => {
     return () => {
@@ -569,45 +636,11 @@ export default function UploadPage() {
 
               <div className="flex items-center gap-4">
                 <span className="text-sm text-[#1F2A44]/60">
-                  {printJobDetails
-                    ? "Step 3 of 3"
-                    : fileProperties
-                      ? "Step 2 of 3"
-                      : "Step 1 of 3"}
+                  Step 1 of 3
                 </span>
               </div>
             </nav>
           </header>
-
-          {printJobDetails ? (
-            paymentStatus === "success" ? (
-              <PaymentSuccess
-                printCode={printJobDetails.printCode}
-                email="yashrajvarma9@gmail.com"
-                kioskName={printJobDetails.kioskName}
-              />
-            ) : (
-              <OrderPreview
-                fileName={printJobDetails.fileName}
-                pageCount={printJobDetails.pageCount}
-                copies={printJobDetails.copies}
-                colorMode={printJobDetails.colorMode}
-                sides={printJobDetails.duplex === true ? "double" : "single"}
-                subtotal={calculateTotal().subtotal}
-                total={calculateTotal().total}
-                handlePayment={handlePayment}
-                ArchivePrintJob={ArchivePrintJob}
-                basePrice={
-                  pricing[printSetting.colorMode][
-                    printSetting.sides === "single" ? "single" : "double"
-                  ]
-                }
-                basePriceType={
-                  printSetting.sides === "single" ? "Page" : "Paper"
-                }
-              />
-            )
-          ) : (
             <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6">
               <div className="max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-3 gap-8 w-full">
@@ -624,19 +657,13 @@ export default function UploadPage() {
                         location={currentKioskDetials?.location}
                         isOnline={true}
                       />
-                      {!fileProperties ? (
+                      {!fileProperties && UploadPageRenderState === "upload" ? (
                         <>
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             className="text-center mb-12"
                           >
-                            {/* <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-[#1F2A44] mb-4 font-cormorant">
-                              Upload Your Document to get started
-                            </h1>
-                            <p className="text-base sm:text-lg md:text-xl text-[#1F2A44]/70">
-                              Drag and drop or click to select your files
-                            </p> */}
                           </motion.div>
                           <div
                             className={`relative border-3 border-dashed rounded-3xl p-12 transition-all duration-300 ${
@@ -698,11 +725,11 @@ export default function UploadPage() {
                               </div>
                               <div className="min-w-0 flex-1">
                                 <h3 className="text-xl font-bold text-[#1F2A44] mb-1 wrap-break-word">
-                                  {fileProperties.originalName}
+                                  {fileProperties?.originalName}
                                 </h3>
                                 <p className="text-sm text-[#1F2A44]/60">
-                                  {fileProperties.size} KB •{" "}
-                                  {fileProperties.pageCount} pages
+                                  {fileProperties?.size} KB •{" "}
+                                  {fileProperties?.pageCount} pages
                                 </p>
                               </div>
                             </div>
@@ -710,7 +737,11 @@ export default function UploadPage() {
                               onClick={() => setfileProperties(undefined)}
                               className="p-2 hover:bg-[#1F2A44]/5 rounded-full transition-colors shrink-0"
                             >
-                              <X className="w-5 h-5 text-[#1F2A44]/60" />
+                              {urlDraftId ? (
+                                <></>
+                              ) : (
+                                <X className="w-5 h-5 text-[#1F2A44]/60" />
+                              )}
                             </button>
                           </div>
 
@@ -718,41 +749,24 @@ export default function UploadPage() {
                             <div
                               className={`relative ${
                                 printSetting.orientation === "landscape"
-                                  ? "aspect-297/210"
+                                  ? "aspect-297/210 overflow-hidden"
                                   : "aspect-210/297"
-                              } mx-auto
-    w-full max-w-95
-    md:h-[75vh]
-     bg-white rounded-lg shadow-lg flex justify-center`}
+                              } mx-auto w-full max-w-96 bg-white rounded-lg shadow-lg flex justify-center`}
                             >
-                              {/* <div className="text-center"> */}
-                              {/* <FileText className="w-16 h-16 text-[#1F2A44]/20 mx-auto mb-4" />{" "} */}
-                              {/* <p className="text-sm text-[#1F2A44]/40"> */}
-                              {/*fileInputRef && (
-                                <DocumentPreview
-                                  file={fileInputRef.current?.files?.[0]}
-                                />
-                              )*/}
                               <div
-                                className={`flex items-center justify-center w-full h-full
-  `}
+                                className={`flex items-center justify-center w-full h-full ${printSetting.orientation === "landscape" ? "scale-100" : ""}`}
                               >
                                 <img
                                   alt={
-                                    fileProperties.originalName ||
+                                    fileProperties?.originalName ||
                                     "File preview"
                                   }
                                   src={previewUrl}
-                                  className={`max-w-full max-h-full object-contain grayscale`}
+                                  className={`max-w-full relative max-h-full object-contain grayscale`}
                                 />
                               </div>
-
-                              {/* </p> */}
-                              {/* </div> */}
                             </div>
                           </div>
-
-                          {/* Print Settings */}
                           <div className="space-y-4">
                             <div className="flex items-center gap-2 mb-4">
                               <Settings className="w-5 h-5 text-[#FFBF00]" />
@@ -760,8 +774,6 @@ export default function UploadPage() {
                                 Print Settings
                               </h4>
                             </div>
-
-                            {/* Copies */}
                             <div className="flex items-center justify-between">
                               <label className="text-sm font-semibold text-[#1F2A44]">
                                 Number of Copies
@@ -800,8 +812,6 @@ export default function UploadPage() {
                                 </button>
                               </div>
                             </div>
-
-                            {/* Color Mode */}
                             <div>
                               <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
                                 Color Mode
@@ -901,12 +911,12 @@ export default function UploadPage() {
                                   </div>
                                 </button>
                                 <button
-                                  onClick={() =>
+                                  onClick={() => {
                                     setprintSetting({
                                       ...printSetting,
                                       orientation: "landscape",
-                                    })
-                                  }
+                                    });
+                                  }}
                                   className={`p-4 rounded-xl border-2 transition-all ${
                                     printSetting.orientation === "landscape"
                                       ? "border-[#FFBF00] bg-[#FFBF00]/5"
@@ -950,12 +960,12 @@ export default function UploadPage() {
                                       sides: "double",
                                     })
                                   }
-                                  disabled={fileProperties.pageCount < 2}
+                                  disabled={fileProperties!.pageCount < 2}
                                   className={`p-4 rounded-xl border-2 transition-all ${
                                     printSetting.sides === "double"
                                       ? "border-[#FFBF00] bg-[#FFBF00]/5"
                                       : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
-                                  } ${fileProperties.pageCount < 2 ? "hidden" : ""}`}
+                                  } ${fileProperties!.pageCount < 2 ? "hidden" : ""}`}
                                 >
                                   <div className="font-semibold text-[#1F2A44]">
                                     Double-sided
@@ -965,10 +975,10 @@ export default function UploadPage() {
                             </div>
                             <div className="flex flex-row w-full h-full justify-center items-center">
                               <button
-                                onClick={() => CreatePrintJob()}
-                                className="w-40 mt-6 px-6 py-4 bg-[#FFBF00]/95 text-[#1F2A44] font-bold rounded-full hover:bg-[#D4A520] hover:shadow-xl hover:shadow-[#FFBF00]/20 transition-all flex items-center justify-center gap-2"
+                                onClick={() => CreatePrintJobDraft()}
+                                className="w-50 mt-6 px-6 py-4 bg-[#FFBF00]/95 text-[#1F2A44] font-bold rounded-full hover:bg-[#D4A520] hover:shadow-xl hover:shadow-[#FFBF00]/20 transition-all flex items-center justify-center gap-2"
                               >
-                                Proceed
+                                Review Print Order
                               </button>
                             </div>
 
@@ -1124,7 +1134,7 @@ export default function UploadPage() {
 
                             
                             <button
-                              onClick={() => CreatePrintJob()}
+                              onClick={() => CreatePrintJobDraft()}
                               className="w-full mt-6 px-6 py-4 bg-[#FFBF00]/95 text-[#1F2A44] font-bold rounded-full hover:bg-[#D4A520] hover:shadow-xl hover:shadow-[#FFBF00]/20 transition-all flex items-center justify-center gap-2"
                             >
                               
@@ -1204,7 +1214,6 @@ export default function UploadPage() {
                 </div>
               </div>
             </div>
-          )}
         </>
       )}
     </div>

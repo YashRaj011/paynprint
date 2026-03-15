@@ -52,7 +52,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   return (
     <NotificationContext.Provider value={{ showError }}>
       {children}
-      <div className="fixed top-24 right-0 z-[100] flex flex-col gap-3 pointer-events-none pr-4">
+      <div className="fixed top-24 right-0 z-100 flex flex-col gap-3 pointer-events-none pr-4">
         <AnimatePresence>
           {notifications.map((n) => (
             <motion.div

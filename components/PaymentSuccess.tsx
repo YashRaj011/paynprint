@@ -15,8 +15,7 @@ interface PrintSuccessProps {
 const collectionSteps = [
   'Go to your selected kiosk and tap "Start Print" on screen.',
   'Choose "Enter Print Code" and type your code exactly.',
-  "Confirm file details and number of copies on the kiosk.",
-  "Collect your printed pages and keep the receipt if shown.",
+  'Collect your printed pages.',
 ];
 
 export default function PaymentSuccess({
