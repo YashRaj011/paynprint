@@ -190,7 +190,7 @@ export default function LandingPage() {
             >
               <Sparkles className="w-4 h-4 text-[#FFBF00]" />
               <span className="text-sm font-semibold text-[#1F2A44]">
-                Trusted by 50,000+ users worldwide
+                Trusted by 4,000+ users across the country
               </span>
             </motion.div>
             <div className="flex flex-col text-6xl md:text-7xl lg:text-[100px] font-bold text-[#1F2A44] mb-8 leading-[1.15] font-cormorant">
@@ -241,9 +241,9 @@ export default function LandingPage() {
               Start Printing Now
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <button className="px-10 py-5 bg-transparent border-2 border-[#1F2A44] text-[#1F2A44] font-bold text-lg rounded-full hover:bg-[#1F2A44] hover:text-[#F7F5EF] transition-all">
+            {/* <button className="px-10 py-5 bg-transparent border-2 border-[#1F2A44] text-[#1F2A44] font-bold text-lg rounded-full hover:bg-[#1F2A44] hover:text-[#F7F5EF] transition-all">
               Watch Demo
-            </button>
+            </button> */}
           </motion.div>
 
           <motion.div
@@ -263,9 +263,9 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: "< 30sec", label: "Average print time", icon: Clock },
-              { value: "0+", label: "Documents printed", icon: FileText },
-              { value: "0+", label: "Global locations", icon: Building2 },
-              { value: "0★", label: "Customer rating", icon: Star },
+              { value: "1000+", label: "Documents printed", icon: FileText },
+              { value: "3+", label: "Global locations", icon: Building2 },
+              { value: "5★", label: "Customer rating", icon: Star },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -631,7 +631,10 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-32 px-6 bg-white relative overflow-hidden">
+      <section
+        id="faq"
+        className="py-32 px-6 bg-white relative overflow-hidden"
+      >
         <div className="max-w-3xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -656,7 +659,10 @@ export default function LandingPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden">
+      <section
+        id="contact"
+        className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
+      >
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -684,8 +690,8 @@ export default function LandingPage() {
               {
                 icon: Phone,
                 title: "Call Us",
-                value: "1800-123-4567",
-                href: "tel:18001234567",
+                value: "+918919892827",
+                href: "tel:8919892827",
                 color: "#20B2AA",
               },
               {
@@ -696,31 +702,33 @@ export default function LandingPage() {
                 color: "#FF7F50",
               },
             ].map((contact, index) => {
-              const MotionComponent = contact.href.startsWith("/") ? motion.create(Link) : motion.a;
+              const MotionComponent = contact.href.startsWith("/")
+                ? motion.create(Link)
+                : motion.a;
               return (
-              <MotionComponent
-                key={index}
-                href={contact.href}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group bg-white rounded-3xl p-10 text-center hover:shadow-2xl transition-all duration-500 border border-[#1F2A44]/5"
-              >
-                <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
-                  style={{ backgroundColor: `${contact.color}20` }}
+                <MotionComponent
+                  key={index}
+                  href={contact.href}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group bg-white rounded-3xl p-10 text-center hover:shadow-2xl transition-all duration-500 border border-[#1F2A44]/5"
                 >
-                  <contact.icon
-                    className="w-8 h-8"
-                    style={{ color: contact.color }}
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-[#1F2A44] mb-2 font-cormorant">
-                  {contact.title}
-                </h3>
-                <p className="text-[#1F2A44]/70">{contact.value}</p>
-              </MotionComponent>
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+                    style={{ backgroundColor: `${contact.color}20` }}
+                  >
+                    <contact.icon
+                      className="w-8 h-8"
+                      style={{ color: contact.color }}
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#1F2A44] mb-2 font-cormorant">
+                    {contact.title}
+                  </h3>
+                  <p className="text-[#1F2A44]/70">{contact.value}</p>
+                </MotionComponent>
               );
             })}
           </div>
@@ -851,7 +859,8 @@ export default function LandingPage() {
 
           <div className="border-t border-[#1F2A44]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-[#1F2A44]/60">
-              © 2026 PNP Services. All rights reserved.
+              © 2026 Trion Innovations. PaynPrint is a product of Trion
+              Innovations. All rights reserved.
             </p>
           </div>
         </div>

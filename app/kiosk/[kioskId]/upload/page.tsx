@@ -219,8 +219,8 @@ export default function UploadPage() {
   const [loadingMessage, setLoadingMessage] = useState<string>("");
 
   const pricing = {
-    bw: { single: 2.5, double: 4 },
-    color: { single: 5, double: 10 },
+    bw: { single: 1.8, double: 3.5 },
+    color: { single: 8, double: 16 },
   };
 
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
