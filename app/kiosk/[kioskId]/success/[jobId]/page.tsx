@@ -65,17 +65,11 @@ export default function PaymentSuccess(
           },
         },
       );
-      console.log("Aaya hai");
       if (printJobResponse.status === 200 || printJobResponse.status === 304) {
-        console.log("Aaya hai andar");
         const printJobResponseData =
           printJobResponse.data as printJobSuccessResponse;
-        console.log("fsdf", printJobResponseData);
-        console.log("code", printJobResponseData.job.printCode);
         const currentPrintCode = printJobResponseData.job.printCode;
         setPrintCode(currentPrintCode);
-        console.log("print Code andar", printCode);
-        console.log("printCode var", currentPrintCode);
         setKioskName(printJobResponseData.kiosk!.name);
       } else {
         setPrintCode("");
@@ -107,12 +101,12 @@ export default function PaymentSuccess(
           <header className="fixed top-0 left-0 right-0 z-50 bg-[#F7F5EF]/95 backdrop-blur-md border-b border-[#1F2A44]/10">
             <nav className="max-w-7xl w-full mx-auto px-6 h-20 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <span className="p-2 hover:bg-[#1F2A44]/5 rounded-full transition-colors">
-                  <ArrowLeft className="w-5 h-5 text-[#1F2A44]" />
-                </span>
-                {/* <Link href="/kiosks"> */}
-                <Image src={ShortLogo} alt="short-logo" height={35} />
-                {/* </Link> */}
+                <Link href="/kiosks">
+                  <span className="p-2 hover:bg-[#1F2A44]/5 rounded-full transition-colors">
+                    <ArrowLeft className="w-5 h-5 text-[#1F2A44]" />
+                  </span>
+                  <Image src={ShortLogo} alt="short-logo" height={35} />
+                </Link>
               </div>
 
               <div className="flex items-center gap-4">

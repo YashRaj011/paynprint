@@ -149,14 +149,14 @@ export default function KioskDirectoryPage({
           </div>
         </section>
 
-        <button
+        {/* <button
           type="button"
           className="fixed max-w-[90vw] bottom-10 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 rounded-full border border-[#FFBF00]/40 bg-[#FFBF00] px-5 py-3 text-sm font-extrabold text-[#1F2A44] shadow-xl backdrop-blur-md transition-colors sm:text-base"
           style={{ WebkitTapHighlightColor: "transparent" }}
         >
           <QrCode className="h-5 w-5 text-[#1F2A44]" />
           Scan QR Instead
-        </button>
+        </button> */}
       </main>
     </div>
   );

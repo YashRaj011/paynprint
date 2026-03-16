@@ -462,7 +462,7 @@ export default function UploadPage() {
     //   console.log("kiosk : ", kioskValidationState);
     //   throw new Error(`Error validating print booth`);
     // }
-    console.log("in setting prev");
+
     const startTime = Date.now();
     setIsLoading(true);
     setKioskValidationState("loading");
@@ -476,7 +476,6 @@ export default function UploadPage() {
       const remaining = Math.max(2000 - elapsed, 0);
       setTimeout(() => {
         if (printDraftResponse.status !== 200) {
-          console.log("in prev call error");
           setKioskValidationState("invalid");
           setIsLoading(false);
           setPrintDraftId(null);
@@ -485,7 +484,6 @@ export default function UploadPage() {
             `Failed to Fetch print job: ${printDraftResponse.statusText}`,
           );
         }
-        console.log("in prev call succ");
         const responseData =
           printDraftResponse.data as PrintDraftObjectResponse;
         setPrintDraftId(null);
@@ -635,260 +633,258 @@ export default function UploadPage() {
               </div>
 
               <div className="flex items-center gap-4">
-                <span className="text-sm text-[#1F2A44]/60">
-                  Step 1 of 3
-                </span>
+                <span className="text-sm text-[#1F2A44]/60">Step 1 of 3</span>
               </div>
             </nav>
           </header>
-            <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6">
-              <div className="max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-3 gap-8 w-full">
-                  {/* Upload Area - Left Side */}
-                  <div className="lg:col-span-3 min-w-0 w-full">
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <CurrentKioskCard
-                        kioskName={currentKioskDetials?.name}
-                        kioskPublicId={currentKioskDetials?.publicId}
-                        location={currentKioskDetials?.location}
-                        isOnline={true}
-                      />
-                      {!fileProperties && UploadPageRenderState === "upload" ? (
-                        <>
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-center mb-12"
-                          >
-                          </motion.div>
-                          <div
-                            className={`relative border-3 border-dashed rounded-3xl p-12 transition-all duration-300 ${
-                              dragActive
-                                ? "border-[#FFBF00] bg-[#FFBF00]/5"
-                                : "border-[#1F2A44]/20 bg-white hover:border-[#FFBF00]/50"
-                            }`}
-                            onDragEnter={handleDrag}
-                            onDragLeave={handleDrag}
-                            onDragOver={handleDrag}
-                            onDrop={handleDrop}
-                          >
-                            <input
-                              ref={fileInputRef}
-                              type="file"
-                              className="hidden"
-                              accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xls, .xlsx"
-                              onChange={handleChange}
-                            />
-
-                            <div className="text-center">
-                              <div className="w-24 h-24 bg-[#FFBF00]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Upload className="w-12 h-12 text-[#FFBF00]" />
-                              </div>
-
-                              <h3 className="text-2xl font-bold text-[#1F2A44] mb-3">
-                                Drop your files here to get started{" "}
-                              </h3>
-                              <p className="text-[#1F2A44]/60 mb-6">
-                                or click to browse from your device
-                              </p>
-
-                              <button
-                                onClick={() => fileInputRef.current?.click()}
-                                className="px-8 py-4 bg-[#1F2A44] text-white font-semibold rounded-full hover:bg-[#2A3A5A] transition-all"
-                              >
-                                Select File
-                              </button>
-
-                              <div className="mt-8 text-sm text-[#1F2A44]/50">
-                                Supported formats: PDF, DOC, DOCX, JPG, JPEG,
-                                PNG (Max 50MB)
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
+          <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-3 gap-8 w-full">
+                {/* Upload Area - Left Side */}
+                <div className="lg:col-span-3 min-w-0 w-full">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <CurrentKioskCard
+                      kioskName={currentKioskDetials?.name}
+                      kioskPublicId={currentKioskDetials?.publicId}
+                      location={currentKioskDetials?.location}
+                      isOnline={true}
+                    />
+                    {!fileProperties && UploadPageRenderState === "upload" ? (
+                      <>
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-center mb-12"
+                        ></motion.div>
                         <div
-                          className="relative space-y-6 bg-white rounded-3xl p-4 sm:p-8
-                                      border border-[#1F2A44]/10"
+                          className={`relative border-3 border-dashed rounded-3xl p-12 transition-all duration-300 ${
+                            dragActive
+                              ? "border-[#FFBF00] bg-[#FFBF00]/5"
+                              : "border-[#1F2A44]/20 bg-white hover:border-[#FFBF00]/50"
+                          }`}
+                          onDragEnter={handleDrag}
+                          onDragLeave={handleDrag}
+                          onDragOver={handleDrag}
+                          onDrop={handleDrop}
                         >
-                          <div className="flex items-start justify-between mb-6">
-                            <div className="flex items-start gap-4 min-w-0 flex-1">
-                              <div
-                                className="w-16 h-16 shrink-0
-                                                    bg-[#FFBF00]/10 rounded-2xl flex items-center justify-center"
-                              >
-                                <FileText className="w-8 h-8 text-[#FFBF00]" />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <h3 className="text-xl font-bold text-[#1F2A44] mb-1 wrap-break-word">
-                                  {fileProperties?.originalName}
-                                </h3>
-                                <p className="text-sm text-[#1F2A44]/60">
-                                  {fileProperties?.size} KB •{" "}
-                                  {fileProperties?.pageCount} pages
-                                </p>
-                              </div>
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            className="hidden"
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xls, .xlsx"
+                            onChange={handleChange}
+                          />
+
+                          <div className="text-center">
+                            <div className="w-24 h-24 bg-[#FFBF00]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                              <Upload className="w-12 h-12 text-[#FFBF00]" />
                             </div>
+
+                            <h3 className="text-2xl font-bold text-[#1F2A44] mb-3">
+                              Drop your files here to get started{" "}
+                            </h3>
+                            <p className="text-[#1F2A44]/60 mb-6">
+                              or click to browse from your device
+                            </p>
+
                             <button
-                              onClick={() => setfileProperties(undefined)}
-                              className="p-2 hover:bg-[#1F2A44]/5 rounded-full transition-colors shrink-0"
+                              onClick={() => fileInputRef.current?.click()}
+                              className="px-8 py-4 bg-[#1F2A44] text-white font-semibold rounded-full hover:bg-[#2A3A5A] transition-all"
                             >
-                              {urlDraftId ? (
-                                <></>
-                              ) : (
-                                <X className="w-5 h-5 text-[#1F2A44]/60" />
-                              )}
+                              Select File
                             </button>
-                          </div>
 
-                          <div className="bg-[#F7F5EF] flex justify-center rounded-2xl p-4 sm:p-6 md:p-8 mb-6 overflow-x-hidden">
+                            <div className="mt-8 text-sm text-[#1F2A44]/50">
+                              Supported formats: PDF, DOC, DOCX, JPG, JPEG, PNG
+                              (Max 50MB)
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div
+                        className="relative space-y-6 bg-white rounded-3xl p-4 sm:p-8
+                                      border border-[#1F2A44]/10"
+                      >
+                        <div className="flex items-start justify-between mb-6">
+                          <div className="flex items-start gap-4 min-w-0 flex-1">
                             <div
-                              className={`relative ${
-                                printSetting.orientation === "landscape"
-                                  ? "aspect-297/210 overflow-hidden"
-                                  : "aspect-210/297"
-                              } mx-auto w-full max-w-96 bg-white rounded-lg shadow-lg flex justify-center`}
+                              className="w-16 h-16 shrink-0
+                                                    bg-[#FFBF00]/10 rounded-2xl flex items-center justify-center"
                             >
-                              <div
-                                className={`flex items-center justify-center w-full h-full ${printSetting.orientation === "landscape" ? "scale-100" : ""}`}
-                              >
-                                <img
-                                  alt={
-                                    fileProperties?.originalName ||
-                                    "File preview"
-                                  }
-                                  src={previewUrl}
-                                  className={`max-w-full relative max-h-full object-contain grayscale`}
-                                />
-                              </div>
+                              <FileText className="w-8 h-8 text-[#FFBF00]" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <h3 className="text-xl font-bold text-[#1F2A44] mb-1 wrap-break-word">
+                                {fileProperties?.originalName}
+                              </h3>
+                              <p className="text-sm text-[#1F2A44]/60">
+                                {fileProperties?.size} KB •{" "}
+                                {fileProperties?.pageCount} pages
+                              </p>
                             </div>
                           </div>
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-2 mb-4">
-                              <Settings className="w-5 h-5 text-[#FFBF00]" />
-                              <h4 className="text-lg font-bold text-[#1F2A44]">
-                                Print Settings
-                              </h4>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <label className="text-sm font-semibold text-[#1F2A44]">
-                                Number of Copies
-                              </label>
-                              <div className="flex items-center gap-3">
-                                <button
-                                  onClick={() =>
-                                    setprintSetting({
-                                      ...printSetting,
-                                      copies: Math.max(
-                                        1,
-                                        printSetting.copies - 1,
-                                      ),
-                                    })
-                                  }
-                                  className="w-10 h-10 bg-[#F7F5EF] rounded-full flex items-center justify-center hover:bg-[#1F2A44]/10 transition-colors font-bold"
-                                >
-                                  -
-                                </button>
-                                <span className="w-12 text-center font-bold text-[#1F2A44]">
-                                  {printSetting.copies}
-                                </span>
-                                <button
-                                  onClick={() =>
-                                    setprintSetting({
-                                      ...printSetting,
-                                      copies: Math.min(
-                                        100,
-                                        printSetting.copies + 1,
-                                      ),
-                                    })
-                                  }
-                                  className="w-10 h-10 bg-[#F7F5EF] rounded-full flex items-center justify-center hover:bg-[#1F2A44]/10 transition-colors font-bold"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            </div>
-                            <div>
-                              <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
-                                Color Mode
-                              </label>
-                              <div className="grid grid-cols-2 gap-3">
-                                <button
-                                  onClick={() =>
-                                    setprintSetting({
-                                      ...printSetting,
-                                      colorMode: "bw",
-                                    })
-                                  }
-                                  className={`p-4 rounded-xl border-2 transition-all ${
-                                    printSetting.colorMode === "bw"
-                                      ? "border-[#FFBF00] bg-[#FFBF00]/5"
-                                      : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
-                                  }`}
-                                >
-                                  <div className="font-semibold text-[#1F2A44]">
-                                    Black & White
-                                  </div>
-                                  <div className="text-xs text-[#1F2A44]/60 mt-1">
-                                    ₹{pricing["bw"].single}/page
-                                  </div>
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    setprintSetting({
-                                      ...printSetting,
-                                      colorMode: "color",
-                                    })
-                                  }
-                                  disabled={true}
-                                  className={`p-4 rounded-xl border-2 transition-all ${
-                                    printSetting.colorMode === "color"
-                                      ? "border-[#FFBF00] bg-[#FFBF00]/5"
-                                      : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
-                                  } cursor-not-allowed`}
-                                >
-                                  <div className="font-semibold text-[#1F2A44]">
-                                    Color
-                                  </div>
-                                  <div className="text-xs text-[#1F2A44]/60 mt-1">
-                                    {/* ₹{pricing["color"].single}/page */}
-                                    <div>Coming soon!</div>
-                                  </div>
-                                </button>
-                              </div>
-                            </div>
+                          <button
+                            onClick={() => {
+                              setfileProperties(undefined);
+                              if (urlDraftId) {
+                                router.push(`/kiosk/${urlKioskId}/upload`);
+                              }
+                              setPrintDraftId(null);
+                            }}
+                            className="p-2 hover:bg-[#1F2A44]/5 rounded-full transition-colors shrink-0"
+                          >
+                            <X className="w-5 h-5 text-[#1F2A44]/60" />
+                          </button>
+                        </div>
 
-                            {/* Paper Size */}
-                            <div>
-                              <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
-                                Paper Size
-                              </label>
-                              <select
-                                value={printSetting.paperSize}
-                                onChange={(e) =>
+                        <div className="bg-[#F7F5EF] flex justify-center rounded-2xl p-4 sm:p-6 md:p-8 mb-6 overflow-x-hidden">
+                          <div
+                            className={`relative ${
+                              printSetting.orientation === "landscape"
+                                ? "aspect-297/210 overflow-hidden"
+                                : "aspect-210/297"
+                            } mx-auto w-full max-w-96 bg-white rounded-lg shadow-lg flex justify-center`}
+                          >
+                            <div
+                              className={`flex items-center justify-center w-full h-full ${printSetting.orientation === "landscape" ? "scale-100" : ""}`}
+                            >
+                              <img
+                                alt={
+                                  fileProperties?.originalName || "File preview"
+                                }
+                                src={previewUrl}
+                                className={`max-w-full relative max-h-full object-contain grayscale`}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-2 mb-4">
+                            <Settings className="w-5 h-5 text-[#FFBF00]" />
+                            <h4 className="text-lg font-bold text-[#1F2A44]">
+                              Print Settings
+                            </h4>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <label className="text-sm font-semibold text-[#1F2A44]">
+                              Number of Copies
+                            </label>
+                            <div className="flex items-center gap-3">
+                              <button
+                                onClick={() =>
                                   setprintSetting({
                                     ...printSetting,
-                                    paperSize: e.target.value,
+                                    copies: Math.max(
+                                      1,
+                                      printSetting.copies - 1,
+                                    ),
                                   })
                                 }
-                                className="w-full p-4 rounded-xl border-2 border-[#1F2A44]/10 bg-white focus:border-[#FFBF00] focus:outline-none transition-colors"
+                                className="w-10 h-10 bg-[#F7F5EF] rounded-full flex items-center justify-center hover:bg-[#1F2A44]/10 transition-colors font-bold"
                               >
-                                <option value="A4">A4 (210 × 297 mm)</option>
-                                <option value="letter" disabled>
-                                  Letter (8.5 × 11 in)
-                                </option>
-                                <option value="legal" disabled>
-                                  Legal (8.5 × 14 in)
-                                </option>
-                              </select>
+                                -
+                              </button>
+                              <span className="w-12 text-center font-bold text-[#1F2A44]">
+                                {printSetting.copies}
+                              </span>
+                              <button
+                                onClick={() =>
+                                  setprintSetting({
+                                    ...printSetting,
+                                    copies: Math.min(
+                                      100,
+                                      printSetting.copies + 1,
+                                    ),
+                                  })
+                                }
+                                className="w-10 h-10 bg-[#F7F5EF] rounded-full flex items-center justify-center hover:bg-[#1F2A44]/10 transition-colors font-bold"
+                              >
+                                +
+                              </button>
                             </div>
+                          </div>
+                          <div>
+                            <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
+                              Color Mode
+                            </label>
+                            <div className="grid grid-cols-2 gap-3">
+                              <button
+                                onClick={() =>
+                                  setprintSetting({
+                                    ...printSetting,
+                                    colorMode: "bw",
+                                  })
+                                }
+                                className={`p-4 rounded-xl border-2 transition-all ${
+                                  printSetting.colorMode === "bw"
+                                    ? "border-[#FFBF00] bg-[#FFBF00]/5"
+                                    : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
+                                }`}
+                              >
+                                <div className="font-semibold text-[#1F2A44]">
+                                  Black & White
+                                </div>
+                                <div className="text-xs text-[#1F2A44]/60 mt-1">
+                                  ₹{pricing["bw"].single}/page
+                                </div>
+                              </button>
+                              <button
+                                onClick={() =>
+                                  setprintSetting({
+                                    ...printSetting,
+                                    colorMode: "color",
+                                  })
+                                }
+                                disabled={true}
+                                className={`p-4 rounded-xl border-2 transition-all ${
+                                  printSetting.colorMode === "color"
+                                    ? "border-[#FFBF00] bg-[#FFBF00]/5"
+                                    : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
+                                } cursor-not-allowed`}
+                              >
+                                <div className="font-semibold text-[#1F2A44]">
+                                  Color
+                                </div>
+                                <div className="text-xs text-[#1F2A44]/60 mt-1">
+                                  {/* ₹{pricing["color"].single}/page */}
+                                  <div>Coming soon!</div>
+                                </div>
+                              </button>
+                            </div>
+                          </div>
 
-                            {/* Orientation */}
-                            <div>
+                          {/* Paper Size */}
+                          <div>
+                            <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
+                              Paper Size
+                            </label>
+                            <select
+                              value={printSetting.paperSize}
+                              onChange={(e) =>
+                                setprintSetting({
+                                  ...printSetting,
+                                  paperSize: e.target.value,
+                                })
+                              }
+                              className="w-full p-4 rounded-xl border-2 border-[#1F2A44]/10 bg-white focus:border-[#FFBF00] focus:outline-none transition-colors"
+                            >
+                              <option value="A4">A4 (210 × 297 mm)</option>
+                              <option value="letter" disabled>
+                                Letter (8.5 × 11 in)
+                              </option>
+                              <option value="legal" disabled>
+                                Legal (8.5 × 14 in)
+                              </option>
+                            </select>
+                          </div>
+
+                          {/* Orientation */}
+                          {/* <div>
                               <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
                                 Orientation
                               </label>
@@ -928,62 +924,62 @@ export default function UploadPage() {
                                   </div>
                                 </button>
                               </div>
-                            </div>
+                            </div> */}
 
-                            {/* Sides */}
-                            <div>
-                              <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
-                                Print Sides
-                              </label>
-                              <div className="grid grid-cols-2 gap-3">
-                                <button
-                                  onClick={() =>
-                                    setprintSetting({
-                                      ...printSetting,
-                                      sides: "single",
-                                    })
-                                  }
-                                  className={`p-4 rounded-xl border-2 transition-all ${
-                                    printSetting.sides === "single"
-                                      ? "border-[#FFBF00] bg-[#FFBF00]/5"
-                                      : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
-                                  }`}
-                                >
-                                  <div className="font-semibold text-[#1F2A44]">
-                                    Single-sided
-                                  </div>
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    setprintSetting({
-                                      ...printSetting,
-                                      sides: "double",
-                                    })
-                                  }
-                                  disabled={fileProperties!.pageCount < 2}
-                                  className={`p-4 rounded-xl border-2 transition-all ${
-                                    printSetting.sides === "double"
-                                      ? "border-[#FFBF00] bg-[#FFBF00]/5"
-                                      : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
-                                  } ${fileProperties!.pageCount < 2 ? "hidden" : ""}`}
-                                >
-                                  <div className="font-semibold text-[#1F2A44]">
-                                    Double-sided
-                                  </div>
-                                </button>
-                              </div>
-                            </div>
-                            <div className="flex flex-row w-full h-full justify-center items-center">
+                          {/* Sides */}
+                          <div>
+                            <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
+                              Print Sides
+                            </label>
+                            <div className="grid grid-cols-2 gap-3">
                               <button
-                                onClick={() => CreatePrintJobDraft()}
-                                className="w-50 mt-6 px-6 py-4 bg-[#FFBF00]/95 text-[#1F2A44] font-bold rounded-full hover:bg-[#D4A520] hover:shadow-xl hover:shadow-[#FFBF00]/20 transition-all flex items-center justify-center gap-2"
+                                onClick={() =>
+                                  setprintSetting({
+                                    ...printSetting,
+                                    sides: "single",
+                                  })
+                                }
+                                className={`p-4 rounded-xl border-2 transition-all ${
+                                  printSetting.sides === "single"
+                                    ? "border-[#FFBF00] bg-[#FFBF00]/5"
+                                    : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
+                                }`}
                               >
-                                Review Print Order
+                                <div className="font-semibold text-[#1F2A44]">
+                                  Single-sided
+                                </div>
+                              </button>
+                              <button
+                                onClick={() =>
+                                  setprintSetting({
+                                    ...printSetting,
+                                    sides: "double",
+                                  })
+                                }
+                                disabled={fileProperties!.pageCount < 2}
+                                className={`p-4 rounded-xl border-2 transition-all ${
+                                  printSetting.sides === "double"
+                                    ? "border-[#FFBF00] bg-[#FFBF00]/5"
+                                    : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
+                                } ${fileProperties!.pageCount < 2 ? "hidden" : ""}`}
+                              >
+                                <div className="font-semibold text-[#1F2A44]">
+                                  Double-sided
+                                </div>
                               </button>
                             </div>
+                          </div>
+                          <div className="flex flex-row w-full h-full justify-center items-center">
+                            <button
+                              onClick={() => CreatePrintJobDraft()}
+                              className="w-50 mt-6 px-6 py-4 bg-[#FFBF00]/95 text-[#1F2A44] font-bold rounded-full hover:bg-[#D4A520] hover:shadow-xl hover:shadow-[#FFBF00]/20 transition-all flex items-center justify-center gap-2"
+                            >
+                              Review Print Order
+                            </button>
+                          </div>
 
-                            {/* Quality */}
-                            {/* <div>
+                          {/* Quality */}
+                          {/* <div>
                           <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
                             Print Quality
                           </label>
@@ -1008,7 +1004,7 @@ export default function UploadPage() {
                                 Regular
                               </div>
                             </button> */}
-                            {/* <button
+                          {/* <button
                               onClick={() =>
                                 setSettings({ ...settings, quality: "high" })
                               }
@@ -1025,16 +1021,16 @@ export default function UploadPage() {
                                 +20%
                               </div>
                             </button> */}
-                            {/* </div> */}
-                            {/* </div> */}
-                          </div>
+                          {/* </div> */}
+                          {/* </div> */}
                         </div>
-                      )}
-                    </motion.div>
-                  </div>
+                      </div>
+                    )}
+                  </motion.div>
+                </div>
 
-                  {/* Payment Summary - Right Side */}
-                  {/* <div className="lg:col-span-1 min-w-0 w-full">
+                {/* Payment Summary - Right Side */}
+                {/* <div className="lg:col-span-1 min-w-0 w-full">
                     <motion.div
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -1211,9 +1207,9 @@ export default function UploadPage() {
                       </div>
                     </motion.div>
                   </div> */}
-                </div>
               </div>
             </div>
+          </div>
         </>
       )}
     </div>
