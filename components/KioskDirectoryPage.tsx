@@ -60,6 +60,21 @@ interface KioskDirectoryPageProps {
 export default function KioskDirectoryPage({
   kiosks,
 }: KioskDirectoryPageProps) {
+
+
+  const getKioskStatus = (lastHearbeat: string) => {
+    const HEARTBEAT_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+    const expectedLastHeartbeat = new Date(Date.now() - HEARTBEAT_TIMEOUT_MS);
+
+    const lastHeartBeatDate: Date = new Date(lastHearbeat);
+
+    if (lastHeartBeatDate >= expectedLastHeartbeat) {
+      return "online";
+    }
+
+    return "offline";
+  }
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F7F5EF]">
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#1F2A44]/10 bg-[#F7F5EF]/95 backdrop-blur-md">
@@ -141,7 +156,7 @@ export default function KioskDirectoryPage({
                         </div>
                       </div>
 
-                      <StatusBadge status={kiosk.status} />
+                      <StatusBadge status={getKioskStatus(kiosk.lastHeartbeat)} />
                     </div>
                   </article>
                 </Link>

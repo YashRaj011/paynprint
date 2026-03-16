@@ -85,6 +85,7 @@ export interface CurrentKioskDetails {
   publicId: string;
   name: string;
   location: string;
+  lastHeartBeat: string;
 }
 
 interface PrintDraftResponse {
@@ -505,6 +506,15 @@ export default function OrderPreview() {
   };
 
   useEffect(() => {
+    if (currentKioskDetails) {
+      const kioskStatus = getKioskStatus(currentKioskDetails.lastHeartBeat);
+      if (!kioskStatus) {
+        setPhonepeScriptUploaded(false);
+      }
+    }
+  }, [currentKioskDetails])
+
+  useEffect(() => {
     if (!draftId) {
       router.push("/upload");
       return;
@@ -537,7 +547,21 @@ export default function OrderPreview() {
       console.log("PhonePe script loaded", window.PhonePeCheckout);
     };
     document.body.appendChild(script);
+    
   }, []);
+
+  const getKioskStatus = (lastHearbeat: string) => {
+    const HEARTBEAT_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+    const expectedLastHeartbeat = new Date(Date.now() - HEARTBEAT_TIMEOUT_MS);
+
+    const lastHeartBeatDate: Date = new Date(lastHearbeat);
+
+    if (lastHeartBeatDate >= expectedLastHeartbeat) {
+      return "online";
+    }
+
+    return "offline";
+  };
 
   return (
     <div className="min-h-screen bg-[#F7F5EF] w-full max-w-full">

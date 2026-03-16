@@ -144,18 +144,18 @@ export default function PaymentSuccess(
                   <p className="mt-2 text-5xl font-bold tracking-[0.12em] text-[#1F2A44] sm:text-6xl">
                     {printCode}
                   </p>
-                  <p className="mt-4 text-sm font-semibold text-[#1F2A44]/75 sm:text-base">
+                  {/* <p className="mt-4 text-sm font-semibold text-[#1F2A44]/75 sm:text-base">
                     This code has been sent to your email:{" "}
                     <span className="font-bold text-[#1F2A44]">
                       "yashrajvarma9@gmail.com"
                     </span>
-                  </p>
+                  </p> */}
                 </div>
 
-                <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#D7F4F1] px-4 py-2 text-sm font-semibold text-[#1F2A44]">
+                {/* <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#D7F4F1] px-4 py-2 text-sm font-semibold text-[#1F2A44]">
                   <Mail className="h-4 w-4 text-[#20B2AA]" />
                   Delivery confirmed to inbox
-                </div>
+                </div> */}
 
                 {/* {onDone ? (
                 <div className="mt-8">
