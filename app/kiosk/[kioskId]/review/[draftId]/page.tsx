@@ -294,6 +294,7 @@ export default function OrderPreview() {
       return;
     } else if (response === "CONCLUDED") {
       console.log("Transaction concluded successfully");
+      setShowuserInfoPhoneModal(false);
       setPaymentStatus("success");
       setIsLoading(false);
       /* Add merchant's logic if they have any custom thing to trigger on UI after the transaction is in terminal state*/
@@ -415,8 +416,7 @@ export default function OrderPreview() {
       if (printJobResponse.status === 201) {
         const printJobResponseData = printJobResponse.data as PrintJobResponse;
         setPrintJobId(printJobResponseData.job.id);
-        // await handlePayment();
-        setPaymentStatus("success");
+        await handlePayment();
       }
     } catch (err: any) {
       console.error("Error creating print job:", err);
