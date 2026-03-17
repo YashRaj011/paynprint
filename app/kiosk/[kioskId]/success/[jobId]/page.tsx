@@ -30,7 +30,7 @@ interface PrintSuccessProps {
 
 const collectionSteps = [
   'Go to your selected kiosk and tap "Start Print" on screen.',
-  'Choose "Enter Print Code" and type your code exactly.',
+  'Enter your "Print Code" to start printing',
   "Collect your printed pages.",
 ];
 
@@ -101,7 +101,7 @@ export default function PaymentSuccess(
           <header className="fixed top-0 left-0 right-0 z-50 bg-[#F7F5EF]/95 backdrop-blur-md border-b border-[#1F2A44]/10">
             <nav className="max-w-7xl w-full mx-auto px-6 h-20 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <Link href="/kiosks">
+                <Link href="/kiosks" className="flex">
                   <span className="p-2 hover:bg-[#1F2A44]/5 rounded-full transition-colors">
                     <ArrowLeft className="w-5 h-5 text-[#1F2A44]" />
                   </span>

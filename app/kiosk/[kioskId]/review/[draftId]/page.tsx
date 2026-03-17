@@ -252,6 +252,7 @@ export default function OrderPreview() {
   const [showUserInfoModal, setShowuserInfoPhoneModal] = useState(false);
   const [printJobId, setPrintJobId] = useState<string>("");
   const [Total, setTotal] = useState<number>(0);
+  const [phoneNumber, setPhoneNumber] = useState<string>();
 
   const calculateTotal = () => {
     const pages = currentFileDetails?.pageCount ?? 0;
@@ -414,7 +415,8 @@ export default function OrderPreview() {
       if (printJobResponse.status === 201) {
         const printJobResponseData = printJobResponse.data as PrintJobResponse;
         setPrintJobId(printJobResponseData.job.id);
-        await handlePayment();
+        // await handlePayment();
+        setPaymentStatus("success");
       }
     } catch (err: any) {
       console.error("Error creating print job:", err);
@@ -444,6 +446,29 @@ export default function OrderPreview() {
         getErrorMessage(
           err?.response?.data?.error,
           NotificationMessages.EMAIL_SEND,
+        ),
+      );
+      setEmailSent(false);
+    }
+  };
+
+  const sendWhatsappMessage = async () => {
+    setIsLoading(true);
+    setLoadingMessage("Sending Whatsapp Message");
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/printorder/sendWhatsapp/${printJobId}`,
+        {
+          phoneNumber: phoneNumber,
+        },
+      );
+      setEmailSent(true);
+    } catch (err: any) {
+      console.error("Error sending Whatsapp Message:", err);
+      showError(
+        getErrorMessage(
+          err?.response?.data?.error,
+          NotificationMessages.WHATSAPP_SEND,
         ),
       );
       setEmailSent(false);
@@ -528,6 +553,7 @@ export default function OrderPreview() {
       setLoadingMessage("Updating Payment Status");
       setLoadingMessage("Sending Email");
       sendEmail();
+      sendWhatsappMessage();
       setIsLoading(false);
       router.push(`/kiosk/${kioskId}/success/${printJobId}`);
     }
@@ -591,6 +617,7 @@ export default function OrderPreview() {
           <UserInfoModal
             isOpen={showUserInfoModal}
             onConfirm={(phone) => {
+              setPhoneNumber(phone);
               createPrintJob();
             }}
             onSkip={() => {
