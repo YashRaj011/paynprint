@@ -416,8 +416,8 @@ export default function OrderPreview() {
       if (printJobResponse.status === 201) {
         const printJobResponseData = printJobResponse.data as PrintJobResponse;
         setPrintJobId(printJobResponseData.job.id);
-        // await handlePayment();
-        setPaymentStatus("success");
+        await handlePayment();
+        // setPaymentStatus("success");
         
       }
     } catch (err: any) {
@@ -555,7 +555,7 @@ export default function OrderPreview() {
       setLoadingMessage("Updating Payment Status");
       setLoadingMessage("Sending Email");
       sendEmail();
-      // sendWhatsappMessage();
+      sendWhatsappMessage();
       setIsLoading(false);
       router.push(`/kiosk/${kioskId}/success/${printJobId}`);
     }

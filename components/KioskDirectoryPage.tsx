@@ -124,7 +124,7 @@ export default function KioskDirectoryPage({
                 <Link
                   key={kiosk.id}
                   href={`kiosk/${kiosk.id}/upload`}
-                  className={`${!(getKioskStatus(kiosk.lastHeartbeat) === "offline") ? "pointer-events-none" : "pointer-events-auto"} group `}
+                  className={`${!(getKioskStatus(kiosk.lastHeartbeat) === "online") ? "pointer-events-none" : "pointer-events-auto"} group `}
                   prefetch
                 >
                   <article
