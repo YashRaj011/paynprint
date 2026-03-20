@@ -751,7 +751,7 @@ export default function UploadPage() {
                             } mx-auto w-full max-w-96 bg-white rounded-lg shadow-lg flex justify-center`}
                           >
                             <div
-                              className={`flex items-center justify-center w-full h-full ${printSetting.orientation === "landscape" ? "scale-100" : ""}`}
+                              className={`flex items-center justify-center w-full h-full ${printSetting.orientation === "landscape" ? "scale-94" : "scale-100"}`}
                             >
                               <img
                                 alt={
@@ -830,7 +830,10 @@ export default function UploadPage() {
                                   Black & White
                                 </div>
                                 <div className="text-xs text-[#1F2A44]/60 mt-1">
-                                  ₹{pricing["bw"].single}/page
+                                  ₹
+                                  {printSetting.sides === "single"
+                                    ? `${pricing["bw"].single}/page`
+                                    : `${pricing["bw"].double}/paper`}
                                 </div>
                               </button>
                               <button
@@ -884,47 +887,47 @@ export default function UploadPage() {
                           </div>
 
                           {/* Orientation */}
-                          {/* <div>
-                              <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
-                                Orientation
-                              </label>
-                              <div className="grid grid-cols-2 gap-3">
-                                <button
-                                  onClick={() =>
-                                    setprintSetting({
-                                      ...printSetting,
-                                      orientation: "portrait",
-                                    })
-                                  }
-                                  className={`p-4 rounded-xl border-2 transition-all ${
-                                    printSetting.orientation === "portrait"
-                                      ? "border-[#FFBF00] bg-[#FFBF00]/5"
-                                      : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
-                                  }`}
-                                >
-                                  <div className="font-semibold text-[#1F2A44]">
-                                    Portrait
-                                  </div>
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    setprintSetting({
-                                      ...printSetting,
-                                      orientation: "landscape",
-                                    });
-                                  }}
-                                  className={`p-4 rounded-xl border-2 transition-all ${
-                                    printSetting.orientation === "landscape"
-                                      ? "border-[#FFBF00] bg-[#FFBF00]/5"
-                                      : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
-                                  }`}
-                                >
-                                  <div className="font-semibold text-[#1F2A44]">
-                                    Landscape
-                                  </div>
-                                </button>
-                              </div>
-                            </div> */}
+                          <div>
+                            <label className="text-sm font-semibold text-[#1F2A44] mb-2 block">
+                              Orientation
+                            </label>
+                            <div className="grid grid-cols-2 gap-3">
+                              <button
+                                onClick={() =>
+                                  setprintSetting({
+                                    ...printSetting,
+                                    orientation: "portrait",
+                                  })
+                                }
+                                className={`p-4 rounded-xl border-2 transition-all ${
+                                  printSetting.orientation === "portrait"
+                                    ? "border-[#FFBF00] bg-[#FFBF00]/5"
+                                    : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
+                                }`}
+                              >
+                                <div className="font-semibold text-[#1F2A44]">
+                                  Portrait
+                                </div>
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setprintSetting({
+                                    ...printSetting,
+                                    orientation: "landscape",
+                                  });
+                                }}
+                                className={`p-4 rounded-xl border-2 transition-all ${
+                                  printSetting.orientation === "landscape"
+                                    ? "border-[#FFBF00] bg-[#FFBF00]/5"
+                                    : "border-[#1F2A44]/10 bg-white hover:border-[#FFBF00]/30"
+                                }`}
+                              >
+                                <div className="font-semibold text-[#1F2A44]">
+                                  Landscape
+                                </div>
+                              </button>
+                            </div>
+                          </div>
 
                           {/* Sides */}
                           <div>
