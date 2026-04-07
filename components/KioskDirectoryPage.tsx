@@ -60,8 +60,6 @@ interface KioskDirectoryPageProps {
 export default function KioskDirectoryPage({
   kiosks,
 }: KioskDirectoryPageProps) {
-
-
   const getKioskStatus = (lastHearbeat: string) => {
     const HEARTBEAT_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
     const expectedLastHeartbeat = new Date(Date.now() - HEARTBEAT_TIMEOUT_MS);
@@ -73,7 +71,7 @@ export default function KioskDirectoryPage({
     }
 
     return "offline";
-  }
+  };
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F7F5EF]">
@@ -124,8 +122,13 @@ export default function KioskDirectoryPage({
                 <Link
                   key={kiosk.id}
                   href={`kiosk/${kiosk.id}/upload`}
-                  className={`${!(getKioskStatus(kiosk.lastHeartbeat) === "online") ? "pointer-events-none" : "pointer-events-auto"} group `}
+                  className={`cursor-pointer ${!(getKioskStatus(kiosk.lastHeartbeat) === "online") ? "pointer-events-none opacity-50 cursor-not-allowed" : "pointer-events-auto"} group `}
                   prefetch
+                  onClick={(e) => {
+                    if (getKioskStatus(kiosk.lastHeartbeat) !== "online") {
+                      e.preventDefault();
+                    }
+                  }}
                 >
                   <article
                     key={kiosk.id}
