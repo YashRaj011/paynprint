@@ -44,7 +44,7 @@ export const faq = [
     id: 8,
     question: "How do I get a receipt for my payment?",
     answer:
-      "Your UPI app generates a transaction receipt automatically. You can also enter your email on the payment confirmation screen to receive a digital invoice from PayNPrint.",
+      "Your UPI app generates a transaction receipt automatically.",
   },
   {
     id: 9,
@@ -56,6 +56,6 @@ export const faq = [
     id: 10,
     question: "Who do I contact for support or troubleshooting?",
     answer:
-      "For any issues, email support@paynprint.com or call our toll-free number at 1800-123-4567. Our support team is available 24/7 to assist you.",
+      "For any issues, email support@paynprint.com or call us directly at +91 89198 92827. Our support team is available 24/7 to assist you.",
   },
 ];

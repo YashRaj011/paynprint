@@ -62,910 +62,910 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#F7F5EF] px-6 py-10">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-[#FFBF00]/15 blur-3xl" />
-            <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-[#1F2A44]/10 blur-3xl" />
-          </div>
-    
-          <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-4xl flex-col items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-8"
-            >
-              <Image src={LogoFull} alt="PaynPrint" height={60} priority />
-            </motion.div>
-    
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="w-full max-w-2xl rounded-3xl border border-[#1F2A44]/10 bg-white/80 p-6 shadow-xl backdrop-blur-sm sm:p-10"
-            >
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#FFBF00]/35 bg-[#FFBF00]/10 px-4 py-2">
-                {/* <Sparkles className="h-4 w-4 text-[#FFBF00]" /> */}
-                <Wrench className="h-6 w-6 text-[#1F2A44]" />
-                <span className="text-xs font-semibold uppercase tracking-wide text-[#1F2A44]/80">
-                  Planned upgrade in progress
-                </span>
-              </div>
-              <div className="mb-6 flex items-center gap-3">
-                {/* <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1F2A44]/8"></span> */}
-                <h1 className="text-3xl font-bold text-[#1F2A44] text-center sm:text-4xl">
-                  PaynPrint is under maintenance <br /> we&apos;ll be back shortly
-                </h1>
-              </div>
-    
-              <p className="mb-8 text-base leading-relaxed text-[#1F2A44]/70 sm:text-lg">
-                Our website is under maintenance to make your printing experience
-                faster and smoother. We&apos;ll be back shortly.
-              </p>
-    
-              <div className="mb-8 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl border border-[#1F2A44]/10 bg-[#F7F5EF] p-4">
-                  <div className="mb-2 flex items-center gap-2">
-                    <Clock3 className="h-4 w-4 text-[#FFBF00]" />
-                    <p className="text-sm font-semibold text-[#1F2A44]">
-                      Expected downtime
-                    </p>
-                  </div>
-                  <p className="text-sm text-[#1F2A44]/70">A short while only.</p>
-                </div>
-                <div className="rounded-2xl border border-[#1F2A44]/10 bg-[#F7F5EF] p-4">
-                  <div className="mb-2 flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-[#FFBF00]" />
-                    <p className="text-sm font-semibold text-[#1F2A44]">
-                      What&apos;s improving
-                    </p>
-                  </div>
-                  <p className="text-sm text-[#1F2A44]/70">
-                    Better speed, cleaner flow, and stronger reliability.
-                  </p>
-                </div>
-              </div>
-    
-              {/* <div className="flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/"
-                  className="w-full rounded-full bg-[#1F2A44] px-6 py-3 text-center text-sm font-bold text-[#F7F5EF] transition-all hover:bg-[#2A3A5A]"
-                >
-                  Back to Home
-                </Link>
-                <Link
-                  href="/kiosks"
-                  className="w-full rounded-full border border-[#1F2A44]/15 bg-[#FFBF00]/90 px-6 py-3 text-center text-sm font-bold text-[#1F2A44] transition-all hover:bg-[#D4A520]"
-                >
-                  Check Kiosk Status
-                </Link>
-              </div> */}
-            </motion.div>
-          </div>
-        </div>
-    // <div className="min-h-screen bg-[#F7F5EF]">
-    //   {/* Header */}
-    //   <header className="fixed top-0 left-0 right-0 z-50 bg-[#F7F5EF]/95 backdrop-blur-sm border-b border-[#1F2A44]/10">
-    //     <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-    //       <motion.div
-    //         initial={{ opacity: 0, x: -20 }}
-    //         animate={{ opacity: 1, x: 0 }}
-    //         className="flex items-center gap-3"
-    //       >
-    //         <Link href="/">
-    //           <Image src={LogoFull} alt="Logo" height={52} />
-    //         </Link>
-    //       </motion.div>
-
-    //       <div className="hidden md:flex items-center gap-8">
-    //         <a
-    //           href="#features"
-    //           className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
-    //         >
-    //           Features
-    //         </a>
-    //         <a
-    //           href="#process"
-    //           className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
-    //         >
-    //           Process
-    //         </a>
-    //         <a
-    //           href="#locations"
-    //           className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
-    //         >
-    //           Locations
-    //         </a>
-    //         <a
-    //           href="#faq"
-    //           className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
-    //         >
-    //           FAQ
-    //         </a>
-    //         <a
-    //           href="#contact"
-    //           className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
-    //         >
-    //           Contact
-    //         </a>
-    //         <Link
-    //           href="/kiosks"
-    //           className="px-6 py-3 bg-gradient-gold text-white font-semibold rounded-full hover:shadow-xl hover:shadow-[#FFBF00]/30 transition-all transform hover:scale-105"
-    //         >
-    //           Get Started
-    //         </Link>
+    // <div className="relative min-h-screen overflow-hidden bg-[#F7F5EF] px-6 py-10">
+    //       <div className="absolute inset-0 pointer-events-none">
+    //         <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-[#FFBF00]/15 blur-3xl" />
+    //         <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-[#1F2A44]/10 blur-3xl" />
     //       </div>
-    //     </nav>
-    //   </header>
-
-    //   <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
-    //     {/* Floating Geometric Objects */}
-    //     <motion.div
-    //       className="absolute top-32 left-[5%] w-48 h-48 rounded-3xl bg-linear-to-br from-[#FFBF00]/20 to-[#D4A520]/10 backdrop-blur-sm border border-[#FFBF00]/20"
-    //       animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
-    //       transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-    //     />
-
-    //     <motion.div
-    //       className="absolute top-1/4 right-[8%] w-40 h-40 rounded-full bg-linear-to-br from-[#20B2AA]/20 to-[#20B2AA]/10 backdrop-blur-sm"
-    //       animate={{ y: [0, 25, 0], scale: [1, 1.1, 1] }}
-    //       transition={{
-    //         duration: 10,
-    //         repeat: Infinity,
-    //         ease: "easeInOut",
-    //         delay: 1,
-    //       }}
-    //     />
-
-    //     <motion.div
-    //       className="absolute bottom-1/4 left-[10%] w-56 h-56 rounded-2xl bg-linear-to-br from-[#1F2A44]/10 to-[#1F2A44]/5 backdrop-blur-sm border border-[#1F2A44]/10"
-    //       animate={{ y: [0, -40, 0], rotate: [0, -15, 0] }}
-    //       transition={{
-    //         duration: 12,
-    //         repeat: Infinity,
-    //         ease: "easeInOut",
-    //         delay: 2,
-    //       }}
-    //     />
-
-    //     <motion.div
-    //       className="absolute bottom-32 right-[12%] w-44 h-44 rounded-full bg-linear-to-br from-[#FF7F50]/20 to-[#FF7F50]/10 backdrop-blur-sm"
-    //       animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-    //       transition={{
-    //         duration: 9,
-    //         repeat: Infinity,
-    //         ease: "easeInOut",
-    //         delay: 3,
-    //       }}
-    //     />
-
-    //     {/* Additional small floating circles */}
-    //     <motion.div
-    //       className="absolute top-1/3 left-[25%] w-20 h-20 rounded-full bg-[#FFBF00]/30 blur-xl"
-    //       animate={{ y: [0, -20, 0], scale: [1, 1.2, 1] }}
-    //       transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-    //     />
-
-    //     <motion.div
-    //       className="absolute bottom-1/3 right-[20%] w-32 h-32 rounded-full bg-[#8B9584]/20 blur-xl"
-    //       animate={{ y: [0, 30, 0], scale: [1, 1.15, 1] }}
-    //       transition={{
-    //         duration: 8,
-    //         repeat: Infinity,
-    //         ease: "easeInOut",
-    //         delay: 1.5,
-    //       }}
-    //     />
-
-    //     {/* Decorative shapes */}
-    //     <div className="absolute top-20 right-20 w-64 h-64 bg-[#FFBF00]/10 rounded-full blur-3xl animate-pulse-custom"></div>
-    //     <div
-    //       className="absolute bottom-20 left-20 w-80 h-80 bg-[#1F2A44]/5 rounded-full blur-3xl animate-pulse-custom"
-    //       style={{ animationDelay: "2s" }}
-    //     ></div>
-
-    //     <div className="relative z-10 max-w-5xl mx-auto text-center">
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 50 }}
-    //         animate={{ opacity: 1, y: 0 }}
-    //         transition={{ duration: 1, type: "spring", damping: 20 }}
-    //       >
+    
+    //       <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-4xl flex-col items-center justify-center">
     //         <motion.div
-    //           initial={{ opacity: 0, scale: 0.9 }}
-    //           animate={{ opacity: 1, scale: 1 }}
-    //           transition={{ duration: 0.6, delay: 0.2 }}
-    //           className="inline-flex items-center gap-2 px-5 py-2 sm:mt-5 bg-[#FFBF00]/10 border border-[#FFBF00]/30 rounded-full mb-8"
+    //           initial={{ opacity: 0, y: 16 }}
+    //           animate={{ opacity: 1, y: 0 }}
+    //           transition={{ duration: 0.5 }}
+    //           className="mb-8"
     //         >
-    //           <Sparkles className="w-4 h-4 text-[#FFBF00]" />
-    //           <span className="text-sm font-semibold text-[#1F2A44]">
-    //             Trusted by 4,000+ users across the country
-    //           </span>
+    //           <Image src={LogoFull} alt="PaynPrint" height={60} priority />
     //         </motion.div>
-    //         <div className="flex flex-col text-6xl md:text-7xl lg:text-[100px] font-bold text-[#1F2A44] mb-8 leading-[1.15] font-cormorant">
-    //           <span>Print Without</span>
-    //           <span className="flex gap-5 flex-row flex-wrap justify-center items-center w-full">
-    //             <span>The</span>
-    //             <span className="italic text-[#FFBF00] font-nunito">
-    //               Hassle
-    //             </span>
-    //           </span>
-    //         </div>
-    //       </motion.div>
-
-    //       <motion.p
-    //         initial={{ opacity: 0, y: 30 }}
-    //         animate={{ opacity: 1, y: 0 }}
-    //         transition={{
-    //           duration: 0.8,
-    //           delay: 0.3,
-    //           type: "spring",
-    //           damping: 20,
-    //         }}
-    //         className="text-xl md:text-2xl text-[#1F2A44]/70 mb-12 max-w-3xl mx-auto leading-relaxed font-medium"
-    //       >
-    //         Upload your documents, customize your settings, pay securely, and
-    //         collect your prints in minutes.{" "}
-    //         <span className="text-gradient-gold font-bold underline">
-    //           Simple as that.
-    //         </span>
-    //       </motion.p>
-
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 30 }}
-    //         animate={{ opacity: 1, y: 0 }}
-    //         transition={{
-    //           duration: 0.8,
-    //           delay: 0.4,
-    //           type: "spring",
-    //           damping: 20,
-    //         }}
-    //         className="flex flex-col sm:flex-row gap-5 justify-center items-center"
-    //       >
-    //         <Link
-    //           href="/kiosks"
-    //           className="group px-10 py-5 bg-[#1F2A44] text-[#F7F5EF] font-bold text-lg rounded-full hover:bg-[#2A3A5A] hover:shadow-2xl hover:shadow-[#1F2A44]/30 flex items-center justify-center gap-3 transition-all"
+    
+    //         <motion.div
+    //           initial={{ opacity: 0, y: 20, scale: 0.98 }}
+    //           animate={{ opacity: 1, y: 0, scale: 1 }}
+    //           transition={{ duration: 0.6, ease: "easeOut" }}
+    //           className="w-full max-w-2xl rounded-3xl border border-[#1F2A44]/10 bg-white/80 p-6 shadow-xl backdrop-blur-sm sm:p-10"
     //         >
-    //           <Upload className="w-6 h-6" />
-    //           Start Printing Now
-    //           <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-    //         </Link>
-    //         {/* <button className="px-10 py-5 bg-transparent border-2 border-[#1F2A44] text-[#1F2A44] font-bold text-lg rounded-full hover:bg-[#1F2A44] hover:text-[#F7F5EF] transition-all">
-    //           Watch Demo
-    //         </button> */}
-    //       </motion.div>
-
-    //       <motion.div
-    //         initial={{ opacity: 0 }}
-    //         animate={{ opacity: 1 }}
-    //         transition={{ duration: 1, delay: 0.8 }}
-    //         className="mt-20"
-    //       >
-    //         <ChevronDown className="w-8 h-8 text-[#1F2A44]/40 mx-auto animate-bounce" />
-    //       </motion.div>
-    //     </div>
-    //   </section>
-
-    //   {/* Stats Section */}
-    //   <section className="py-20 px-6 bg-[#1F2A44]">
-    //     <div className="max-w-7xl mx-auto">
-    //       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-    //         {[
-    //           { value: "< 30sec", label: "Average print time", icon: Clock },
-    //           { value: "1000+", label: "Documents printed", icon: FileText },
-    //           { value: "3+", label: "Global locations", icon: Building2 },
-    //           { value: "5★", label: "Customer rating", icon: Star },
-    //         ].map((stat, index) => (
-    //           <motion.div
-    //             key={index}
-    //             initial={{ opacity: 0, y: 20 }}
-    //             whileInView={{ opacity: 1, y: 0 }}
-    //             viewport={{ once: true }}
-    //             transition={{ delay: index * 0.1 }}
-    //             className="text-center"
-    //           >
-    //             <stat.icon className="w-8 h-8 text-[#FFBF00] mx-auto mb-4" />
-    //             <div className="text-4xl md:text-5xl font-bold text-[#F7F5EF] mb-2 font-cormorant">
-    //               {stat.value}
-    //             </div>
-    //             <div className="text-sm text-[#F7F5EF]/70 font-medium">
-    //               {stat.label}
-    //             </div>
-    //           </motion.div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </section>
-
-    //   {/* Features Section */}
-    //   <section
-    //     id="features"
-    //     className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
-    //   >
-    //     {/* Floating objects */}
-    //     <motion.div
-    //       className="absolute top-20 right-10 w-32 h-32 rounded-2xl bg-linear-to-br from-[#FFBF00]/20 to-transparent border border-[#FFBF00]/20"
-    //       animate={{ y: [0, -20, 0], rotate: [0, 15, 0] }}
-    //       transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-    //     />
-
-    //     <div className="max-w-7xl mx-auto relative z-10">
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         viewport={{ once: true }}
-    //         className="text-center mb-20"
-    //       >
-    //         <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
-    //           Why Choose Us
-    //         </h2>
-    //         <p className="text-xl text-[#1F2A44]/70 font-medium">
-    //           Everything you need for seamless printing
-    //         </p>
-    //       </motion.div>
-
-    //       <div className="grid md:grid-cols-3 gap-8">
-    //         {[
-    //           {
-    //             icon: Zap,
-    //             title: "Lightning Fast",
-    //             description:
-    //               "Upload and print in under 2 minutes. Our optimized workflow ensures you never wait in line.",
-    //             color: "#FFBF00",
-    //           },
-    //           {
-    //             icon: Shield,
-    //             title: "Bank-Grade Security",
-    //             description:
-    //               "Your documents are encrypted and automatically deleted after printing. Privacy guaranteed.",
-    //             color: "#20B2AA",
-    //           },
-    //           {
-    //             icon: Star,
-    //             title: "Premium Quality",
-    //             description:
-    //               "Professional-grade printers deliver crisp, vivid prints perfect for any purpose.",
-    //             color: "#FF7F50",
-    //           },
-    //           {
-    //             icon: Clock,
-    //             title: "24/7 Availability",
-    //             description:
-    //               "Print whenever inspiration strikes. Our kiosks are always ready and waiting.",
-    //             color: "#8B9584",
-    //           },
-    //           {
-    //             icon: CreditCard,
-    //             title: "Transparent Pricing",
-    //             description:
-    //               "Pay only for what you print. No hidden fees, no subscriptions, no surprises.",
-    //             color: "#FFBF00",
-    //           },
-    //           {
-    //             icon: Check,
-    //             title: "Incredibly Simple",
-    //             description:
-    //               "Intuitive interface designed for everyone. Upload, preview, pay, print. Done.",
-    //             color: "#20B2AA",
-    //           },
-    //         ].map((feature, index) => (
-    //           <motion.div
-    //             key={index}
-    //             initial={{ opacity: 0, y: 30 }}
-    //             whileInView={{ opacity: 1, y: 0 }}
-    //             viewport={{ once: true }}
-    //             transition={{ delay: index * 0.1 }}
-    //             className="group bg-white rounded-3xl p-10 hover:shadow-2xl transition-all duration-500 border border-[#1F2A44]/5 relative overflow-hidden"
-    //           >
-    //             <div
-    //               className="absolute top-0 right-0 w-32 h-32 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-full blur-2xl"
-    //               style={{ backgroundColor: feature.color }}
-    //             ></div>
-
-    //             <div className="relative z-10">
-    //               <div
-    //                 className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500"
-    //                 style={{ backgroundColor: `${feature.color}20` }}
-    //               >
-    //                 <feature.icon
-    //                   className="w-8 h-8"
-    //                   style={{ color: feature.color }}
-    //                 />
-    //               </div>
-    //               <h3 className="text-2xl font-bold text-[#1F2A44] mb-4 font-cormorant">
-    //                 {feature.title}
-    //               </h3>
-    //               <p className="text-[#1F2A44]/70 leading-relaxed">
-    //                 {feature.description}
-    //               </p>
-    //             </div>
-    //           </motion.div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </section>
-
-    //   {/* Process Section */}
-    //   <section
-    //     id="process"
-    //     className="py-32 px-6 bg-white relative overflow-hidden"
-    //   >
-    //     <motion.div
-    //       className="absolute top-1/4 left-10 w-40 h-40 rounded-full bg-linear-to-br from-[#8B9584]/20 to-transparent"
-    //       animate={{ y: [0, 25, 0] }}
-    //       transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-    //     />
-
-    //     <div className="max-w-7xl mx-auto relative z-10">
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         viewport={{ once: true }}
-    //         className="text-center mb-20"
-    //       >
-    //         <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
-    //           How It Works
-    //         </h2>
-    //         <p className="text-xl text-[#1F2A44]/70 font-medium">
-    //           Four simple steps to perfect prints
-    //         </p>
-    //       </motion.div>
-
-    //       <div className="grid md:grid-cols-4 gap-8">
-    //         {[
-    //           {
-    //             icon: Upload,
-    //             title: "Upload",
-    //             description:
-    //               "Select your document from any device or cloud storage",
-    //             step: "01",
-    //             color: "#FFBF00",
-    //           },
-    //           {
-    //             icon: FileText,
-    //             title: "Customize",
-    //             description:
-    //               "Preview and adjust print settings to your preference",
-    //             step: "02",
-    //             color: "#20B2AA",
-    //           },
-    //           {
-    //             icon: CreditCard,
-    //             title: "Pay Securely",
-    //             description: "Quick checkout with multiple payment options",
-    //             step: "03",
-    //             color: "#FF7F50",
-    //           },
-    //           {
-    //             icon: Package,
-    //             title: "Collect",
-    //             description:
-    //               "Pick up your prints from the nearest kiosk instantly",
-    //             step: "04",
-    //             color: "#8B9584",
-    //           },
-    //         ].map((item, index) => (
-    //           <motion.div
-    //             key={index}
-    //             initial={{ opacity: 0, y: 50 }}
-    //             whileInView={{ opacity: 1, y: 0 }}
-    //             viewport={{ once: true }}
-    //             transition={{
-    //               delay: index * 0.15,
-    //               type: "spring",
-    //               damping: 20,
-    //             }}
-    //             className="relative group"
-    //           >
-    //             <div className="bg-[#F7F5EF] rounded-3xl p-8 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-[#1F2A44]/10 relative overflow-hidden">
-    //               <div
-    //                 className="absolute top-0 right-0 text-[120px] font-black opacity-5 font-cormorant"
-    //                 style={{ color: item.color }}
-    //               >
-    //                 {item.step}
-    //               </div>
-
-    //               <div className="relative z-10">
-    //                 <div
-    //                   className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500"
-    //                   style={{ backgroundColor: `${item.color}30` }}
-    //                 >
-    //                   <item.icon
-    //                     className="w-8 h-8"
-    //                     style={{ color: item.color }}
-    //                   />
-    //                 </div>
-    //                 <h3 className="text-2xl font-bold text-[#1F2A44] mb-4 font-cormorant">
-    //                   {item.title}
-    //                 </h3>
-    //                 <p className="text-[#1F2A44]/70 leading-relaxed">
-    //                   {item.description}
+    //           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#FFBF00]/35 bg-[#FFBF00]/10 px-4 py-2">
+    //             {/* <Sparkles className="h-4 w-4 text-[#FFBF00]" /> */}
+    //             <Wrench className="h-6 w-6 text-[#1F2A44]" />
+    //             <span className="text-xs font-semibold uppercase tracking-wide text-[#1F2A44]/80">
+    //               Planned upgrade in progress
+    //             </span>
+    //           </div>
+    //           <div className="mb-6 flex items-center gap-3">
+    //             {/* <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1F2A44]/8"></span> */}
+    //             <h1 className="text-3xl font-bold text-[#1F2A44] text-center sm:text-4xl">
+    //               PaynPrint is under maintenance <br /> we&apos;ll be back shortly
+    //             </h1>
+    //           </div>
+    
+    //           <p className="mb-8 text-base leading-relaxed text-[#1F2A44]/70 sm:text-lg">
+    //             Our website is under maintenance to make your printing experience
+    //             faster and smoother. We&apos;ll be back shortly.
+    //           </p>
+    
+    //           <div className="mb-8 grid gap-3 sm:grid-cols-2">
+    //             <div className="rounded-2xl border border-[#1F2A44]/10 bg-[#F7F5EF] p-4">
+    //               <div className="mb-2 flex items-center gap-2">
+    //                 <Clock3 className="h-4 w-4 text-[#FFBF00]" />
+    //                 <p className="text-sm font-semibold text-[#1F2A44]">
+    //                   Expected downtime
     //                 </p>
     //               </div>
+    //               <p className="text-sm text-[#1F2A44]/70">A short while only.</p>
     //             </div>
-
-    //             {index < 3 && (
-    //               <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-20">
-    //                 <ArrowRight className="w-8 h-8 text-[#FFBF00]/30" />
+    //             <div className="rounded-2xl border border-[#1F2A44]/10 bg-[#F7F5EF] p-4">
+    //               <div className="mb-2 flex items-center gap-2">
+    //                 <Sparkles className="h-4 w-4 text-[#FFBF00]" />
+    //                 <p className="text-sm font-semibold text-[#1F2A44]">
+    //                   What&apos;s improving
+    //                 </p>
     //               </div>
-    //             )}
-    //           </motion.div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </section>
-
-    //   {/* Locations Section */}
-    //   <section
-    //     id="locations"
-    //     className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
-    //   >
-    //     <motion.div
-    //       className="absolute bottom-20 right-20 w-48 h-48 rounded-3xl bg-linear-to-br from-[#FF7F50]/20 to-transparent border border-[#FF7F50]/20"
-    //       animate={{ y: [0, -25, 0], rotate: [0, -10, 0] }}
-    //       transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-    //     />
-
-    //     <div className="max-w-7xl mx-auto relative z-10">
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         viewport={{ once: true }}
-    //         className="text-center mb-20"
-    //       >
-    //         <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
-    //           Find Us Everywhere
-    //         </h2>
-    //         <p className="text-xl text-[#1F2A44]/70 font-medium">
-    //           1+ smart kiosks in convenient locations
-    //         </p>
-    //       </motion.div>
-
-    //       <div className="grid md:grid-cols-4 gap-6">
-    //         {[
-    //           {
-    //             icon: Users,
-    //             title: "Universities",
-    //             count: "5+",
-    //             description: "Campus libraries & student centers",
-    //             color: "#FFBF00",
-    //           },
-    //           {
-    //             icon: Building2,
-    //             title: "Offices",
-    //             count: "2+",
-    //             description: "Business hubs & co-working",
-    //             color: "#20B2AA",
-    //           },
-    //           {
-    //             icon: Library,
-    //             title: "Libraries",
-    //             count: "3+",
-    //             description: "Public & community spaces",
-    //             color: "#FF7F50",
-    //           },
-    //           {
-    //             icon: Train,
-    //             title: "Transit",
-    //             count: "0+",
-    //             description: "Airports, stations & malls",
-    //             color: "#8B9584",
-    //           },
-    //         ].map((location, index) => (
-    //           <motion.div
-    //             key={index}
-    //             initial={{ opacity: 0, scale: 0.9 }}
-    //             whileInView={{ opacity: 1, scale: 1 }}
-    //             viewport={{ once: true }}
-    //             transition={{ delay: index * 0.1, type: "spring", damping: 20 }}
-    //             className="bg-white rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-500 group border border-[#1F2A44]/5"
-    //           >
-    //             <div
-    //               className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
-    //               style={{ backgroundColor: `${location.color}20` }}
-    //             >
-    //               <location.icon
-    //                 className="w-10 h-10"
-    //                 style={{ color: location.color }}
-    //               />
+    //               <p className="text-sm text-[#1F2A44]/70">
+    //                 Better speed, cleaner flow, and stronger reliability.
+    //               </p>
     //             </div>
-    //             <div
-    //               className="text-4xl font-bold mb-2 font-cormorant"
-    //               style={{ color: location.color }}
-    //             >
-    //               {location.count}
-    //             </div>
-    //             <h3 className="text-xl font-bold text-[#1F2A44] mb-2">
-    //               {location.title}
-    //             </h3>
-    //             <p className="text-sm text-[#1F2A44]/60">
-    //               {location.description}
-    //             </p>
-    //           </motion.div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </section>
-
-    //   {/* CTA Section */}
-    //   <section className="py-32 px-6 bg-[#1F2A44] relative overflow-hidden">
-    //     <div className="absolute inset-0 opacity-10">
-    //       <div className="absolute top-0 left-0 w-96 h-96 bg-[#FFBF00] rounded-full blur-3xl"></div>
-    //       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FFBF00] rounded-full blur-3xl"></div>
-    //     </div>
-
-    //     <div className="max-w-4xl mx-auto text-center relative z-10">
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 30 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         viewport={{ once: true }}
-    //       >
-    //         <h2 className="text-5xl md:text-6xl font-bold text-[#F7F5EF] mb-8 font-cormorant">
-    //           Ready to Print{" "}
-    //           <span className="italic text-[#FFBF00]">Smarter</span>?
-    //         </h2>
-    //         <p className="text-xl text-[#F7F5EF]/80 mb-12 font-medium">
-    //           Start printing in seconds.
-    //         </p>
-    //         <Link
-    //           href="/kiosks"
-    //           className="group px-12 py-6 bg-[#FFBF00] text-white text-lg font-bold rounded-full hover:bg-[#D4A520] hover:shadow-2xl hover:shadow-[#FFBF00]/30 flex items-center justify-center gap-3 mx-auto transition-all"
-    //         >
-    //           <Upload className="w-7 h-7" />
-    //           Upload Your Document
-    //           <ArrowRight className="w-7 h-7 group-hover:translate-x-2 transition-transform" />
-    //         </Link>
-    //       </motion.div>
-    //     </div>
-    //   </section>
-
-    //   {/* FAQ Section */}
-    //   <section
-    //     id="faq"
-    //     className="py-32 px-6 bg-white relative overflow-hidden"
-    //   >
-    //     <div className="max-w-3xl mx-auto relative z-10">
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         viewport={{ once: true }}
-    //         className="text-center mb-16"
-    //       >
-    //         <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
-    //           Frequently Asked Questions
-    //         </h2>
-    //         <p className="text-xl text-[#1F2A44]/70 font-medium">
-    //           Everything you need to know
-    //         </p>
-    //       </motion.div>
-
-    //       <div className="space-y-4">
-    //         {faq.map((item, index) => (
-    //           <FaqItem key={item.id} item={item} index={index} />
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </section>
-
-    //   {/* Contact Section */}
-    //   <section
-    //     id="contact"
-    //     className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
-    //   >
-    //     <div className="max-w-7xl mx-auto relative z-10">
-    //       <motion.div
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         viewport={{ once: true }}
-    //         className="text-center mb-16"
-    //       >
-    //         <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
-    //           Get In Touch
-    //         </h2>
-    //         <p className="text-xl text-[#1F2A44]/70 font-medium">
-    //           We&apos;re here to help
-    //         </p>
-    //       </motion.div>
-
-    //       <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-    //         {[
-    //           {
-    //             icon: Mail,
-    //             title: "Email Us",
-    //             value: "support@paynprint.com",
-    //             href: "mailto:support@paynprint.com",
-    //             color: "#FFBF00",
-    //           },
-    //           {
-    //             icon: Phone,
-    //             title: "Call Us",
-    //             value: "+918919892827",
-    //             href: "tel:8919892827",
-    //             color: "#20B2AA",
-    //           },
-    //           {
-    //             icon: MapPin,
-    //             title: "Visit Us",
-    //             value: "Find a kiosk near you",
-    //             href: "/kiosks",
-    //             color: "#FF7F50",
-    //           },
-    //         ].map((contact, index) => {
-    //           const MotionComponent = contact.href.startsWith("/")
-    //             ? motion.create(Link)
-    //             : motion.a;
-    //           return (
-    //             <MotionComponent
-    //               key={index}
-    //               href={contact.href}
-    //               initial={{ opacity: 0, y: 30 }}
-    //               whileInView={{ opacity: 1, y: 0 }}
-    //               viewport={{ once: true }}
-    //               transition={{ delay: index * 0.1 }}
-    //               className="group bg-white rounded-3xl p-10 text-center hover:shadow-2xl transition-all duration-500 border border-[#1F2A44]/5"
-    //             >
-    //               <div
-    //                 className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
-    //                 style={{ backgroundColor: `${contact.color}20` }}
-    //               >
-    //                 <contact.icon
-    //                   className="w-8 h-8"
-    //                   style={{ color: contact.color }}
-    //                 />
-    //               </div>
-    //               <h3 className="text-xl font-bold text-[#1F2A44] mb-2 font-cormorant">
-    //                 {contact.title}
-    //               </h3>
-    //               <p className="text-[#1F2A44]/70">{contact.value}</p>
-    //             </MotionComponent>
-    //           );
-    //         })}
-    //       </div>
-    //     </div>
-    //   </section>
-
-    //   {/* Footer */}
-    //   <footer className="bg-[#F7F5EF] border-t border-[#1F2A44]/10 py-16 px-6">
-    //     <div className="max-w-7xl mx-auto">
-    //       <div className="grid md:grid-cols-4 gap-12 mb-12">
-    //         <div>
-    //           <div className="flex items-center gap-3 mb-4">
-    //             <Link href="/">
-    //               <Image src={LogoFull} alt="Logo" height={50} />
-    //             </Link>
     //           </div>
-    //           <p className="text-sm text-[#1F2A44]/60 italic">
-    //             Printing shouldn&apos;t slow you down.
-    //           </p>
-    //         </div>
-
-    //         <div>
-    //           <h4 className="font-bold text-[#1F2A44] mb-4">Product</h4>
-    //           <ul className="space-y-2 text-sm">
-    //             <li>
-    //               <a
-    //                 href="#features"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Features
-    //               </a>
-    //             </li>
-    //             <li>
-    //               <a
-    //                 href="#process"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 How it works
-    //               </a>
-    //             </li>
-    //             <li>
-    //               <a
-    //                 href="#locations"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Locations
-    //               </a>
-    //             </li>
-    //             <li>
-    //               <a
-    //                 href="#"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Pricing
-    //               </a>
-    //             </li>
-    //           </ul>
-    //         </div>
-
-    //         <div>
-    //           <h4 className="font-bold text-[#1F2A44] mb-4">Company</h4>
-    //           <ul className="space-y-2 text-sm">
-    //             <li>
-    //               <a
-    //                 href="#"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 About
-    //               </a>
-    //             </li>
-    //             <li>
-    //               <a
-    //                 href="#"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Contact
-    //               </a>
-    //             </li>
-    //             {/* <li>
-    //               <a
-    //                 href="#"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Careers
-    //               </a>
-    //             </li> */}
-    //             <li>
-    //               <a
-    //                 href="#"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Blog
-    //               </a>
-    //             </li>
-    //           </ul>
-    //         </div>
-
-    //         <div>
-    //           <h4 className="font-bold text-[#1F2A44] mb-4">Legal</h4>
-    //           <ul className="space-y-2 text-sm">
-    //             <li>
-    //               <a
-    //                 href="/privacyPolicy"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Privacy
-    //               </a>
-    //             </li>
-    //             <li>
-    //               <a
-    //                 href="/terms"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Terms
-    //               </a>
-    //             </li>
-    //             <li>
-    //               <a
-    //                 href="/refundPolicy"
-    //                 className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
-    //               >
-    //                 Refund Policy
-    //               </a>
-    //             </li>
-    //           </ul>
-    //         </div>
-    //       </div>
-
-    //       <div className="border-t border-[#1F2A44]/10 pt-8 flex flex-row w-full h-full justify-between items-center">
-    //         <p className="relative text-sm text-[#1F2A44]/60">
-    //           © 2026 Pay & Print Innovations Pvt Ltd. All rights reserved.
-    //         </p>
+    
+    //           {/* <div className="flex flex-col gap-3 sm:flex-row">
+    //             <Link
+    //               href="/"
+    //               className="w-full rounded-full bg-[#1F2A44] px-6 py-3 text-center text-sm font-bold text-[#F7F5EF] transition-all hover:bg-[#2A3A5A]"
+    //             >
+    //               Back to Home
+    //             </Link>
+    //             <Link
+    //               href="/kiosks"
+    //               className="w-full rounded-full border border-[#1F2A44]/15 bg-[#FFBF00]/90 px-6 py-3 text-center text-sm font-bold text-[#1F2A44] transition-all hover:bg-[#D4A520]"
+    //             >
+    //               Check Kiosk Status
+    //             </Link>
+    //           </div> */}
+    //         </motion.div>
     //       </div>
     //     </div>
-    //   </footer>
+    <div className="min-h-screen bg-[#F7F5EF]">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#F7F5EF]/95 backdrop-blur-sm border-b border-[#1F2A44]/10">
+        <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-3"
+          >
+            <Link href="/">
+              <Image src={LogoFull} alt="Logo" height={52} />
+            </Link>
+          </motion.div>
 
-    //   <style jsx>{`
-    //     .animate-on-scroll {
-    //       transition:
-    //         opacity 0.8s ease,
-    //         transform 0.8s ease;
-    //     }
+          <div className="hidden md:flex items-center gap-8">
+            <a
+              href="#features"
+              className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
+            >
+              Features
+            </a>
+            <a
+              href="#process"
+              className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
+            >
+              Process
+            </a>
+            <a
+              href="#locations"
+              className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
+            >
+              Locations
+            </a>
+            <a
+              href="#faq"
+              className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
+            >
+              FAQ
+            </a>
+            <a
+              href="#contact"
+              className="text-sm font-semibold text-[#1F2A44]/70 hover:text-[#1F2A44] transition-colors"
+            >
+              Contact
+            </a>
+            <Link
+              href="/kiosks"
+              className="px-6 py-3 bg-gradient-gold text-white font-semibold rounded-full hover:shadow-xl hover:shadow-[#FFBF00]/30 transition-all transform hover:scale-105"
+            >
+              Get Started
+            </Link>
+          </div>
+        </nav>
+      </header>
 
-    //     .animate-on-scroll.animate-visible {
-    //       opacity: 1 !important;
-    //       transform: translateY(0) !important;
-    //     }
-    //   `}</style>
-    // </div>
+      <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+        {/* Floating Geometric Objects */}
+        <motion.div
+          className="absolute top-32 left-[5%] w-48 h-48 rounded-3xl bg-linear-to-br from-[#FFBF00]/20 to-[#D4A520]/10 backdrop-blur-sm border border-[#FFBF00]/20"
+          animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.div
+          className="absolute top-1/4 right-[8%] w-40 h-40 rounded-full bg-linear-to-br from-[#20B2AA]/20 to-[#20B2AA]/10 backdrop-blur-sm"
+          animate={{ y: [0, 25, 0], scale: [1, 1.1, 1] }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+
+        <motion.div
+          className="absolute bottom-1/4 left-[10%] w-56 h-56 rounded-2xl bg-linear-to-br from-[#1F2A44]/10 to-[#1F2A44]/5 backdrop-blur-sm border border-[#1F2A44]/10"
+          animate={{ y: [0, -40, 0], rotate: [0, -15, 0] }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        />
+
+        <motion.div
+          className="absolute bottom-32 right-[12%] w-44 h-44 rounded-full bg-linear-to-br from-[#FF7F50]/20 to-[#FF7F50]/10 backdrop-blur-sm"
+          animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3,
+          }}
+        />
+
+        {/* Additional small floating circles */}
+        <motion.div
+          className="absolute top-1/3 left-[25%] w-20 h-20 rounded-full bg-[#FFBF00]/30 blur-xl"
+          animate={{ y: [0, -20, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.div
+          className="absolute bottom-1/3 right-[20%] w-32 h-32 rounded-full bg-[#8B9584]/20 blur-xl"
+          animate={{ y: [0, 30, 0], scale: [1, 1.15, 1] }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.5,
+          }}
+        />
+
+        {/* Decorative shapes */}
+        <div className="absolute top-20 right-20 w-64 h-64 bg-[#FFBF00]/10 rounded-full blur-3xl animate-pulse-custom"></div>
+        <div
+          className="absolute bottom-20 left-20 w-80 h-80 bg-[#1F2A44]/5 rounded-full blur-3xl animate-pulse-custom"
+          style={{ animationDelay: "2s" }}
+        ></div>
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, type: "spring", damping: 20 }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-5 py-2 sm:mt-5 bg-[#FFBF00]/10 border border-[#FFBF00]/30 rounded-full mb-8"
+            >
+              <Sparkles className="w-4 h-4 text-[#FFBF00]" />
+              <span className="text-sm font-semibold text-[#1F2A44]">
+                Trusted by 4,000+ users across the country
+              </span>
+            </motion.div>
+            <div className="flex flex-col text-6xl md:text-7xl lg:text-[100px] font-bold text-[#1F2A44] mb-8 leading-[1.15] font-cormorant">
+              <span>Print Without</span>
+              <span className="flex gap-5 flex-row flex-wrap justify-center items-center w-full">
+                <span>The</span>
+                <span className="italic text-[#FFBF00] font-nunito">
+                  Hassle
+                </span>
+              </span>
+            </div>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              type: "spring",
+              damping: 20,
+            }}
+            className="text-xl md:text-2xl text-[#1F2A44]/70 mb-12 max-w-3xl mx-auto leading-relaxed font-medium"
+          >
+            Upload your documents, customize your settings, pay securely, and
+            collect your prints in minutes.{" "}
+            <span className="text-gradient-gold font-bold underline">
+              Simple as that.
+            </span>
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              type: "spring",
+              damping: 20,
+            }}
+            className="flex flex-col sm:flex-row gap-5 justify-center items-center"
+          >
+            <Link
+              href="/kiosks"
+              className="group px-10 py-5 bg-[#1F2A44] text-[#F7F5EF] font-bold text-lg rounded-full hover:bg-[#2A3A5A] hover:shadow-2xl hover:shadow-[#1F2A44]/30 flex items-center justify-center gap-3 transition-all"
+            >
+              <Upload className="w-6 h-6" />
+              Start Printing Now
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            {/* <button className="px-10 py-5 bg-transparent border-2 border-[#1F2A44] text-[#1F2A44] font-bold text-lg rounded-full hover:bg-[#1F2A44] hover:text-[#F7F5EF] transition-all">
+              Watch Demo
+            </button> */}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-20"
+          >
+            <ChevronDown className="w-8 h-8 text-[#1F2A44]/40 mx-auto animate-bounce" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 px-6 bg-[#1F2A44]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: "< 30sec", label: "Average print time", icon: Clock },
+              { value: "1000+", label: "Documents printed", icon: FileText },
+              { value: "3+", label: "Global locations", icon: Building2 },
+              { value: "5★", label: "Customer rating", icon: Star },
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <stat.icon className="w-8 h-8 text-[#FFBF00] mx-auto mb-4" />
+                <div className="text-4xl md:text-5xl font-bold text-[#F7F5EF] mb-2 font-cormorant">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-[#F7F5EF]/70 font-medium">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section
+        id="features"
+        className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
+      >
+        {/* Floating objects */}
+        <motion.div
+          className="absolute top-20 right-10 w-32 h-32 rounded-2xl bg-linear-to-br from-[#FFBF00]/20 to-transparent border border-[#FFBF00]/20"
+          animate={{ y: [0, -20, 0], rotate: [0, 15, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
+              Why Choose Us
+            </h2>
+            <p className="text-xl text-[#1F2A44]/70 font-medium">
+              Everything you need for seamless printing
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Zap,
+                title: "Lightning Fast",
+                description:
+                  "Upload and print in under 2 minutes. Our optimized workflow ensures you never wait in line.",
+                color: "#FFBF00",
+              },
+              {
+                icon: Shield,
+                title: "Bank-Grade Security",
+                description:
+                  "Your documents are encrypted and automatically deleted after printing. Privacy guaranteed.",
+                color: "#20B2AA",
+              },
+              {
+                icon: Star,
+                title: "Premium Quality",
+                description:
+                  "Professional-grade printers deliver crisp, vivid prints perfect for any purpose.",
+                color: "#FF7F50",
+              },
+              {
+                icon: Clock,
+                title: "24/7 Availability",
+                description:
+                  "Print whenever inspiration strikes. Our kiosks are always ready and waiting.",
+                color: "#8B9584",
+              },
+              {
+                icon: CreditCard,
+                title: "Transparent Pricing",
+                description:
+                  "Pay only for what you print. No hidden fees, no subscriptions, no surprises.",
+                color: "#FFBF00",
+              },
+              {
+                icon: Check,
+                title: "Incredibly Simple",
+                description:
+                  "Intuitive interface designed for everyone. Upload, preview, pay, print. Done.",
+                color: "#20B2AA",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group bg-white rounded-3xl p-10 hover:shadow-2xl transition-all duration-500 border border-[#1F2A44]/5 relative overflow-hidden"
+              >
+                <div
+                  className="absolute top-0 right-0 w-32 h-32 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-full blur-2xl"
+                  style={{ backgroundColor: feature.color }}
+                ></div>
+
+                <div className="relative z-10">
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500"
+                    style={{ backgroundColor: `${feature.color}20` }}
+                  >
+                    <feature.icon
+                      className="w-8 h-8"
+                      style={{ color: feature.color }}
+                    />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#1F2A44] mb-4 font-cormorant">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[#1F2A44]/70 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section
+        id="process"
+        className="py-32 px-6 bg-white relative overflow-hidden"
+      >
+        <motion.div
+          className="absolute top-1/4 left-10 w-40 h-40 rounded-full bg-linear-to-br from-[#8B9584]/20 to-transparent"
+          animate={{ y: [0, 25, 0] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
+              How It Works
+            </h2>
+            <p className="text-xl text-[#1F2A44]/70 font-medium">
+              Four simple steps to perfect prints
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              {
+                icon: Upload,
+                title: "Upload",
+                description:
+                  "Select your document from any device or cloud storage",
+                step: "01",
+                color: "#FFBF00",
+              },
+              {
+                icon: FileText,
+                title: "Customize",
+                description:
+                  "Preview and adjust print settings to your preference",
+                step: "02",
+                color: "#20B2AA",
+              },
+              {
+                icon: CreditCard,
+                title: "Pay Securely",
+                description: "Quick checkout with multiple payment options",
+                step: "03",
+                color: "#FF7F50",
+              },
+              {
+                icon: Package,
+                title: "Collect",
+                description:
+                  "Pick up your prints from the nearest kiosk instantly",
+                step: "04",
+                color: "#8B9584",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: index * 0.15,
+                  type: "spring",
+                  damping: 20,
+                }}
+                className="relative group"
+              >
+                <div className="bg-[#F7F5EF] rounded-3xl p-8 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-[#1F2A44]/10 relative overflow-hidden">
+                  <div
+                    className="absolute top-0 right-0 text-[120px] font-black opacity-5 font-cormorant"
+                    style={{ color: item.color }}
+                  >
+                    {item.step}
+                  </div>
+
+                  <div className="relative z-10">
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500"
+                      style={{ backgroundColor: `${item.color}30` }}
+                    >
+                      <item.icon
+                        className="w-8 h-8"
+                        style={{ color: item.color }}
+                      />
+                    </div>
+                    <h3 className="text-2xl font-bold text-[#1F2A44] mb-4 font-cormorant">
+                      {item.title}
+                    </h3>
+                    <p className="text-[#1F2A44]/70 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+
+                {index < 3 && (
+                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-20">
+                    <ArrowRight className="w-8 h-8 text-[#FFBF00]/30" />
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Locations Section */}
+      <section
+        id="locations"
+        className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
+      >
+        <motion.div
+          className="absolute bottom-20 right-20 w-48 h-48 rounded-3xl bg-linear-to-br from-[#FF7F50]/20 to-transparent border border-[#FF7F50]/20"
+          animate={{ y: [0, -25, 0], rotate: [0, -10, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
+              Find Us Everywhere
+            </h2>
+            <p className="text-xl text-[#1F2A44]/70 font-medium">
+              1+ smart kiosks in convenient locations
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              {
+                icon: Users,
+                title: "Universities",
+                count: "5+",
+                description: "Campus libraries & student centers",
+                color: "#FFBF00",
+              },
+              {
+                icon: Building2,
+                title: "Offices",
+                count: "2+",
+                description: "Business hubs & co-working",
+                color: "#20B2AA",
+              },
+              {
+                icon: Library,
+                title: "Libraries",
+                count: "3+",
+                description: "Public & community spaces",
+                color: "#FF7F50",
+              },
+              {
+                icon: Train,
+                title: "Transit",
+                count: "0+",
+                description: "Airports, stations & malls",
+                color: "#8B9584",
+              },
+            ].map((location, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, type: "spring", damping: 20 }}
+                className="bg-white rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-500 group border border-[#1F2A44]/5"
+              >
+                <div
+                  className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+                  style={{ backgroundColor: `${location.color}20` }}
+                >
+                  <location.icon
+                    className="w-10 h-10"
+                    style={{ color: location.color }}
+                  />
+                </div>
+                <div
+                  className="text-4xl font-bold mb-2 font-cormorant"
+                  style={{ color: location.color }}
+                >
+                  {location.count}
+                </div>
+                <h3 className="text-xl font-bold text-[#1F2A44] mb-2">
+                  {location.title}
+                </h3>
+                <p className="text-sm text-[#1F2A44]/60">
+                  {location.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-32 px-6 bg-[#1F2A44] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-[#FFBF00] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FFBF00] rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#F7F5EF] mb-8 font-cormorant">
+              Ready to Print{" "}
+              <span className="italic text-[#FFBF00]">Smarter</span>?
+            </h2>
+            <p className="text-xl text-[#F7F5EF]/80 mb-12 font-medium">
+              Start printing in seconds.
+            </p>
+            <Link
+              href="/kiosks"
+              className="group px-12 py-6 bg-[#FFBF00] text-white text-lg font-bold rounded-full hover:bg-[#D4A520] hover:shadow-2xl hover:shadow-[#FFBF00]/30 flex items-center justify-center gap-3 mx-auto transition-all"
+            >
+              <Upload className="w-7 h-7" />
+              Upload Your Document
+              <ArrowRight className="w-7 h-7 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section
+        id="faq"
+        className="py-32 px-6 bg-white relative overflow-hidden"
+      >
+        <div className="max-w-3xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-[#1F2A44]/70 font-medium">
+              Everything you need to know
+            </p>
+          </motion.div>
+
+          <div className="space-y-4">
+            {faq.map((item, index) => (
+              <FaqItem key={item.id} item={item} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section
+        id="contact"
+        className="py-32 px-6 bg-[#F7F5EF] relative overflow-hidden"
+      >
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-[#1F2A44] mb-6 font-cormorant">
+              Get In Touch
+            </h2>
+            <p className="text-xl text-[#1F2A44]/70 font-medium">
+              We&apos;re here to help
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                icon: Mail,
+                title: "Email Us",
+                value: "support@paynprint.com",
+                href: "mailto:support@paynprint.com",
+                color: "#FFBF00",
+              },
+              {
+                icon: Phone,
+                title: "Call Us",
+                value: "+918919892827",
+                href: "tel:8919892827",
+                color: "#20B2AA",
+              },
+              {
+                icon: MapPin,
+                title: "Visit Us",
+                value: "Find a kiosk near you",
+                href: "/kiosks",
+                color: "#FF7F50",
+              },
+            ].map((contact, index) => {
+              const MotionComponent = contact.href.startsWith("/")
+                ? motion.create(Link)
+                : motion.a;
+              return (
+                <MotionComponent
+                  key={index}
+                  href={contact.href}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group bg-white rounded-3xl p-10 text-center hover:shadow-2xl transition-all duration-500 border border-[#1F2A44]/5"
+                >
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+                    style={{ backgroundColor: `${contact.color}20` }}
+                  >
+                    <contact.icon
+                      className="w-8 h-8"
+                      style={{ color: contact.color }}
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#1F2A44] mb-2 font-cormorant">
+                    {contact.title}
+                  </h3>
+                  <p className="text-[#1F2A44]/70">{contact.value}</p>
+                </MotionComponent>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#F7F5EF] border-t border-[#1F2A44]/10 py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <Link href="/">
+                  <Image src={LogoFull} alt="Logo" height={50} />
+                </Link>
+              </div>
+              <p className="text-sm text-[#1F2A44]/60 italic">
+                Printing shouldn&apos;t slow you down.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-[#1F2A44] mb-4">Product</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="#features"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#process"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    How it works
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#locations"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Locations
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Pricing
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-[#1F2A44] mb-4">Company</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Contact
+                  </a>
+                </li>
+                {/* <li>
+                  <a
+                    href="#"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Careers
+                  </a>
+                </li> */}
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Blog
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-[#1F2A44] mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="/privacyPolicy"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/terms"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Terms
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/refundPolicy"
+                    className="text-[#1F2A44]/60 hover:text-[#1F2A44] transition-colors"
+                  >
+                    Refund Policy
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-[#1F2A44]/10 pt-8 flex flex-row w-full h-full justify-between items-center">
+            <p className="relative text-sm text-[#1F2A44]/60">
+              © 2026 Pay & Print Innovations Pvt Ltd. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      <style jsx>{`
+        .animate-on-scroll {
+          transition:
+            opacity 0.8s ease,
+            transform 0.8s ease;
+        }
+
+        .animate-on-scroll.animate-visible {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+      `}</style>
+    </div>
   );
 }
 

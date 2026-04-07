@@ -296,7 +296,7 @@ export default function OrderPreview() {
       console.log("Transaction concluded successfully");
       setShowuserInfoPhoneModal(false);
       setPaymentStatus("success");
-      setIsLoading(false);
+      // setIsLoading(false);
       /* Add merchant's logic if they have any custom thing to trigger on UI after the transaction is in terminal state*/
       return;
     }
@@ -335,7 +335,7 @@ export default function OrderPreview() {
     try {
       const ApiRes = await axios.post("/api/phonepe/createPayment", {
         merchantOrderId: merchantOrderId,
-        amount: (Number(currentDraftDetails!.totalPrice)) * 100, // Amount in paise
+        amount: Number(currentDraftDetails!.totalPrice) * 100, // Amount in paise
       });
       console.log("Response:", ApiRes.data);
       setRes(ApiRes.data as PaymentResponse);
@@ -359,7 +359,7 @@ export default function OrderPreview() {
         ),
       );
       setPaymentStatus("error");
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -418,7 +418,6 @@ export default function OrderPreview() {
         setPrintJobId(printJobResponseData.job.id);
         await handlePayment();
         // setPaymentStatus("success");
-        
       }
     } catch (err: any) {
       console.error("Error creating print job:", err);
@@ -535,11 +534,11 @@ export default function OrderPreview() {
   useEffect(() => {
     if (currentKioskDetails) {
       const kioskStatus = getKioskStatus(currentKioskDetails.lastHeartBeat);
-      if (!kioskStatus) {
+      if (kioskStatus !== "online") {
         setPhonepeScriptUploaded(false);
       }
     }
-  }, [currentKioskDetails])
+  }, [currentKioskDetails]);
 
   useEffect(() => {
     if (!draftId) {
@@ -575,7 +574,6 @@ export default function OrderPreview() {
       console.log("PhonePe script loaded", window.PhonePeCheckout);
     };
     document.body.appendChild(script);
-    
   }, []);
 
   const getKioskStatus = (lastHearbeat: string) => {
@@ -598,7 +596,7 @@ export default function OrderPreview() {
       ) : (
         <>
           <header className="fixed top-0 left-0 right-0 z-50 bg-[#F7F5EF]/95 backdrop-blur-md border-b border-[#1F2A44]/10">
-            <nav className="max-w-7xl w-full mx-auto px-6 h-20 flex items-center justify-between">
+            <nav className="max-w-7xl w-full mx-auto px-6 h-16 flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <Link
                   href={`${draftId ? `/kiosk/${kioskId}/upload?drId=${draftId}` : `/kiosk/${kioskId}/upload`}`}
